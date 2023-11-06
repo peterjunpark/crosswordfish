@@ -18,6 +18,15 @@ module.exports = {
       },
     },
     extend: {
+      // Custom crossword grid sizes.
+      gridTemplateColumns: {
+        mon: "repeat(10, minmax(0, 1fr))",
+        tue: "repeat(16, minmax(0, 1fr))",
+        wed: "repeat(22, minmax(0, 1fr))",
+        thu: "repeat(28, minmax(0, 1fr))",
+        fri: "repeat(32, minmax(0, 1fr))",
+        sat: "repeat(36, minmax(0, 1fr))",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,7 +68,8 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+        mono: ["var(--font-geist-mono)", ...fontFamily.mono],
       },
       keyframes: {
         "accordion-down": {

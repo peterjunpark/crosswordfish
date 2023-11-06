@@ -32,13 +32,28 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault();
+            setTheme("light");
+          }}
+        >
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault();
+            setTheme("dark");
+          }}
+        >
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.preventDefault();
+            setTheme("system");
+          }}
+        >
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
