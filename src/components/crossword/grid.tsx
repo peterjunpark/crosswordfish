@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import { CrosswordCell } from "./cell";
 import { stringifyRowCol } from "@/lib/utils";
 import type { Grid } from "@/lib/types";
@@ -8,6 +11,8 @@ type GridProps = {
 };
 
 export function CrosswordGrid({ grid }: GridProps) {
+  const [focusedCell, setFocusedCell] = React.useState<string | null>(null);
+
   return (
     <div className={`grid-cols-15 grid h-full gap-px`}>
       {grid.map((row, rowIdx) =>

@@ -29,20 +29,22 @@ export type CellValue =
 
 export type Grid = CellValue[][];
 
-interface AcrossCoords {
+interface Clue {
+  number: number;
+  text: string;
+}
+
+export interface AcrossClue extends Clue {
   row: number;
   cols: number[];
 }
 
-interface DownCoords {
+export interface DownClue extends Clue {
   col: number;
   rows: number[];
 }
 
-/** If the clue is Across, it will have row and cols props.
- * If the clue is Down, it will have col and rows props.
- */
-export type Clue = {
-  number: number;
-  clue: string;
-} & (AcrossCoords | DownCoords);
+export type Clues = {
+  across: AcrossClue[];
+  down: DownClue[];
+};

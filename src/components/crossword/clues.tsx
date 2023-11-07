@@ -2,24 +2,33 @@ import * as React from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import type { Clues } from "@/lib/types";
+import { stringifyRowCol } from "@/lib/utils";
 
-const clues = Array.from({ length: 50 }).map(
-  (_, i, a) => `v1.2.0-beta.${a.length - i}`,
-);
+type CluesProps = {
+  clues: Clues;
+};
 
-export function CrosswordClues() {
+export function CrosswordClues({ clues }: CluesProps) {
   return (
     <div className="flex">
+      {/* ACROSS */}
       <div>
         <h3 className="pl-2 font-semibold tracking-tight">across</h3>
-        <ScrollArea className="h-72 w-48 rounded-md border">
+        <ScrollArea className="h-96 w-64 rounded-md border">
           <ol className="p-4">
-            {clues.map((clue, idx) => (
+            {clues.across.map((clue, idx) => (
               <>
-                <li key={`across-${idx}`} className="text-sm">
-                  {clue}
+                <li
+                  key={stringifyRowCol(clue.row, clue.cols)}
+                  className="flex gap-1 text-sm"
+                >
+                  <span className="font-semibold opacity-70">
+                    {clue.number}.
+                  </span>
+                  <span>{clue.text}</span>
                 </li>
-                {idx !== clues.length - 1 && (
+                {idx !== clues.across.length - 1 && (
                   <Separator className="my-2 w-full" />
                 )}
               </>
@@ -27,16 +36,23 @@ export function CrosswordClues() {
           </ol>
         </ScrollArea>
       </div>
+      {/* DOWN */}
       <div>
         <h3 className="pl-2 font-semibold tracking-tight">down</h3>
-        <ScrollArea className="h-72 w-48 rounded-md border">
+        <ScrollArea className="h-96 w-64 rounded-md border">
           <ol className="p-4">
-            {clues.map((clue, idx) => (
+            {clues.down.map((clue, idx) => (
               <>
-                <li key={`down=${idx}`} className="text-sm">
-                  {clue}
+                <li
+                  key={stringifyRowCol(clue.rows, clue.col)}
+                  className="flex gap-1 text-sm"
+                >
+                  <span className="font-semibold opacity-70">
+                    {clue.number}.
+                  </span>
+                  <span>{clue.text}</span>
                 </li>
-                {idx !== clues.length - 1 && (
+                {idx !== clues.down.length - 1 && (
                   <Separator className="my-2 w-full" />
                 )}
               </>
