@@ -1,18 +1,16 @@
 "use client";
 
 import React from "react";
-import { CrosswordCell } from "./cell";
-import { stringifyRowCol } from "@/lib/utils";
+import { atom } from "jotai";
 import type { Grid } from "@/lib/types";
-// import { atom, useAtom } from "jotai";
+import { stringifyRowCol } from "@/lib/utils";
+import { CrosswordCell } from "./cell";
 
 type GridProps = {
   grid: Grid;
 };
 
 export function CrosswordGrid({ grid }: GridProps) {
-  const [focusedCell, setFocusedCell] = React.useState<string | null>(null);
-
   return (
     <div className={`grid-cols-15 grid h-full gap-px`}>
       {grid.map((row, rowIdx) =>

@@ -1,9 +1,9 @@
-import * as React from "react";
-
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import React from "react";
+import { atom } from "jotai";
 import type { Clues } from "@/lib/types";
 import { stringifyRowCol } from "@/lib/utils";
+import { ScrollArea } from "../ui/scroll-area";
+import { Separator } from "../ui/separator";
 
 type CluesProps = {
   clues: Clues;
@@ -23,9 +23,7 @@ export function CrosswordClues({ clues }: CluesProps) {
                   key={stringifyRowCol(clue.row, clue.cols)}
                   className="flex gap-1 text-sm"
                 >
-                  <span className="font-semibold opacity-70">
-                    {clue.number}.
-                  </span>
+                  <span className="font-bold opacity-70">{clue.number}.</span>
                   <span>{clue.text}</span>
                 </li>
                 {idx !== clues.across.length - 1 && (
@@ -47,9 +45,7 @@ export function CrosswordClues({ clues }: CluesProps) {
                   key={stringifyRowCol(clue.rows, clue.col)}
                   className="flex gap-1 text-sm"
                 >
-                  <span className="font-semibold opacity-70">
-                    {clue.number}.
-                  </span>
+                  <span className="font-bold opacity-70">{clue.number}.</span>
                   <span>{clue.text}</span>
                 </li>
                 {idx !== clues.down.length - 1 && (
@@ -63,54 +59,3 @@ export function CrosswordClues({ clues }: CluesProps) {
     </div>
   );
 }
-
-// import { ScrollArea } from "../ui/scroll-area";
-// import { Separator } from "../ui/separator";
-
-// export function CrosswordClues() {
-//   return (
-//     <div className="flex gap-4">
-//       <ScrollArea>
-//         <h2 className="font-bold">Across</h2>
-//         <ol className="ml-5 list-decimal">
-//           <li>Clue for the first across word.</li>
-//           <Separator />
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//           <li>Clue for the second across word.</li>
-//         </ol>
-//       </ScrollArea>
-//       <div>
-//         <h2 className="font-bold">Down</h2>
-//         <ol className="ml-5 list-decimal">
-//           <li>Clue for the first down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//           <li>Clue for the second down word.</li>
-//         </ol>
-//       </div>
-//     </div>
-//   );
-// }
