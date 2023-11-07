@@ -2,27 +2,16 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import type { CellValue } from "@/lib/types";
 import { Input } from "../ui/input";
 
-type ClueData = {
-  direction: "across" | "down";
-  number: number;
-  clue: string;
-  coordinates: [number, number][];
-};
-
-export type CellData = {
-  guess: string;
-  answer: string;
-} | null;
-
 type CellProps = {
-  data: CellData;
+  data: Exclude<CellValue, null>;
   id?: string;
   className?: string;
 };
 
-export function CrosswordCell({ data, id, className }: CellProps) {
+export function CrosswordCell({ data: cellAnswer, id, className }: CellProps) {
   const [cellValue, setCellValue] = React.useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +26,9 @@ export function CrosswordCell({ data, id, className }: CellProps) {
       onChange={handleChange}
       id={id}
       className={cn(
-        "aspect-square h-12 w-fit text-center font-mono text-lg caret-transparent focus:border-accent-foreground",
+        "aspect-square h-10 w-fit text-center font-mono text-lg caret-transparent focus:border-accent-foreground",
         className,
+        { "bg-red-200": cellValue === cellAnswer },
       )}
       maxLength={1}
       type="text"

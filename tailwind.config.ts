@@ -20,12 +20,12 @@ module.exports = {
     extend: {
       // Custom crossword grid sizes.
       gridTemplateColumns: {
-        mon: "repeat(10, minmax(0, 1fr))",
-        tue: "repeat(16, minmax(0, 1fr))",
-        wed: "repeat(22, minmax(0, 1fr))",
-        thu: "repeat(28, minmax(0, 1fr))",
-        fri: "repeat(32, minmax(0, 1fr))",
-        sat: "repeat(36, minmax(0, 1fr))",
+        15: "repeat(15, minmax(0, 1fr))",
+        16: "repeat(16, minmax(0, 1fr))",
+        22: "repeat(22, minmax(0, 1fr))",
+        28: "repeat(28, minmax(0, 1fr))",
+        32: "repeat(32, minmax(0, 1fr))",
+        36: "repeat(36, minmax(0, 1fr))",
       },
       colors: {
         border: "hsl(var(--border))",

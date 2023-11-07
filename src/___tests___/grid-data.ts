@@ -1,33 +1,4 @@
-type CellValue =
-  | "A"
-  | "B"
-  | "C"
-  | "D"
-  | "E"
-  | "F"
-  | "G"
-  | "H"
-  | "I"
-  | "J"
-  | "K"
-  | "L"
-  | "M"
-  | "N"
-  | "O"
-  | "P"
-  | "Q"
-  | "R"
-  | "S"
-  | "T"
-  | "U"
-  | "V"
-  | "W"
-  | "X"
-  | "Y"
-  | "Z"
-  | null;
-
-type Grid = CellValue[][];
+import type { Grid } from "@/lib/types";
 
 // prettier-ignore
 export const testGrid: Grid = [

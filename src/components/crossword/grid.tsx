@@ -1,27 +1,26 @@
-import { CrosswordCell, type CellData } from "./cell";
+import { CrosswordCell } from "./cell";
+import { stringifyRowCol } from "@/lib/utils";
+import type { Grid } from "@/lib/types";
 // import { atom, useAtom } from "jotai";
 
-export type GridData = CellData[][];
-
 type GridProps = {
-  data: GridData;
+  grid: Grid;
 };
 
-// const gridAtom = atom<GridData>([]);
-
-export function CrosswordGrid({ data }: GridProps) {
+export function CrosswordGrid({ grid }: GridProps) {
   return (
-    <div className={`grid h-full grid-cols-mon gap-px`}>
-      {data.map((row, rowIdx) =>
+    <div className={`grid-cols-15 grid h-full gap-px`}>
+      {grid.map((row, rowIdx) =>
         row.map((cell, colIdx) => {
-          const cellId = `[${rowIdx}, ${colIdx}]`;
+          const cellId = stringifyRowCol(rowIdx, colIdx);
 
-          if (cell?.answer) {
+          if (cell !== null) {
             return <CrosswordCell data={cell} id={cellId} key={cellId} />;
           } else {
             return (
               <div
                 className="aspect-square w-full rounded-sm bg-muted-foreground"
+                id={cellId}
                 key={cellId}
               />
             );
