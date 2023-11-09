@@ -1,7 +1,7 @@
-import type { SolutionGrid } from "@/lib/types";
+import type { Grid } from "@/lib/types";
 
 // prettier-ignore
-export const DUMMY_grid: SolutionGrid = [
+export const DUMMY_grid: Grid = [
   ["A", "R", "I", "A", null, "S", "R", "A", null, "Y", "A", "N", "G", null, null],
   ["G", "A", "M", "E", "R", "O", "O", "M", null, "E", "N", "O", "L", "A", null],
   ["E", "S", "P", "R", "E", "S", "S", "O", null, "S", "T", "R", "O", "N", "G"],

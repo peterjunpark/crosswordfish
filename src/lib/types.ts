@@ -1,37 +1,10 @@
 import { z } from "zod"; //TODO: Add validation with Zod
 
-export type CellValue =
-  | "A"
-  | "B"
-  | "C"
-  | "D"
-  | "E"
-  | "F"
-  | "G"
-  | "H"
-  | "I"
-  | "J"
-  | "K"
-  | "L"
-  | "M"
-  | "N"
-  | "O"
-  | "P"
-  | "Q"
-  | "R"
-  | "S"
-  | "T"
-  | "U"
-  | "V"
-  | "W"
-  | "X"
-  | "Y"
-  | "Z"
-  | "";
+export const cellValueSchema = z.string().max(1).toUpperCase().regex(/[A-Z]/);
 
-export type SolutionGrid = (Omit<CellValue, ""> | null)[][];
+export type CellValue = z.infer<typeof cellValueSchema>;
 
-export type WorkingGrid = (CellValue | null)[][];
+export type Grid = (CellValue | null)[][];
 
 interface Clue {
   number: number;
