@@ -1,15 +1,14 @@
+"use client";
+
 import React from "react";
-import { atom } from "jotai";
-import type { Clues } from "@/lib/types";
+import { useStore } from "@/lib/store";
 import { stringifyRowCol } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 
-type CluesProps = {
-  clues: Clues;
-};
+export function CrosswordClues() {
+  const { clues } = useStore();
 
-export function CrosswordClues({ clues }: CluesProps) {
   return (
     <div className="flex">
       {/* ACROSS */}
@@ -18,9 +17,9 @@ export function CrosswordClues({ clues }: CluesProps) {
         <ScrollArea className="h-96 w-64 rounded-md border">
           <ol className="p-4">
             {clues.across.map((clue, idx) => (
-              <>
+              <React.Fragment key={stringifyRowCol(clue.row, clue.cols)}>
                 <li
-                  key={stringifyRowCol(clue.row, clue.cols)}
+                  id={stringifyRowCol(clue.row, clue.cols)}
                   className="flex gap-1 text-sm"
                 >
                   <span className="font-bold opacity-70">{clue.number}.</span>
@@ -29,7 +28,7 @@ export function CrosswordClues({ clues }: CluesProps) {
                 {idx !== clues.across.length - 1 && (
                   <Separator className="my-2 w-full" />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </ol>
         </ScrollArea>
@@ -40,9 +39,9 @@ export function CrosswordClues({ clues }: CluesProps) {
         <ScrollArea className="h-96 w-64 rounded-md border">
           <ol className="p-4">
             {clues.down.map((clue, idx) => (
-              <>
+              <React.Fragment key={stringifyRowCol(clue.rows, clue.col)}>
                 <li
-                  key={stringifyRowCol(clue.rows, clue.col)}
+                  id={stringifyRowCol(clue.rows, clue.col)}
                   className="flex gap-1 text-sm"
                 >
                   <span className="font-bold opacity-70">{clue.number}.</span>
@@ -51,7 +50,7 @@ export function CrosswordClues({ clues }: CluesProps) {
                 {idx !== clues.down.length - 1 && (
                   <Separator className="my-2 w-full" />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </ol>
         </ScrollArea>

@@ -1,7 +1,7 @@
-import type { Grid } from "@/lib/types";
+import type { SolutionGrid } from "@/lib/types";
 
 // prettier-ignore
-export const DUMMY_grid: Grid = [
+export const DUMMY_grid: SolutionGrid = [
   ["A", "R", "I", "A", null, "S", "R", "A", null, "Y", "A", "N", "G", null, null],
   ["G", "A", "M", "E", "R", "O", "O", "M", null, "E", "N", "O", "L", "A", null],
   ["E", "S", "P", "R", "E", "S", "S", "O", null, "S", "T", "R", "O", "N", "G"],
@@ -18,3 +18,11 @@ export const DUMMY_grid: Grid = [
   [null, "E", "L", "I", "T", "E", null, "P", "O", "S", "T", "C", "A", "R", "D"],
   [null, null, "L", "E", "S", "S", null, "S", "T", "E", null, "A", "S", "T", "O"],
 ];
+
+/**
+ * [0, 0] across clue: Opera highlight
+ *
+ *
+ *
+ * Each cell needs to
+ */

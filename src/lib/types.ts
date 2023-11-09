@@ -1,3 +1,5 @@
+import { z } from "zod"; //TODO: Add validation with Zod
+
 export type CellValue =
   | "A"
   | "B"
@@ -25,9 +27,11 @@ export type CellValue =
   | "X"
   | "Y"
   | "Z"
-  | null;
+  | "";
 
-export type Grid = CellValue[][];
+export type SolutionGrid = (Omit<CellValue, ""> | null)[][];
+
+export type WorkingGrid = (CellValue | null)[][];
 
 interface Clue {
   number: number;

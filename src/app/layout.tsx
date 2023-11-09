@@ -2,8 +2,6 @@ import "@/styles/globals.css";
 
 import { GeistSans, GeistMono } from "geist/font";
 import { ThemeProvider } from "@/components/theme/provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Sidebar } from "@/components/sidebar";
 
 export const metadata = {
   title: "Crosswordfish",
@@ -25,12 +23,7 @@ export default function RootLayout({
           attribute="class"
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            <div className="flex h-screen">
-              <Sidebar />
-              {children}
-            </div>
-          </TooltipProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
