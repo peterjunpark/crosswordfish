@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/lib/store";
+import { useGameStore } from "@/lib/store";
 import { Button } from "../ui/button";
 import {
   SelectValue,
@@ -13,9 +13,7 @@ import {
 } from "../ui/select";
 
 export function CrosswordMenubar() {
-  // const { reset } = useStore();
-
-  const reset = useStore((state) => state.reset);
+  const reset = useGameStore((state) => state.reset);
 
   return (
     <div className="flex w-full items-center justify-between p-6">

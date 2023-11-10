@@ -1,18 +1,28 @@
 "use client";
 
 import React from "react";
-import { useStore } from "@/lib/store";
+import { useGameStore } from "@/lib/store";
 import { CrosswordCell } from "./cell";
 
-export function CrosswordGrid() {
-  const { solutionGrid, clues } = useStore();
+export type CellRef = HTMLInputElement | null;
+type GridRef = Array<Array<CellRef>>;
 
-  // If there is no cell to the left or above the current cell,
-  // the current cell is the first letter of an Across or Down clue.
-  // It needs to be numbered on the grid.
-  // Clue numbers are not stored in the grid data --- need to get from clues data.
+export function CrosswordGrid() {
+  const solutionGrid = useGameStore((state) => state.solutionGrid);
+  const clues = useGameStore((state) => state.clues);
+
+  // Initialize gridRef with an array of arrays.
+  const gridRef = React.useRef<GridRef>(
+    Array.from({ length: solutionGrid.length }, () =>
+      Array.from({ length: solutionGrid[0]!.length }, () => null),
+    ),
+  );
+
   // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
+    // If there is no cell to the left or above the current cell,
+    // the current cell is the first letter of an Across or Down clue.
+    // It needs to be numbered on the grid.
     if (!solutionGrid[rowIdx]?.[colIdx - 1]) {
       const clue = clues.across.find((element) => {
         return element.row === rowIdx && element.cols[0] === colIdx;
@@ -28,6 +38,16 @@ export function CrosswordGrid() {
     }
   };
 
+  const attachRefToCell = (elem: CellRef, row: number, col: number) => {
+    if (elem && !gridRef.current[row]?.[col]) {
+      gridRef.current[row]![col] = elem;
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(gridRef.current);
+  }, []);
+
   return (
     <div className={`grid h-full grid-cols-15 gap-px`}>
       {solutionGrid.map((row, rowIdx) =>
@@ -37,6 +57,8 @@ export function CrosswordGrid() {
           if (solution !== null) {
             return (
               <CrosswordCell
+                id={`${rowIdx}::${colIdx}`}
+                ref={(elem) => attachRefToCell(elem, rowIdx, colIdx)}
                 row={rowIdx}
                 col={colIdx}
                 solution={solution}

@@ -11,28 +11,28 @@ type State = {
   solutionGrid: Grid;
   workingGrid: Grid;
   clues: Clues;
-  focus: { cell: [number, number]; direction: "ACROSS" | "DOWN" };
+  focus: { clueNumber: number; direction: "ACROSS" | "DOWN" };
 };
 
 type Action = {
   reset: () => void;
   setCellValue: (value: CellValue, row: number, col: number) => void;
+  setFocus: (clueNumber: number, direction: "ACROSS" | "DOWN") => void;
 };
 
-const initialState: State = {
+const initialGameState: State = {
   clues: clues,
   solutionGrid: grid,
   workingGrid: grid.map((row) =>
     row.map((cell) => (cell === null ? null : "")),
   ),
-  focus: { cell: [0, 0], direction: "ACROSS" },
+  focus: { clueNumber: 1, direction: "ACROSS" },
 };
-
 // TODO: Refactor to use immer
-export const useStore = create<State & Action>()((set) => ({
-  ...initialState,
+export const useGameStore = create<State & Action>()((set) => ({
+  ...initialGameState,
   // ACTIONS
-  reset: () => set(initialState),
+  reset: () => set(initialGameState),
   setCellValue: (newValue, row, col) =>
     set((state) => ({
       workingGrid: state.workingGrid.map((rowArray, rowIndex) =>
@@ -46,5 +46,9 @@ export const useStore = create<State & Action>()((set) => ({
               colIndex === col ? newValue : value,
             ),
       ),
+    })),
+  setFocus: (clueNumber, direction) =>
+    set(() => ({
+      focus: { clueNumber, direction },
     })),
 }));
