@@ -4,6 +4,7 @@ import React from "react";
 import { useGameStore } from "@/lib/store";
 import { cn, stringifyRowCol } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
+import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
 export function CrosswordClues() {
@@ -17,58 +18,62 @@ export function CrosswordClues() {
       <div>
         <h3 className="pl-2 font-semibold tracking-tight">across</h3>
         <ScrollArea className="h-96 w-64 rounded-md border">
-          <ol className="p-4">
-            {clues.across.map((clue, idx) => (
-              <React.Fragment key={stringifyRowCol(clue.row, clue.cols)}>
-                <li
-                  className={cn("flex gap-1 text-sm", {
-                    "bg-red-200":
+          {clues.across.map((clue, idx) => (
+            <React.Fragment key={stringifyRowCol(clue.row, clue.cols)}>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "flex h-fit w-full items-start justify-start gap-1 whitespace-normal rounded-none text-start text-sm font-normal",
+                  {
+                    "text-md bg-accent":
                       focus.clueNumber === clue.number &&
                       focus.direction === "ACROSS",
-                  })}
-                  onClick={() => {
-                    setFocus(clue.number, "ACROSS");
-                  }}
-                  id={stringifyRowCol(clue.row, clue.cols)}
-                >
-                  <span className="font-bold opacity-70">{clue.number}.</span>
-                  <span>{clue.text}</span>
-                </li>
-                {idx !== clues.across.length - 1 && (
-                  <Separator className="my-2 w-full" />
+                  },
                 )}
-              </React.Fragment>
-            ))}
-          </ol>
+                onClick={() => {
+                  setFocus(clue.number, "ACROSS");
+                }}
+                tabIndex={-1}
+              >
+                <span className="font-bold opacity-70">{clue.number}.</span>
+                <span>{clue.text}</span>
+              </Button>
+              {idx !== clues.across.length - 1 && (
+                <Separator className="w-full" />
+              )}
+            </React.Fragment>
+          ))}
         </ScrollArea>
       </div>
       {/* DOWN */}
       <div>
         <h3 className="pl-2 font-semibold tracking-tight">down</h3>
         <ScrollArea className="h-96 w-64 rounded-md border">
-          <ol className="p-4">
-            {clues.down.map((clue, idx) => (
-              <React.Fragment key={stringifyRowCol(clue.rows, clue.col)}>
-                <li
-                  className={cn("flex gap-1 text-sm", {
-                    "bg-red-200":
+          {clues.down.map((clue, idx) => (
+            <React.Fragment key={stringifyRowCol(clue.rows, clue.col)}>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "flex h-fit w-full items-start justify-start gap-1 whitespace-normal rounded-none text-start text-sm font-normal",
+                  {
+                    "text-md bg-accent":
                       focus.clueNumber === clue.number &&
                       focus.direction === "DOWN",
-                  })}
-                  onClick={() => {
-                    setFocus(clue.number, "DOWN");
-                  }}
-                  id={stringifyRowCol(clue.rows, clue.col)}
-                >
-                  <span className="font-bold opacity-70">{clue.number}.</span>
-                  <span>{clue.text}</span>
-                </li>
-                {idx !== clues.down.length - 1 && (
-                  <Separator className="my-2 w-full" />
+                  },
                 )}
-              </React.Fragment>
-            ))}
-          </ol>
+                onClick={() => {
+                  setFocus(clue.number, "DOWN");
+                }}
+                tabIndex={-1}
+              >
+                <span className="font-bold opacity-70">{clue.number}.</span>
+                <span>{clue.text}</span>
+              </Button>
+              {idx !== clues.down.length - 1 && (
+                <Separator className="w-full" />
+              )}
+            </React.Fragment>
+          ))}
         </ScrollArea>
       </div>
     </div>

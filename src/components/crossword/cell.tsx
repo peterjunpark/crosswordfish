@@ -20,6 +20,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     const workingGrid = useGameStore((state) => state.workingGrid);
     const setCellValue = useGameStore((state) => state.setCellValue);
     const cellValue = workingGrid[row]![col]!;
+    const focus = useGameStore((state) => state.focus);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value.replace(/[^a-z]/i, "");
@@ -28,7 +29,6 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     };
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-      e.target.style.backgroundColor = "red";
       console.log(e.target);
     };
 
@@ -44,12 +44,11 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onFocus={handleFocus}
           id={id}
           className={cn(
-            "aspect-square h-10 w-fit text-center font-mono text-lg caret-transparent focus:border-accent-foreground",
+            "focus:border-brand-foreground focus-visible:ring-brand-foreground aspect-square h-10 w-fit cursor-cell text-center font-mono text-lg caret-transparent",
             className,
             { "bg-red-200": cellValue === solution },
           )}
           maxLength={1}
-          type="text"
           autoComplete="off"
           spellCheck={false}
           tabIndex={-1} // Disable tabbing and implement custom kbd navigation on the grid.
@@ -58,49 +57,3 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     );
   },
 );
-
-// export function CrosswordCell({
-//   row,
-//   col,
-//   solution,
-//   number,
-//   id,
-//   className,
-// }: CellProps) {
-//   const workingGrid = useGameStore((state) => state.workingGrid);
-//   const setCellValue = useGameStore((state) => state.setCellValue);
-//   const cellValue = workingGrid[row]![col]!;
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const result = e.target.value.replace(/[^a-z]/i, "");
-
-//     setCellValue(result.toUpperCase(), row, col);
-//   };
-
-//   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-//     console.log(e.target);
-//   };
-
-//   return (
-//     <div className="relative">
-//       <label className="absolute left-[0.17rem] top-[0.17rem] font-mono text-xs opacity-70">
-//         {number}
-//       </label>
-//       <Input
-//         value={cellValue}
-//         onChange={handleChange}
-//         onFocus={handleFocus}
-//         id={id}
-//         className={cn(
-//           "aspect-square h-10 w-fit text-center font-mono text-lg caret-transparent focus:border-accent-foreground",
-//           className,
-//           { "bg-red-200": cellValue === solution },
-//         )}
-//         maxLength={1}
-//         autoComplete="off"
-//         spellCheck={false}
-//         tabIndex={-1} // Disable tabbing and implement custom kbd navigation on the grid.
-//       />
-//     </div>
-//   );
-// }

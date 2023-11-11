@@ -31,7 +31,7 @@ export function Sidebar() {
     <Collapsible
       open={open}
       onOpenChange={setOpen}
-      className="flex h-full flex-row-reverse rounded-r-md shadow-md shadow-muted-foreground"
+      className="flex h-full flex-row-reverse rounded-r-md bg-card shadow-md shadow-muted-foreground"
     >
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="group h-full rounded-l-none py-6">

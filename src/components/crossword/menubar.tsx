@@ -2,15 +2,6 @@
 
 import { useGameStore } from "@/lib/store";
 import { Button } from "../ui/button";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectLabel,
-  SelectItem,
-  SelectGroup,
-  SelectContent,
-  Select,
-} from "../ui/select";
 
 export function CrosswordMenubar() {
   const reset = useGameStore((state) => state.reset);
@@ -35,24 +26,10 @@ export function CrosswordMenubar() {
         <Button onClick={reset} variant="outline">
           Reset puzzle
         </Button>
+        <Button onClick={reset} variant="outline" disabled>
+          Print
+        </Button>
       </div>
-
-      <Select>
-        <SelectTrigger className="w-40">
-          <SelectValue placeholder="Select difficulty" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Difficulty</SelectLabel>
-            <SelectItem value="mon">Monday</SelectItem>
-            <SelectItem value="tue">Tuesday</SelectItem>
-            <SelectItem value="wed">Wednesday</SelectItem>
-            <SelectItem value="thu">Thursday</SelectItem>
-            <SelectItem value="fri">Friday</SelectItem>
-            <SelectItem value="sat">Saturday</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
     </div>
   );
 }

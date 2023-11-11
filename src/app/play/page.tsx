@@ -6,7 +6,7 @@ export default function PlayPage() {
   return (
     <main className="flex h-full w-full flex-col items-center">
       <CrosswordMenubar />
-      <div className="flex w-full justify-around">
+      <div className="flex h-fit w-full items-center justify-around">
         <CrosswordGrid />
         <CrosswordClues />
       </div>

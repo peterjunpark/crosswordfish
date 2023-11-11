@@ -4,12 +4,13 @@ import React from "react";
 import { useGameStore } from "@/lib/store";
 import { CrosswordCell } from "./cell";
 
-export type CellRef = HTMLInputElement | null;
+type CellRef = HTMLInputElement | null;
 type GridRef = Array<Array<CellRef>>;
 
 export function CrosswordGrid() {
   const solutionGrid = useGameStore((state) => state.solutionGrid);
   const clues = useGameStore((state) => state.clues);
+  const focus = useGameStore((state) => state.focus);
 
   // Initialize gridRef with an array of arrays.
   const gridRef = React.useRef<GridRef>(
@@ -17,6 +18,12 @@ export function CrosswordGrid() {
       Array.from({ length: solutionGrid[0]!.length }, () => null),
     ),
   );
+
+  const attachRefToCell = (elem: CellRef, row: number, col: number) => {
+    if (elem && !gridRef.current[row]?.[col]) {
+      gridRef.current[row]![col] = elem;
+    }
+  };
 
   // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
@@ -38,15 +45,21 @@ export function CrosswordGrid() {
     }
   };
 
-  const attachRefToCell = (elem: CellRef, row: number, col: number) => {
-    if (elem && !gridRef.current[row]?.[col]) {
-      gridRef.current[row]![col] = elem;
-    }
-  };
-
   React.useEffect(() => {
-    console.log(gridRef.current);
-  }, []);
+    if (focus.direction === "ACROSS") {
+      const { row, cols } = clues.across.find(
+        (clue) => clue.number === focus.clueNumber,
+      )!;
+
+      gridRef.current[row]![cols[0]!]?.focus();
+    } else if (focus.direction === "DOWN") {
+      const { col, rows } = clues.down.find(
+        (clue) => clue.number === focus.clueNumber,
+      )!;
+
+      gridRef.current[rows[0]!]![col]?.focus();
+    }
+  }, [focus, clues]);
 
   return (
     <div className={`grid h-full grid-cols-15 gap-px`}>
