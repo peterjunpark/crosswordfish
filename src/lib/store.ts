@@ -71,25 +71,32 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       ),
     })),
   setFocusByCell: (row, col, direction) => {
+    const errorPrefix = "Error setting focus by cell: ";
     let clueNumber: State["focus"]["clueNumber"];
     let word: State["focus"]["word"];
 
     if (direction === "across") {
       const clue = get().clues.across.find(
         (clue) => clue.row === row && clue.cols.includes(col),
-      )!;
+      );
+      if (!clue) {
+        throw new Error(errorPrefix + "couldn't find Across clue.");
+      }
 
       clueNumber = clue.number;
       word = clue.cols;
     } else if (direction === "down") {
       const clue = get().clues.down.find(
         (clue) => clue.col === col && clue.rows.includes(row),
-      )!;
+      );
+      if (!clue) {
+        throw new Error(errorPrefix + "couldn't find Down clue.");
+      }
 
       clueNumber = clue.number;
       word = clue.rows;
     } else {
-      throw new Error("Invalid direction");
+      throw new Error(errorPrefix + "invalid direction.");
     }
 
     set(() => ({
@@ -97,6 +104,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     }));
   },
   setFocusByClue: (clueNumber, direction) => {
+    const errorPrefix = "Error setting focus by clue number: ";
     let row: State["focus"]["row"];
     let col: State["focus"]["col"];
     let word: State["focus"]["word"];
@@ -104,19 +112,29 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     if (direction === "across") {
       const clue = get().clues.across.find(
         (clue) => clue.number === clueNumber,
-      )!;
+      );
+      if (!clue) {
+        throw new Error(
+          errorPrefix + "couldn't find Across clue from clue number.",
+        );
+      }
 
       row = clue.row;
       col = clue.cols[0]!;
       word = clue.cols;
     } else if (direction === "down") {
-      const clue = get().clues.down.find((clue) => clue.number === clueNumber)!;
+      const clue = get().clues.down.find((clue) => clue.number === clueNumber);
+      if (!clue) {
+        throw new Error(
+          errorPrefix + "couldn't find Down clue from clue number.",
+        );
+      }
 
       row = clue.rows[0]!;
       col = clue.col;
       word = clue.rows;
     } else {
-      throw new Error("Invalid direction");
+      throw new Error(errorPrefix + "invalid direction.");
     }
 
     set(() => ({
@@ -125,8 +143,13 @@ export const useGameStore = create<State & Action>()((set, get) => ({
   },
   setFocusByKbd: (kbdBtn) => {
     const { focus, solutionGrid, gridSize } = get();
-    const { row: initialRow, col: initialCol, direction } = focus;
-    let nextRow: number, nextCol: number;
+    const {
+      row: initialRow,
+      col: initialCol,
+      direction: initialDirection,
+    } = focus;
+    let nextRow: number;
+    let nextCol: number;
 
     const findNextValidCell = (rowModifier: number, colModifier: number) => {
       let nextRow = (initialRow + rowModifier + gridSize.rows) % gridSize.rows;
@@ -142,12 +165,11 @@ export const useGameStore = create<State & Action>()((set, get) => ({
 
     switch (kbdBtn) {
       case " ":
-        set((state) => ({
-          focus: {
-            ...state.focus,
-            direction: direction === "across" ? "down" : "across",
-          },
-        }));
+        get().setFocusByCell(
+          initialRow,
+          initialCol,
+          initialDirection === "across" ? "down" : "across",
+        );
         break;
       case "ArrowUp":
         ({ row: nextRow } = findNextValidCell(-1, 0));
