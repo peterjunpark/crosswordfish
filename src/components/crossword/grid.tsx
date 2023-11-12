@@ -11,6 +11,7 @@ export function CrosswordGrid() {
   const solutionGrid = useGameStore((state) => state.solutionGrid);
   const clues = useGameStore((state) => state.clues);
   const focus = useGameStore((state) => state.focus);
+  const setFocusByCell = useGameStore((state) => state.setFocusByCell);
 
   // Initialize gridRef with an array of arrays.
   const gridRef = React.useRef<GridRef>(
@@ -23,7 +24,7 @@ export function CrosswordGrid() {
     if (elem && !gridRef.current[row]?.[col]) {
       gridRef.current[row]![col] = elem;
     }
-  };
+  }; // gridRef.current will be a matrix of refs to each cell in the grid.
 
   // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
@@ -45,14 +46,15 @@ export function CrosswordGrid() {
     }
   };
 
+  // Reacts to focus changes.
   React.useEffect(() => {
-    if (focus.direction === "ACROSS") {
+    if (focus.direction === "across") {
       const { row, cols } = clues.across.find(
         (clue) => clue.number === focus.clueNumber,
       )!;
 
       gridRef.current[row]![cols[0]!]?.focus();
-    } else if (focus.direction === "DOWN") {
+    } else if (focus.direction === "down") {
       const { col, rows } = clues.down.find(
         (clue) => clue.number === focus.clueNumber,
       )!;
@@ -60,6 +62,24 @@ export function CrosswordGrid() {
       gridRef.current[rows[0]!]![col]?.focus();
     }
   }, [focus, clues]);
+
+  // Handles kbd navigation.
+  // React.useEffect(() => {
+  //   const keydown = (e: KeyboardEvent) => {
+  //     e.preventDefault();
+
+  //     switch (e.key) {
+  //       case "ArrowUp":
+  //         setFocus();
+  //       case "ArrowDown":
+  //       case "ArrowLeft":
+  //       case "ArrowRight":
+  //     }
+  //   };
+
+  //   document.addEventListener("keydown", keydown);
+  //   return () => document.removeEventListener("keydown", keydown);
+  // }, []);
 
   return (
     <div className={`grid h-full grid-cols-15 gap-px`}>

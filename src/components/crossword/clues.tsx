@@ -10,7 +10,7 @@ import { Separator } from "../ui/separator";
 export function CrosswordClues() {
   const clues = useGameStore((state) => state.clues);
   const focus = useGameStore((state) => state.focus);
-  const setFocus = useGameStore((state) => state.setFocus);
+  const setFocusByClue = useGameStore((state) => state.setFocusByClue);
 
   return (
     <div className="flex">
@@ -27,11 +27,11 @@ export function CrosswordClues() {
                   {
                     "text-md bg-accent":
                       focus.clueNumber === clue.number &&
-                      focus.direction === "ACROSS",
+                      focus.direction === "across",
                   },
                 )}
                 onClick={() => {
-                  setFocus(clue.number, "ACROSS");
+                  setFocusByClue(clue.number, "across");
                 }}
                 tabIndex={-1}
               >
@@ -58,11 +58,11 @@ export function CrosswordClues() {
                   {
                     "text-md bg-accent":
                       focus.clueNumber === clue.number &&
-                      focus.direction === "DOWN",
+                      focus.direction === "down",
                   },
                 )}
                 onClick={() => {
-                  setFocus(clue.number, "DOWN");
+                  setFocusByClue(clue.number, "down");
                 }}
                 tabIndex={-1}
               >

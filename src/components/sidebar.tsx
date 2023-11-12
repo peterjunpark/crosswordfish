@@ -16,15 +16,15 @@ export function Sidebar() {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
+    const keydown = (e: KeyboardEvent) => {
       if (e.key === "b" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener("keydown", keydown);
+    return () => document.removeEventListener("keydown", keydown);
   }, []);
 
   return (

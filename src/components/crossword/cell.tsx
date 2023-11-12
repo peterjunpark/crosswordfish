@@ -5,6 +5,7 @@ import { useGameStore } from "@/lib/store";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
+import { set } from "zod";
 
 type CellProps = {
   solution: CellValue;
@@ -20,7 +21,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     const workingGrid = useGameStore((state) => state.workingGrid);
     const setCellValue = useGameStore((state) => state.setCellValue);
     const cellValue = workingGrid[row]![col]!;
-    const focus = useGameStore((state) => state.focus);
+    const setFocusByCell = useGameStore((state) => state.setFocusByCell);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value.replace(/[^a-z]/i, "");
@@ -29,7 +30,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     };
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-      console.log(e.target);
+      setFocusByCell(row, col, "across");
     };
 
     return (
@@ -44,7 +45,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onFocus={handleFocus}
           id={id}
           className={cn(
-            "focus:border-brand-foreground focus-visible:ring-brand-foreground aspect-square h-10 w-fit cursor-cell text-center font-mono text-lg caret-transparent",
+            "aspect-square h-10 w-fit cursor-pointer text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
             className,
             { "bg-red-200": cellValue === solution },
           )}

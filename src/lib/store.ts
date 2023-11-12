@@ -7,17 +7,27 @@ import { DUMMY_clues, DUMMY_grid } from "@/___tests___/dummy-data";
 const grid = DUMMY_grid;
 const clues = DUMMY_clues;
 
+type WordDirection = "across" | "down";
+
 type State = {
+  clues: Clues;
   solutionGrid: Grid;
   workingGrid: Grid;
-  clues: Clues;
-  focus: { clueNumber: number; direction: "ACROSS" | "DOWN" };
+  gridSize: { rows: number; cols: number };
+  focus: {
+    direction: WordDirection;
+    row: number;
+    col: number;
+    word: number[];
+    clueNumber: number;
+  };
 };
 
 type Action = {
   reset: () => void;
   setCellValue: (value: CellValue, row: number, col: number) => void;
-  setFocus: (clueNumber: number, direction: "ACROSS" | "DOWN") => void;
+  setFocusByCell: (row: number, col: number, direction: WordDirection) => void;
+  setFocusByClue: (clueNumber: number, direction: WordDirection) => void;
 };
 
 const initialGameState: State = {
@@ -26,10 +36,17 @@ const initialGameState: State = {
   workingGrid: grid.map((row) =>
     row.map((cell) => (cell === null ? null : "")),
   ),
-  focus: { clueNumber: 1, direction: "ACROSS" },
+  gridSize: { rows: grid.length, cols: grid[0]!.length },
+  focus: {
+    row: clues.across[0]!.row,
+    col: clues.across[0]!.cols[0]!,
+    word: clues.across[0]!.cols,
+    clueNumber: clues.across[0]!.number,
+    direction: "across",
+  },
 };
 // TODO: Refactor to use immer
-export const useGameStore = create<State & Action>()((set) => ({
+export const useGameStore = create<State & Action>()((set, get) => ({
   ...initialGameState,
   // ACTIONS
   reset: () => set(initialGameState),
@@ -47,8 +64,57 @@ export const useGameStore = create<State & Action>()((set) => ({
             ),
       ),
     })),
-  setFocus: (clueNumber, direction) =>
+  setFocusByCell: (row, col, direction) => {
+    let clueNumber: number;
+    let word: number[];
+
+    if (direction === "across") {
+      const clue = get().clues.across.find(
+        (clue) => clue.row === row && clue.cols.includes(col),
+      )!;
+
+      clueNumber = clue.number;
+      word = clue.cols;
+    } else if (direction === "down") {
+      const clue = get().clues.down.find(
+        (clue) => clue.col === col && clue.rows.includes(row),
+      )!;
+
+      clueNumber = clue.number;
+      word = clue.rows;
+    } else {
+      throw new Error("Invalid direction");
+    }
+
     set(() => ({
-      focus: { clueNumber, direction },
-    })),
+      focus: { direction, row, col, word, clueNumber },
+    }));
+  },
+  setFocusByClue: (clueNumber, direction) => {
+    let row: number;
+    let col: number;
+    let word: number[];
+
+    if (direction === "across") {
+      const clue = get().clues.across.find(
+        (clue) => clue.number === clueNumber,
+      )!;
+
+      row = clue.row;
+      col = clue.cols[0]!;
+      word = clue.cols;
+    } else if (direction === "down") {
+      const clue = get().clues.down.find((clue) => clue.number === clueNumber)!;
+
+      row = clue.rows[0]!;
+      col = clue.col;
+      word = clue.rows;
+    } else {
+      throw new Error("Invalid direction");
+    }
+
+    set(() => ({
+      focus: { direction, row, col, word, clueNumber },
+    }));
+  },
 }));
