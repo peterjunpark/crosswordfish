@@ -7,15 +7,13 @@ import { DUMMY_clues, DUMMY_grid } from "@/___tests___/dummy-data";
 const grid = DUMMY_grid;
 const clues = DUMMY_clues;
 
-type WordDirection = "across" | "down";
-
 type State = {
   clues: Clues;
   solutionGrid: Grid;
   workingGrid: Grid;
   gridSize: { rows: number; cols: number };
   focus: {
-    direction: WordDirection;
+    direction: "across" | "down";
     row: number;
     col: number;
     word: number[];
@@ -26,8 +24,15 @@ type State = {
 type Action = {
   reset: () => void;
   setCellValue: (value: CellValue, row: number, col: number) => void;
-  setFocusByCell: (row: number, col: number, direction: WordDirection) => void;
-  setFocusByClue: (clueNumber: number, direction: WordDirection) => void;
+  setFocusByCell: (
+    row: State["focus"]["row"],
+    col: State["focus"]["col"],
+    direction: State["focus"]["direction"],
+  ) => void;
+  setFocusByClue: (
+    clueNumber: State["focus"]["clueNumber"],
+    direction: State["focus"]["direction"],
+  ) => void;
 };
 
 const initialGameState: State = {
@@ -65,8 +70,8 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       ),
     })),
   setFocusByCell: (row, col, direction) => {
-    let clueNumber: number;
-    let word: number[];
+    let clueNumber: State["focus"]["clueNumber"];
+    let word: State["focus"]["word"];
 
     if (direction === "across") {
       const clue = get().clues.across.find(
@@ -87,13 +92,13 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     }
 
     set(() => ({
-      focus: { direction, row, col, word, clueNumber },
+      focus: { row, col, word, clueNumber, direction },
     }));
   },
   setFocusByClue: (clueNumber, direction) => {
-    let row: number;
-    let col: number;
-    let word: number[];
+    let row: State["focus"]["row"];
+    let col: State["focus"]["col"];
+    let word: State["focus"]["word"];
 
     if (direction === "across") {
       const clue = get().clues.across.find(
@@ -114,7 +119,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     }
 
     set(() => ({
-      focus: { direction, row, col, word, clueNumber },
+      focus: { row, col, word, clueNumber, direction },
     }));
   },
 }));

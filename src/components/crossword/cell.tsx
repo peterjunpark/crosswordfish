@@ -5,7 +5,6 @@ import { useGameStore } from "@/lib/store";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
-import { set } from "zod";
 
 type CellProps = {
   solution: CellValue;
@@ -21,16 +20,25 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     const workingGrid = useGameStore((state) => state.workingGrid);
     const setCellValue = useGameStore((state) => state.setCellValue);
     const cellValue = workingGrid[row]![col]!;
+
+    const focus = useGameStore((state) => state.focus);
     const setFocusByCell = useGameStore((state) => state.setFocusByCell);
+
+    const hasSecondaryFocus = () => {
+      if (focus.direction === "across") {
+        return focus.row === row && focus.word.includes(col);
+      } else if (focus.direction === "down") {
+        return focus.col === col && focus.word.includes(row);
+      }
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value.replace(/[^a-z]/i, "");
-
       setCellValue(value.toUpperCase(), row, col);
     };
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-      setFocusByCell(row, col, "across");
+      setFocusByCell(row, col, focus.direction);
     };
 
     return (
@@ -47,6 +55,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           className={cn(
             "aspect-square h-10 w-fit cursor-pointer text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
             className,
+            { "border-2 border-brand": hasSecondaryFocus() },
             { "bg-red-200": cellValue === solution },
           )}
           maxLength={1}

@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 
 export function CrosswordMenubar() {
   const reset = useGameStore((state) => state.reset);
+  const focus = useGameStore((state) => state.focus);
 
   return (
     <div className="flex w-full items-center justify-between p-6">
@@ -15,13 +16,18 @@ export function CrosswordMenubar() {
           </h3>
         </div>
         <div>
-          <h3>
-            Score: <span className="font-bold">0</span>
-          </h3>
+          <h3>{`Clue: ${focus.clueNumber} ${focus.direction}`}</h3>
         </div>
       </div>
       <div className="flex gap-4">
-        <Button variant="outline">Check puzzle</Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            console.log({ focus });
+          }}
+        >
+          Log focus
+        </Button>
         <Button variant="outline">Reveal letter</Button>
         <Button onClick={reset} variant="outline">
           Reset puzzle

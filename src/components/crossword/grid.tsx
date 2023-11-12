@@ -46,40 +46,40 @@ export function CrosswordGrid() {
     }
   };
 
-  // Reacts to focus changes.
+  // React to focus changes.
   React.useEffect(() => {
-    if (focus.direction === "across") {
-      const { row, cols } = clues.across.find(
-        (clue) => clue.number === focus.clueNumber,
-      )!;
-
-      gridRef.current[row]![cols[0]!]?.focus();
-    } else if (focus.direction === "down") {
-      const { col, rows } = clues.down.find(
-        (clue) => clue.number === focus.clueNumber,
-      )!;
-
-      gridRef.current[rows[0]!]![col]?.focus();
-    }
+    gridRef.current[focus.row]![focus.col]?.focus();
   }, [focus, clues]);
 
   // Handles kbd navigation.
-  // React.useEffect(() => {
-  //   const keydown = (e: KeyboardEvent) => {
-  //     e.preventDefault();
+  React.useEffect(() => {
+    const keydown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case " ":
+          setFocusByCell(
+            focus.row,
+            focus.col,
+            focus.direction === "across" ? "down" : "across",
+          );
+          break;
+        case "ArrowUp":
+          setFocusByCell(focus.row - 1, focus.col, focus.direction);
+          break;
+        case "ArrowDown":
+          setFocusByCell(focus.row + 1, focus.col, focus.direction);
+          break;
+        case "ArrowLeft":
+          setFocusByCell(focus.row, focus.col - 1, focus.direction);
+          break;
+        case "ArrowRight":
+          setFocusByCell(focus.row, focus.col + 1, focus.direction);
+          break;
+      }
+    };
 
-  //     switch (e.key) {
-  //       case "ArrowUp":
-  //         setFocus();
-  //       case "ArrowDown":
-  //       case "ArrowLeft":
-  //       case "ArrowRight":
-  //     }
-  //   };
-
-  //   document.addEventListener("keydown", keydown);
-  //   return () => document.removeEventListener("keydown", keydown);
-  // }, []);
+    document.addEventListener("keydown", keydown);
+    return () => document.removeEventListener("keydown", keydown);
+  }, [focus, setFocusByCell]);
 
   return (
     <div className={`grid h-full grid-cols-15 gap-px`}>
