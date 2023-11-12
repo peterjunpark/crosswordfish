@@ -33,6 +33,7 @@ type Action = {
     clueNumber: State["focus"]["clueNumber"],
     direction: State["focus"]["direction"],
   ) => void;
+  setFocusByKbd: (kbdBtn: string) => void;
 };
 
 const initialGameState: State = {
@@ -57,14 +58,14 @@ export const useGameStore = create<State & Action>()((set, get) => ({
   reset: () => set(initialGameState),
   setCellValue: (newValue, row, col) =>
     set((state) => ({
+      // Loop through all the rows in the grid...
       workingGrid: state.workingGrid.map((rowArray, rowIndex) =>
         rowIndex !== row
-          ? // If the row index is not the row we want to update, return the row as-is
+          ? // If the cell to update is not in this row, leave the row as-is.
             rowArray
-          : // If the row index is the row we want to update...
+          : // If we're at the correct row, loop through the columns in the row...
             rowArray.map((value, colIndex) =>
-              // If the column index is not the column we want to update, return the value as-is
-              // Else, if the column index is the column we want to update, use the newValue.
+              // Find the cell that needs to be updated, and update that one with the new value.
               colIndex === col ? newValue : value,
             ),
       ),
@@ -121,5 +122,49 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     set(() => ({
       focus: { row, col, word, clueNumber, direction },
     }));
+  },
+  setFocusByKbd: (kbdBtn) => {
+    const { focus, solutionGrid, gridSize } = get();
+    const { row: initialRow, col: initialCol, direction } = focus;
+    let nextRow: number, nextCol: number;
+
+    const findNextValidCell = (rowModifier: number, colModifier: number) => {
+      let nextRow = (initialRow + rowModifier + gridSize.rows) % gridSize.rows;
+      let nextCol = (initialCol + colModifier + gridSize.cols) % gridSize.cols;
+
+      while (!solutionGrid[nextRow]?.[nextCol]) {
+        nextRow = (nextRow + rowModifier + gridSize.rows) % gridSize.rows;
+        nextCol = (nextCol + colModifier + gridSize.cols) % gridSize.cols;
+      }
+
+      return { row: nextRow, col: nextCol };
+    };
+
+    switch (kbdBtn) {
+      case " ":
+        set((state) => ({
+          focus: {
+            ...state.focus,
+            direction: direction === "across" ? "down" : "across",
+          },
+        }));
+        break;
+      case "ArrowUp":
+        ({ row: nextRow } = findNextValidCell(-1, 0));
+        set((state) => ({ focus: { ...state.focus, row: nextRow } }));
+        break;
+      case "ArrowLeft":
+        ({ col: nextCol } = findNextValidCell(0, -1));
+        set((state) => ({ focus: { ...state.focus, col: nextCol } }));
+        break;
+      case "ArrowDown":
+        ({ row: nextRow } = findNextValidCell(1, 0));
+        set((state) => ({ focus: { ...state.focus, row: nextRow } }));
+        break;
+      case "ArrowRight":
+        ({ col: nextCol } = findNextValidCell(0, 1));
+        set((state) => ({ focus: { ...state.focus, col: nextCol } }));
+        break;
+    }
   },
 }));

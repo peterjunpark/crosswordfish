@@ -9,9 +9,12 @@ type GridRef = Array<Array<CellRef>>;
 
 export function CrosswordGrid() {
   const solutionGrid = useGameStore((state) => state.solutionGrid);
+  const gridSize = useGameStore((state) => state.gridSize);
   const clues = useGameStore((state) => state.clues);
+
   const focus = useGameStore((state) => state.focus);
   const setFocusByCell = useGameStore((state) => state.setFocusByCell);
+  const setFocusByKbd = useGameStore((state) => state.setFocusByKbd);
 
   // Initialize gridRef with an array of arrays.
   const gridRef = React.useRef<GridRef>(
@@ -54,32 +57,43 @@ export function CrosswordGrid() {
   // Handles kbd navigation.
   React.useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case " ":
-          setFocusByCell(
-            focus.row,
-            focus.col,
-            focus.direction === "across" ? "down" : "across",
-          );
-          break;
-        case "ArrowUp":
-          setFocusByCell(focus.row - 1, focus.col, focus.direction);
-          break;
-        case "ArrowDown":
-          setFocusByCell(focus.row + 1, focus.col, focus.direction);
-          break;
-        case "ArrowLeft":
-          setFocusByCell(focus.row, focus.col - 1, focus.direction);
-          break;
-        case "ArrowRight":
-          setFocusByCell(focus.row, focus.col + 1, focus.direction);
-          break;
-      }
+      setFocusByKbd(e.key);
+      // switch (e.key) {
+      //   case " ":
+      //     setFocusByCell(
+      //       focus.row,
+      //       focus.col,
+      //       focus.direction === "across" ? "down" : "across",
+      //     );
+      //     break;
+      //   // case "Tab":
+      //   //   setFocusByClue();
+      //   case "ArrowUp":
+      //     setFocusByCell(
+      //       !solutionGrid[focus.row - 1] ? gridSize.rows - 1 : focus.row - 1,
+      //       focus.col,
+      //       focus.direction,
+      //     );
+      //     break;
+      //   case "ArrowDown":
+      //     setFocusByCell(
+      //       !solutionGrid[focus.row + 1] ? 0 : focus.row + 1,
+      //       focus.col,
+      //       focus.direction,
+      //     );
+      //     break;
+      //   case "ArrowLeft":
+      //     setFocusByCell(focus.row, focus.col - 1, focus.direction);
+      //     break;
+      //   case "ArrowRight":
+      //     setFocusByCell(focus.row, focus.col + 1, focus.direction);
+      //     break;
+      // }
     };
 
     document.addEventListener("keydown", keydown);
     return () => document.removeEventListener("keydown", keydown);
-  }, [focus, setFocusByCell]);
+  }, [focus, setFocusByCell, solutionGrid, gridSize]);
 
   return (
     <div className={`grid h-full grid-cols-15 gap-px`}>
