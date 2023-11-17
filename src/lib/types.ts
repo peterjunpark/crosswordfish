@@ -4,7 +4,7 @@ export const cellValueSchema = z.string().max(1).toUpperCase().regex(/[A-Z]/);
 
 export type CellValue = z.infer<typeof cellValueSchema>;
 
-export type Grid = (CellValue | null)[][];
+export type Grid = readonly (CellValue | null)[][];
 
 interface Clue {
   number: number;

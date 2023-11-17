@@ -23,23 +23,41 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
 
     const focus = useGameStore((state) => state.focus);
     const setFocusByCell = useGameStore((state) => state.setFocusByCell);
+    const isFocusedCell = focus.row === row && focus.col === col;
+    const isFocusedWord =
+      focus.direction === "across"
+        ? focus.row === row && focus.word.includes(col)
+        : focus.direction === "down"
+        ? focus.col === col && focus.word.includes(row)
+        : false;
 
-    const isFocusedWord = () => {
-      if (focus.direction === "across") {
-        return focus.row === row && focus.word.includes(col);
-      } else if (focus.direction === "down") {
-        return focus.col === col && focus.word.includes(row);
-      }
+    // Update state when the cell is focused.
+    const handleFocus = () => {
+      setFocusByCell(row, col, focus.direction);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value.replace(/[^a-z]/i, "");
+
       setCellValue(value.toUpperCase(), row, col);
+
+      if (value) {
+        focus.direction === "across"
+          ? setFocusByCell(row, col + 1, "across")
+          : setFocusByCell(row + 1, col, focus.direction);
+      }
     };
 
-    const handleFocus = () => {
-      setFocusByCell(row, col, focus.direction);
-    };
+    React.useEffect(() => {
+      const backspace = (e: KeyboardEvent) => {
+        if (e.key === "Backspace" && !cellValue && isFocusedCell) {
+          console.log("hi");
+        }
+      };
+
+      document.addEventListener("keydown", backspace);
+      return () => document.removeEventListener("keydown", backspace);
+    }, [cellValue, isFocusedCell]);
 
     return (
       <div className="relative">
@@ -53,12 +71,13 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onFocus={handleFocus}
           id={id}
           className={cn(
-            "aspect-square h-10 w-fit cursor-pointer text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
+            "aspect-square h-10 w-fit cursor-pointer select-none text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
             className,
-            { "border-2 border-brand": isFocusedWord() },
+            { "border-2 border-brand": isFocusedWord },
             { "bg-red-200": cellValue === solution },
           )}
           maxLength={1}
+          size={1}
           autoComplete="off"
           spellCheck={false}
           tabIndex={-1} // Disable tabbing and implement custom kbd navigation on the grid.

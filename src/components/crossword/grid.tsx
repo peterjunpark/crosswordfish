@@ -21,11 +21,12 @@ export function CrosswordGrid() {
     ),
   );
 
+  // gridRef.current will be a matrix of refs to each cell in the grid.
   const attachRefToCell = (elem: CellRef, row: number, col: number) => {
     if (elem && !gridRef.current[row]?.[col]) {
       gridRef.current[row]![col] = elem;
     }
-  }; // gridRef.current will be a matrix of refs to each cell in the grid.
+  };
 
   // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
@@ -47,9 +48,10 @@ export function CrosswordGrid() {
     }
   };
 
-  // React to focus changes.
+  // Focus and select the cell in the DOM when focus state changes.
   React.useEffect(() => {
     gridRef.current[focus.row]![focus.col]?.focus();
+    gridRef.current[focus.row]![focus.col]?.select();
   }, [focus, clues]);
 
   // Handle kbd navigation.

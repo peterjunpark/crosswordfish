@@ -33,7 +33,6 @@ export function CrosswordClues() {
                 onClick={() => {
                   setFocusByClue(clue.number, "across");
                 }}
-                tabIndex={-1}
               >
                 <span className="font-bold opacity-70">{clue.number}.</span>
                 <span>{clue.text}</span>
@@ -64,7 +63,6 @@ export function CrosswordClues() {
                 onClick={() => {
                   setFocusByClue(clue.number, "down");
                 }}
-                tabIndex={-1}
               >
                 <span className="font-bold opacity-70">{clue.number}.</span>
                 <span>{clue.text}</span>

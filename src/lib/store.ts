@@ -23,7 +23,12 @@ type State = {
 
 type Action = {
   reset: () => void;
+  findNextValidCell: (
+    rowModifier: number,
+    colModifier: number,
+  ) => { row: number; col: number }; // helper
   setCellValue: (value: CellValue, row: number, col: number) => void;
+  switchFocusDirection: () => void;
   setFocusByCell: (
     row: State["focus"]["row"],
     col: State["focus"]["col"],
@@ -33,6 +38,7 @@ type Action = {
     clueNumber: State["focus"]["clueNumber"],
     direction: State["focus"]["direction"],
   ) => void;
+  setFocusToNext: () => void;
   setFocusByKbd: (kbdBtn: string) => void;
 };
 
@@ -56,6 +62,20 @@ export const useGameStore = create<State & Action>()((set, get) => ({
   ...initialGameState,
   // ACTIONS
   reset: () => set(initialGameState),
+  findNextValidCell: (rowModifier, colModifier) => {
+    const { focus, solutionGrid, gridSize } = get();
+    const { row: initialRow, col: initialCol } = focus;
+
+    let nextRow = (initialRow + rowModifier + gridSize.rows) % gridSize.rows;
+    let nextCol = (initialCol + colModifier + gridSize.cols) % gridSize.cols;
+
+    while (!solutionGrid[nextRow]?.[nextCol]) {
+      nextRow = (nextRow + rowModifier + gridSize.rows) % gridSize.rows;
+      nextCol = (nextCol + colModifier + gridSize.cols) % gridSize.cols;
+    }
+
+    return { row: nextRow, col: nextCol };
+  },
   setCellValue: (newValue, row, col) =>
     set((state) => ({
       // Loop through all the rows in the grid...
@@ -141,50 +161,42 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       focus: { row, col, word, clueNumber, direction },
     }));
   },
+  switchFocusDirection: () => {
+    const { focus } = get();
+    const { row, col, direction: initialDirection } = focus;
+    const direction = initialDirection === "across" ? "down" : "across";
+
+    get().setFocusByCell(row, col, direction);
+  },
+  setFocusToNext: () => {
+    const errorPrefix = "Error setting focus by prev or next clue: ";
+    // const { focus, clues } = get();
+    // const { clueNumber, direction } = focus;
+
+    // get().setFocusByClue(nextClueNumber, direction);
+  },
   setFocusByKbd: (kbdBtn) => {
-    const { focus, solutionGrid, gridSize } = get();
-    const {
-      row: initialRow,
-      col: initialCol,
-      direction: initialDirection,
-    } = focus;
     let nextRow: number;
     let nextCol: number;
 
-    const findNextValidCell = (rowModifier: number, colModifier: number) => {
-      let nextRow = (initialRow + rowModifier + gridSize.rows) % gridSize.rows;
-      let nextCol = (initialCol + colModifier + gridSize.cols) % gridSize.cols;
-
-      while (!solutionGrid[nextRow]?.[nextCol]) {
-        nextRow = (nextRow + rowModifier + gridSize.rows) % gridSize.rows;
-        nextCol = (nextCol + colModifier + gridSize.cols) % gridSize.cols;
-      }
-
-      return { row: nextRow, col: nextCol };
-    };
-
     switch (kbdBtn) {
       case " ":
-        get().setFocusByCell(
-          initialRow,
-          initialCol,
-          initialDirection === "across" ? "down" : "across",
-        );
+        get().switchFocusDirection();
         break;
       case "ArrowUp":
-        ({ row: nextRow } = findNextValidCell(-1, 0));
+        ({ row: nextRow } = get().findNextValidCell(-1, 0));
         set((state) => ({ focus: { ...state.focus, row: nextRow } }));
         break;
       case "ArrowLeft":
-        ({ col: nextCol } = findNextValidCell(0, -1));
+        ({ col: nextCol } = get().findNextValidCell(0, -1));
         set((state) => ({ focus: { ...state.focus, col: nextCol } }));
         break;
       case "ArrowDown":
-        ({ row: nextRow } = findNextValidCell(1, 0));
+        ({ row: nextRow } = get().findNextValidCell(1, 0));
         set((state) => ({ focus: { ...state.focus, row: nextRow } }));
         break;
       case "ArrowRight":
-        ({ col: nextCol } = findNextValidCell(0, 1));
+        ({ col: nextCol } = get().findNextValidCell(0, 1));
         set((state) => ({ focus: { ...state.focus, col: nextCol } }));
         break;
     }
