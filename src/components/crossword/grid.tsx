@@ -3,6 +3,7 @@
 import React from "react";
 import { useGameStore } from "@/lib/store";
 import { CrosswordCell } from "./cell";
+import { AcrossClue, DownClue } from "@/lib/types";
 
 type CellRef = HTMLInputElement | null;
 type GridRef = Array<Array<CellRef>>;
@@ -33,19 +34,18 @@ export function CrosswordGrid() {
     // If there is no cell to the left or above the current cell,
     // the current cell is the first letter of an Across or Down clue.
     // It needs to be numbered on the grid.
+    let clue: AcrossClue | DownClue | undefined;
+
     if (!solutionGrid[rowIdx]?.[colIdx - 1]) {
-      const clue = clues.across.find((element) => {
-        return element.row === rowIdx && element.cols[0] === colIdx;
-      });
-
-      return clue?.number;
+      clue = clues.across.find(
+        (element) => element.row === rowIdx && element.cols[0] === colIdx,
+      );
     } else if (!solutionGrid[rowIdx - 1]?.[colIdx]) {
-      const clue = clues.down.find((element) => {
-        return element.col === colIdx && element.rows[0] === rowIdx;
-      });
-
-      return clue?.number;
+      clue = clues.down.find(
+        (element) => element.col === colIdx && element.rows[0] === rowIdx,
+      );
     }
+    return clue?.number;
   };
 
   // Focus and select the cell in the DOM when focus state changes.
@@ -85,7 +85,7 @@ export function CrosswordGrid() {
           } else {
             return (
               <div
-                className="aspect-square w-full rounded-sm bg-muted-foreground"
+                className="aspect-square w-full rounded-sm bg-muted"
                 key={`${rowIdx}::${colIdx}`}
               />
             );

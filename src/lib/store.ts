@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Grid, Clues, CellValue } from "./types";
+import type { Grid, Clues, AcrossClue, DownClue, CellValue } from "./types";
 import { DUMMY_clues, DUMMY_grid } from "@/___tests___/dummy-data";
 
 //TODO: Will probably need to initialize the store with props? I.e., generated crossword grid.
@@ -170,27 +170,25 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     get().setFocusByCell(row, col, direction);
   },
   setFocusToNextCell: () => {
-    const errorPrefix = "Error setting focus by prev or next clue: ";
-    const { focus, clues } = get();
-    const { clueNumber, direction } = focus;
+    const errorPrefix = "Error setting focus to next cell: ";
+    const { focus } = get();
+    const { row, col, direction, word } = focus;
     let nextRow: State["focus"]["row"];
     let nextCol: State["focus"]["col"];
 
     if (direction === "across") {
-      ({ col: nextCol } = get().findNextValidCell(0, 1));
-
-      if (nextCol !== 0) {
+      if (col !== word.at(-1)) {
+        ({ col: nextCol } = get().findNextValidCell(0, 1));
         set((state) => ({ focus: { ...state.focus, col: nextCol } }));
       } else {
-        console.log("END.");
+        get().setFocusToNextClue(1);
       }
     } else if (direction === "down") {
-      ({ row: nextRow } = get().findNextValidCell(1, 0));
-
-      if (nextRow !== 0) {
+      if (row !== word.at(-1)) {
+        ({ row: nextRow } = get().findNextValidCell(1, 0));
         set((state) => ({ focus: { ...state.focus, row: nextRow } }));
       } else {
-        console.log("END.");
+        get().setFocusToNextClue(1);
       }
     } else {
       throw new Error(errorPrefix + "invalid direction.");
@@ -199,16 +197,35 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     // get().setFocusByClue(nextClueNumber, direction);
   },
   setFocusToNextClue: (modifier: number) => {
+    const errorPrefix = "Error setting focus to next clue: ";
     const { focus, clues } = get();
     const { clueNumber, direction } = focus;
 
+    let nextClue: AcrossClue | DownClue | undefined;
+
     if (direction === "across") {
-      const clue = clues.across.find(
-        (clue) => clue.number === clueNumber + modifier,
+      const currentClueIdx = clues.across.findIndex(
+        (elem) => elem.number === clueNumber,
       );
+
+      nextClue = clues.across[currentClueIdx + modifier];
+    } else if (direction === "down") {
+      const currentClueIdx = clues.down.findIndex(
+        (elem) => elem.number === clueNumber,
+      );
+
+      nextClue = clues.down[currentClueIdx + modifier];
+    } else {
+      throw new Error(errorPrefix + "invalid direction.");
     }
 
-    get().setFocusByClue(clueNumber + modifier, direction);
+    if (nextClue) {
+      get().setFocusByClue(nextClue.number, direction);
+    } else {
+      // If there is no next clue in the current direction, switch directions and go to the first clue in that direction.
+      get().switchFocusDirection();
+      get().setFocusByClue(1, direction === "across" ? "down" : "across");
+    }
   },
   setFocusByKbd: (kbdBtn) => {
     let nextRow: State["focus"]["row"];

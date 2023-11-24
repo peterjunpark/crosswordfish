@@ -74,10 +74,13 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onDoubleClick={switchFocusDirection}
           id={id}
           className={cn(
-            "aspect-square h-10 w-fit cursor-pointer select-none text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
+            "aspect-square h-10 w-fit cursor-pointer select-none border-2 text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
             className,
-            { "border-2 border-brand": isFocusedWord },
-            { "bg-red-200": cellValue === solution },
+            { "border-2 border-highlight": isFocusedWord },
+            {
+              "bg-destructive-foreground text-destructive dark:bg-destructive dark:text-destructive-foreground":
+                cellValue === solution,
+            },
           )}
           maxLength={1}
           size={1}

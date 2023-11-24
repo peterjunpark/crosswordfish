@@ -18,11 +18,3 @@ export const DUMMY_grid: Grid = [
   [null, "E", "L", "I", "T", "E", null, "P", "O", "S", "T", "C", "A", "R", "D"],
   [null, null, "L", "E", "S", "S", null, "S", "T", "E", null, "A", "S", "T", "O"],
 ];
-
-/**
- * [0, 0] across clue: Opera highlight
- *
- *
- *
- * Each cell needs to
- */
