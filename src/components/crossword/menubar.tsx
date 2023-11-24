@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 export function CrosswordMenubar() {
   const reset = useGameStore((state) => state.reset);
   const focus = useGameStore((state) => state.focus);
+  const prevFocus = useGameStore((state) => state.prevFocus);
 
   return (
     <>
@@ -21,7 +22,7 @@ export function CrosswordMenubar() {
           <Button
             variant="outline"
             onClick={() => {
-              console.log({ focus });
+              console.log({ focus, prevFocus });
             }}
           >
             Log focus

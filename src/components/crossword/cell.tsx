@@ -23,6 +23,12 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
 
     const focus = useGameStore((state) => state.focus);
     const setFocusByCell = useGameStore((state) => state.setFocusByCell);
+    const setFocusToNextCell = useGameStore(
+      (state) => state.setFocusToNextCell,
+    );
+    const switchFocusDirection = useGameStore(
+      (state) => state.switchFocusDirection,
+    );
     const isFocusedCell = focus.row === row && focus.col === col;
     const isFocusedWord =
       focus.direction === "across"
@@ -38,13 +44,9 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value.replace(/[^a-z]/i, "");
-
-      setCellValue(value.toUpperCase(), row, col);
-
       if (value) {
-        focus.direction === "across"
-          ? setFocusByCell(row, col + 1, "across")
-          : setFocusByCell(row + 1, col, focus.direction);
+        setCellValue(value.toUpperCase(), row, col);
+        setFocusToNextCell();
       }
     };
 
@@ -69,6 +71,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           value={cellValue}
           onChange={handleChange}
           onFocus={handleFocus}
+          onDoubleClick={switchFocusDirection}
           id={id}
           className={cn(
             "aspect-square h-10 w-fit cursor-pointer select-none text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",

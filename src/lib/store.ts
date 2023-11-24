@@ -38,7 +38,8 @@ type Action = {
     clueNumber: State["focus"]["clueNumber"],
     direction: State["focus"]["direction"],
   ) => void;
-  setFocusToNext: () => void;
+  setFocusToNextCell: () => void;
+  setFocusToNextClue: (modifier: number) => void;
   setFocusByKbd: (kbdBtn: string) => void;
 };
 
@@ -168,16 +169,50 @@ export const useGameStore = create<State & Action>()((set, get) => ({
 
     get().setFocusByCell(row, col, direction);
   },
-  setFocusToNext: () => {
+  setFocusToNextCell: () => {
     const errorPrefix = "Error setting focus by prev or next clue: ";
-    // const { focus, clues } = get();
-    // const { clueNumber, direction } = focus;
+    const { focus, clues } = get();
+    const { clueNumber, direction } = focus;
+    let nextRow: State["focus"]["row"];
+    let nextCol: State["focus"]["col"];
+
+    if (direction === "across") {
+      ({ col: nextCol } = get().findNextValidCell(0, 1));
+
+      if (nextCol !== 0) {
+        set((state) => ({ focus: { ...state.focus, col: nextCol } }));
+      } else {
+        console.log("END.");
+      }
+    } else if (direction === "down") {
+      ({ row: nextRow } = get().findNextValidCell(1, 0));
+
+      if (nextRow !== 0) {
+        set((state) => ({ focus: { ...state.focus, row: nextRow } }));
+      } else {
+        console.log("END.");
+      }
+    } else {
+      throw new Error(errorPrefix + "invalid direction.");
+    }
 
     // get().setFocusByClue(nextClueNumber, direction);
   },
+  setFocusToNextClue: (modifier: number) => {
+    const { focus, clues } = get();
+    const { clueNumber, direction } = focus;
+
+    if (direction === "across") {
+      const clue = clues.across.find(
+        (clue) => clue.number === clueNumber + modifier,
+      );
+    }
+
+    get().setFocusByClue(clueNumber + modifier, direction);
+  },
   setFocusByKbd: (kbdBtn) => {
-    let nextRow: number;
-    let nextCol: number;
+    let nextRow: State["focus"]["row"];
+    let nextCol: State["focus"]["col"];
 
     switch (kbdBtn) {
       case " ":
@@ -198,6 +233,12 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       case "ArrowRight":
         ({ col: nextCol } = get().findNextValidCell(0, 1));
         set((state) => ({ focus: { ...state.focus, col: nextCol } }));
+        break;
+      case ".": // Go to next clue
+        get().setFocusToNextClue(1);
+        break;
+      case ",": // Go to prev clue
+        get().setFocusToNextClue(-1);
         break;
     }
   },
