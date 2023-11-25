@@ -59,6 +59,10 @@ export function CrosswordGrid() {
     const keydown = (e: KeyboardEvent) => {
       setFocusByKbd(e.key);
       gridRef.current[focus.row]![focus.col]?.select();
+
+      if (e.key === "Tab") {
+        console.log(document.activeElement);
+      }
     };
 
     document.addEventListener("keydown", keydown);

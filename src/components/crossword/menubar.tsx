@@ -9,7 +9,7 @@ export function CrosswordMenubar() {
 
   return (
     <>
-      <div className="flex w-full items-center justify-between p-6">
+      {/* <div className="flex w-full items-center justify-between p-6">
         <div className="flex items-center gap-4">
           <div>
             <h3 className="select-none">
@@ -34,9 +34,16 @@ export function CrosswordMenubar() {
             Print
           </Button>
         </div>
-      </div>
-      <div className="w-full px-6 text-start">
-        <h3>{`Clue: ${focus.clueNumber} ${focus.direction}`}</h3>
+      </div> */}
+      <div className="w-full p-6">
+        <span className="text-6xl font-semibold tracking-tighter text-muted-foreground">
+          <span>
+            {focus.clueNumber} {focus.direction}{" "}
+          </span>
+        </span>
+        <span className="text-5xl font-semibold tracking-tight">
+          {focus.clueText}
+        </span>
       </div>
     </>
   );
