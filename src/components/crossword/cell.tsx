@@ -46,24 +46,26 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
       const value = e.target.value.replace(/[^a-z]/i, "");
       if (value) {
         setCellValue(value.toUpperCase(), row, col);
-        setFocusToNextCell();
+        setFocusToNextCell(1);
       }
     };
 
     React.useEffect(() => {
       const backspace = (e: KeyboardEvent) => {
-        if (e.key === "Backspace" && !cellValue && isFocusedCell) {
-          console.log("hi");
+        if (e.key === "Backspace" && isFocusedCell) {
+          // If the cell has a value, clear it.
+          // Otherwise, move focus to the previous cell.
+          cellValue ? setCellValue("", row, col) : setFocusToNextCell(-1);
         }
       };
 
       document.addEventListener("keydown", backspace);
       return () => document.removeEventListener("keydown", backspace);
-    }, [cellValue, isFocusedCell]);
+    }, [row, col, cellValue, isFocusedCell, setFocusToNextCell, setCellValue]);
 
     return (
       <div className="relative">
-        <label className="absolute left-[0.17rem] top-[0.17rem] font-mono text-xs opacity-70">
+        <label className="absolute left-[0.17rem] top-[0.13rem] select-none font-mono text-xs opacity-70">
           {number}
         </label>
         <Input
@@ -74,7 +76,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onDoubleClick={switchFocusDirection}
           id={id}
           className={cn(
-            "aspect-square h-10 w-fit cursor-pointer select-none border-2 text-center font-mono text-lg caret-transparent focus:border-brand-foreground focus-visible:ring-brand-foreground",
+            "aspect-square h-full cursor-pointer select-all border-2 text-center font-mono text-lg caret-transparent selection:bg-opacity-0 focus:border-brand-foreground focus-visible:ring-brand-foreground",
             className,
             { "border-2 border-highlight": isFocusedWord },
             {

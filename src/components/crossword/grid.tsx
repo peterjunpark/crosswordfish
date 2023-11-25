@@ -3,7 +3,7 @@
 import React from "react";
 import { useGameStore } from "@/lib/store";
 import { CrosswordCell } from "./cell";
-import { AcrossClue, DownClue } from "@/lib/types";
+import type { AcrossClue, DownClue } from "@/lib/types";
 
 type CellRef = HTMLInputElement | null;
 type GridRef = Array<Array<CellRef>>;
@@ -58,14 +58,15 @@ export function CrosswordGrid() {
   React.useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       setFocusByKbd(e.key);
+      gridRef.current[focus.row]![focus.col]?.select();
     };
 
     document.addEventListener("keydown", keydown);
     return () => document.removeEventListener("keydown", keydown);
-  }, [setFocusByKbd]);
+  }, [setFocusByKbd, focus]);
 
   return (
-    <div className={`grid h-full grid-cols-15 gap-px`}>
+    <div className={`gap-pxq grid h-full w-1/2 min-w-fit grid-cols-15`}>
       {solutionGrid.map((row, rowIdx) =>
         row.map((solution, colIdx) => {
           const cellNumber = getCellNumber(rowIdx, colIdx);

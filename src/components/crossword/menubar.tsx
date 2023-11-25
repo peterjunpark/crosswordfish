@@ -12,7 +12,7 @@ export function CrosswordMenubar() {
       <div className="flex w-full items-center justify-between p-6">
         <div className="flex items-center gap-4">
           <div>
-            <h3>
+            <h3 className="select-none">
               Timer: <span className="font-bold">00:00:00</span>
             </h3>
           </div>

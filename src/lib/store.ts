@@ -19,6 +19,10 @@ type State = {
     word: number[];
     clueNumber: number;
   };
+  // game: {
+  //   isStarted: boolean;
+  //   isChecking: boolean;
+  // };
 };
 
 type Action = {
@@ -37,9 +41,10 @@ type Action = {
   setFocusByClue: (
     clueNumber: State["focus"]["clueNumber"],
     direction: State["focus"]["direction"],
+    targetCell?: "first" | "last",
   ) => void;
-  setFocusToNextCell: () => void;
-  setFocusToNextClue: (modifier: number) => void;
+  setFocusToNextCell: (modifier: number) => void;
+  setFocusToNextClue: (modifier: number, targetCell?: "first" | "last") => void;
   setFocusByKbd: (kbdBtn: string) => void;
 };
 
@@ -124,7 +129,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       focus: { row, col, word, clueNumber, direction },
     }));
   },
-  setFocusByClue: (clueNumber, direction) => {
+  setFocusByClue: (clueNumber, direction, targetCell) => {
     const errorPrefix = "Error setting focus by clue number: ";
     let row: State["focus"]["row"];
     let col: State["focus"]["col"];
@@ -134,6 +139,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       const clue = get().clues.across.find(
         (clue) => clue.number === clueNumber,
       );
+
       if (!clue) {
         throw new Error(
           errorPrefix + "couldn't find Across clue from clue number.",
@@ -141,17 +147,18 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       }
 
       row = clue.row;
-      col = clue.cols[0]!;
+      col = targetCell === "last" ? clue.cols.at(-1)! : clue.cols[0]!;
       word = clue.cols;
     } else if (direction === "down") {
       const clue = get().clues.down.find((clue) => clue.number === clueNumber);
+
       if (!clue) {
         throw new Error(
           errorPrefix + "couldn't find Down clue from clue number.",
         );
       }
 
-      row = clue.rows[0]!;
+      row = targetCell === "last" ? clue.rows.at(-1)! : clue.rows[0]!;
       col = clue.col;
       word = clue.rows;
     } else {
@@ -169,38 +176,60 @@ export const useGameStore = create<State & Action>()((set, get) => ({
 
     get().setFocusByCell(row, col, direction);
   },
-  setFocusToNextCell: () => {
+  setFocusToNextCell: (modifier: number) => {
     const errorPrefix = "Error setting focus to next cell: ";
     const { focus } = get();
     const { row, col, direction, word } = focus;
+    const move = modifier > 0 ? "next" : modifier < 0 ? "prev" : null;
     let nextRow: State["focus"]["row"];
     let nextCol: State["focus"]["col"];
 
-    if (direction === "across") {
-      if (col !== word.at(-1)) {
-        ({ col: nextCol } = get().findNextValidCell(0, 1));
-        set((state) => ({ focus: { ...state.focus, col: nextCol } }));
-      } else {
-        get().setFocusToNextClue(1);
-      }
-    } else if (direction === "down") {
-      if (row !== word.at(-1)) {
-        ({ row: nextRow } = get().findNextValidCell(1, 0));
-        set((state) => ({ focus: { ...state.focus, row: nextRow } }));
-      } else {
-        get().setFocusToNextClue(1);
-      }
-    } else {
-      throw new Error(errorPrefix + "invalid direction.");
+    switch (true) {
+      case move === "next" && direction === "across":
+        if (col !== word.at(-1)) {
+          // If we're not at the end of the word, move to the next cell in the word.
+          ({ col: nextCol } = get().findNextValidCell(0, modifier));
+          set((state) => ({ focus: { ...state.focus, col: nextCol } }));
+        } else {
+          // If we're at the end of the word, move to the next clue in the same direction.
+          get().setFocusToNextClue(1);
+        }
+        break;
+      case move === "next" && direction === "down":
+        if (row !== word.at(-1)) {
+          ({ row: nextRow } = get().findNextValidCell(modifier, 0));
+          set((state) => ({ focus: { ...state.focus, row: nextRow } }));
+        } else {
+          get().setFocusToNextClue(1);
+        }
+        break;
+      case move === "prev" && direction === "across":
+        if (col !== word[0]) {
+          ({ col: nextCol } = get().findNextValidCell(0, modifier));
+          set((state) => ({ focus: { ...state.focus, col: nextCol } }));
+        } else {
+          get().setFocusToNextClue(-1, "last");
+        }
+        break;
+      case move === "prev" && direction === "down":
+        if (row !== word[0]) {
+          ({ row: nextRow } = get().findNextValidCell(modifier, 0));
+          set((state) => ({ focus: { ...state.focus, row: nextRow } }));
+        } else {
+          get().setFocusToNextClue(-1, "last");
+        }
+        break;
+      case move === null:
+        return;
+      default:
+        throw new Error(errorPrefix + "invalid modifier or direction.");
     }
-
-    // get().setFocusByClue(nextClueNumber, direction);
   },
-  setFocusToNextClue: (modifier: number) => {
+  setFocusToNextClue: (modifier: number, targetCell) => {
     const errorPrefix = "Error setting focus to next clue: ";
     const { focus, clues } = get();
     const { clueNumber, direction } = focus;
-
+    const move = modifier > 0 ? "next" : modifier < 0 ? "prev" : null;
     let nextClue: AcrossClue | DownClue | undefined;
 
     if (direction === "across") {
@@ -220,11 +249,23 @@ export const useGameStore = create<State & Action>()((set, get) => ({
     }
 
     if (nextClue) {
-      get().setFocusByClue(nextClue.number, direction);
+      get().setFocusByClue(nextClue.number, direction, targetCell);
     } else {
       // If there is no next clue in the current direction, switch directions and go to the first clue in that direction.
-      get().switchFocusDirection();
-      get().setFocusByClue(1, direction === "across" ? "down" : "across");
+      if (move === "next") {
+        get().setFocusByClue(1, direction === "across" ? "down" : "across");
+        return;
+      } else if (move === "prev") {
+        get().setFocusByClue(
+          direction === "across"
+            ? clues.down.at(-1)!.number
+            : clues.across.at(-1)!.number,
+          direction === "across" ? "down" : "across",
+          targetCell,
+        );
+      } else {
+        throw new Error(errorPrefix + "invalid modifier.");
+      }
     }
   },
   setFocusByKbd: (kbdBtn) => {
@@ -255,7 +296,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
         get().setFocusToNextClue(1);
         break;
       case ",": // Go to prev clue
-        get().setFocusToNextClue(-1);
+        get().setFocusToNextClue(-1, "first");
         break;
     }
   },
