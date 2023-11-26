@@ -44,6 +44,7 @@ module.exports = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+          secondary: "hsl(var(--destructive-secondary))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",

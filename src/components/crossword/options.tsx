@@ -5,11 +5,14 @@ import { useGameStore } from "@/lib/store";
 import { Stopwatch } from "./atoms/stopwatch";
 import { ThemeToggle } from "../theme/toggle";
 import { Button } from "../ui/button";
+import { Switch } from "../ui/switch";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
 import { FocusStateLogger, GameStateLogger } from "./debug/state-loggers";
 
 export function CrosswordOptions() {
   const reset = useGameStore((state) => state.reset);
+  const gameIsChecking = useGameStore((state) => state.game.isChecking);
+  const toggleIsChecking = useGameStore((state) => state.toggleGameIsChecking);
 
   const [resetConfirm, setResetConfirm] = React.useState(false);
 
@@ -52,12 +55,16 @@ export function CrosswordOptions() {
           </TooltipTrigger>
           <TooltipContent>Coming soon!</TooltipContent>
         </Tooltip>
+        <div className="inline-flex w-40 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium">
+          <span>Check&nbsp;grid</span>
+          <Switch checked={gameIsChecking} onCheckedChange={toggleIsChecking} />
+        </div>
         <ThemeToggle />
       </div>
-      <>
+      {/* <>
         <FocusStateLogger />
         <GameStateLogger />
-      </>
+      </> */}
     </div>
   );
 }

@@ -38,7 +38,7 @@ type Action = {
     colModifier: number,
   ) => { row: number; col: number }; // helper
   setCellValue: (value: CellValue, row: number, col: number) => void;
-  switchFocusDirection: () => void;
+  toggleFocusDirection: () => void;
   setFocusByCell: (
     row: State["focus"]["row"],
     col: State["focus"]["col"],
@@ -53,7 +53,7 @@ type Action = {
   setFocusToNextClue: (modifier: number, targetCell?: "first" | "last") => void;
   setFocusByKbd: (kbdBtn: string) => void;
   setGameIsStarted: () => void;
-  setGameIsChecking: (isChecking: State["game"]["isChecking"]) => void;
+  toggleGameIsChecking: () => void;
 };
 
 const initialGameState: State = {
@@ -188,7 +188,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
       focus: { direction, row, col, word, clueNumber, clueText },
     }));
   },
-  switchFocusDirection: () => {
+  toggleFocusDirection: () => {
     const { focus } = get();
     const { row, col, direction: initialDirection } = focus;
     const direction = initialDirection === "across" ? "down" : "across";
@@ -293,7 +293,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
 
     switch (kbdBtn) {
       case " ":
-        get().switchFocusDirection();
+        get().toggleFocusDirection();
         break;
       case "ArrowUp":
         ({ row: nextRow } = get().findNextValidCell(-1, 0));
@@ -323,7 +323,9 @@ export const useGameStore = create<State & Action>()((set, get) => ({
   setGameIsStarted: () => {
     set((state) => ({ game: { ...state.game, isStarted: true } }));
   },
-  setGameIsChecking: (isChecking) => {
-    set((state) => ({ game: { ...state.game, isChecking } }));
+  toggleGameIsChecking: () => {
+    set((state) => ({
+      game: { ...state.game, isChecking: !state.game.isChecking },
+    }));
   },
 }));
