@@ -1,5 +1,4 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Sidebar } from "@/components/sidebar";
 
 export const metadata = {
   title: "Crosswordfish",
@@ -14,10 +13,7 @@ export default function PlayLayout({
 }) {
   return (
     <TooltipProvider>
-      <div className="flex h-screen">
-        <Sidebar />
-        {children}
-      </div>
+      <div className="flex h-screen">{children}</div>
     </TooltipProvider>
   );
 }

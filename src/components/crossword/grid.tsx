@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useGameStore } from "@/lib/store";
-import { CrosswordCell } from "./cell";
+import { CrosswordCell } from "./atoms/cell";
 import type { AcrossClue, DownClue } from "@/lib/types";
 
 type CellRef = HTMLInputElement | null;
@@ -70,7 +70,7 @@ export function CrosswordGrid() {
   }, [setFocusByKbd, focus]);
 
   return (
-    <div className={`grid h-full w-1/2 min-w-fit grid-cols-15 gap-px`}>
+    <div className={`grid h-full w-1/2 min-w-fit grid-cols-15 gap-px p-6`}>
       {solutionGrid.map((row, rowIdx) =>
         row.map((solution, colIdx) => {
           const cellNumber = getCellNumber(rowIdx, colIdx);

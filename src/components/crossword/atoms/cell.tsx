@@ -4,7 +4,7 @@ import React from "react";
 import { useGameStore } from "@/lib/store";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 
 type CellProps = {
   solution: CellValue;

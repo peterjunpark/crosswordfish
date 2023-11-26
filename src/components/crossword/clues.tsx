@@ -15,7 +15,7 @@ export function CrosswordClues() {
   return (
     <div className="flex">
       {/* ACROSS */}
-      <div>
+      <div className="px-2">
         <h3 className="pl-2 font-semibold tracking-tight">across</h3>
         <ScrollArea className="h-96 w-64 rounded-md border">
           {clues.across.map((clue, idx) => (
@@ -45,7 +45,7 @@ export function CrosswordClues() {
         </ScrollArea>
       </div>
       {/* DOWN */}
-      <div>
+      <div className="px-2">
         <h3 className="pl-2 font-semibold tracking-tight">down</h3>
         <ScrollArea className="h-96 w-64 rounded-md border">
           {clues.down.map((clue, idx) => (
