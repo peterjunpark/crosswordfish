@@ -1,6 +1,6 @@
 import type { Clues } from "@/lib/types";
 
-export const DUMMY_clues: Clues = {
+export const testClues1: Clues = {
   across: [
     {
       number: 1,

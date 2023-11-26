@@ -61,7 +61,7 @@ export function CrosswordGrid() {
       gridRef.current[focus.row]![focus.col]?.select();
 
       if (e.key === "Tab") {
-        console.log(document.activeElement);
+        e.preventDefault();
       }
     };
 
@@ -70,7 +70,7 @@ export function CrosswordGrid() {
   }, [setFocusByKbd, focus]);
 
   return (
-    <div className={`gap-pxq grid h-full w-1/2 min-w-fit grid-cols-15`}>
+    <div className={`grid h-full w-1/2 min-w-fit grid-cols-15 gap-px`}>
       {solutionGrid.map((row, rowIdx) =>
         row.map((solution, colIdx) => {
           const cellNumber = getCellNumber(rowIdx, colIdx);

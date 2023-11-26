@@ -1,11 +1,16 @@
 import { create } from "zustand";
 import type { Grid, Clues, AcrossClue, DownClue, CellValue } from "./types";
-import { DUMMY_clues, DUMMY_grid } from "@/___tests___/dummy-data";
+import {
+  testGrid1,
+  testClues1,
+  testGrid2,
+  testClues2,
+} from "@/___tests___/test-data";
 
 //TODO: Will probably need to initialize the store with props? I.e., generated crossword grid.
 
-const grid = DUMMY_grid;
-const clues = DUMMY_clues;
+const grid = testGrid2;
+const clues = testClues2;
 
 type State = {
   clues: Clues;
@@ -301,6 +306,7 @@ export const useGameStore = create<State & Action>()((set, get) => ({
         set((state) => ({ focus: { ...state.focus, col: nextCol } }));
         break;
       case ".": // Go to next clue
+      case "Tab":
         get().setFocusToNextClue(1);
         break;
       case ",": // Go to prev clue

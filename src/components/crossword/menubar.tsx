@@ -41,7 +41,7 @@ export function CrosswordMenubar() {
             {focus.clueNumber} {focus.direction}{" "}
           </span>
         </span>
-        <span className="text-5xl font-semibold tracking-tight">
+        <span className="hyphens-auto text-5xl font-semibold tracking-tight">
           {focus.clueText}
         </span>
       </div>
