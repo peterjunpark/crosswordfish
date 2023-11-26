@@ -2,9 +2,11 @@
 
 import React from "react";
 import { useGameStore } from "@/lib/store";
+import { Stopwatch } from "./atoms/stopwatch";
 import { ThemeToggle } from "../theme/toggle";
 import { Button } from "../ui/button";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
+import { FocusStateLogger, GameStateLogger } from "./debug/state-loggers";
 
 export function CrosswordOptions() {
   const reset = useGameStore((state) => state.reset);
@@ -32,19 +34,9 @@ export function CrosswordOptions() {
   return (
     <div className="flex w-full items-center justify-between p-6">
       <div className="flex items-center gap-4">
-        <div>
-          <span className="font-mono text-3xl font-bold">00:00:00</span>
-        </div>
+        <Stopwatch />
       </div>
       <div className="flex gap-4">
-        {/* <Button
-          variant="outline"
-          onClick={() => {
-            console.log({ focus });
-          }}
-        >
-          Log focus
-        </Button> */}
         <Button
           onClick={handleReset}
           variant={resetConfirm ? "destructive" : "outline"}
@@ -62,6 +54,10 @@ export function CrosswordOptions() {
         </Tooltip>
         <ThemeToggle />
       </div>
+      <>
+        <FocusStateLogger />
+        <GameStateLogger />
+      </>
     </div>
   );
 }

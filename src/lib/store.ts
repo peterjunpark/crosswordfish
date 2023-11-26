@@ -25,10 +25,10 @@ type State = {
     clueNumber: number;
     clueText: string;
   };
-  // game: {
-  //   isStarted: boolean;
-  //   isChecking: boolean;
-  // };
+  game: {
+    isStarted: boolean;
+    isChecking: boolean;
+  };
 };
 
 type Action = {
@@ -52,6 +52,8 @@ type Action = {
   setFocusToNextCell: (modifier: number) => void;
   setFocusToNextClue: (modifier: number, targetCell?: "first" | "last") => void;
   setFocusByKbd: (kbdBtn: string) => void;
+  setGameIsStarted: () => void;
+  setGameIsChecking: (isChecking: State["game"]["isChecking"]) => void;
 };
 
 const initialGameState: State = {
@@ -68,6 +70,10 @@ const initialGameState: State = {
     word: clues.across[0]!.cols,
     clueNumber: clues.across[0]!.number,
     clueText: clues.across[0]!.text,
+  },
+  game: {
+    isStarted: false,
+    isChecking: false,
   },
 };
 // TODO: Refactor to use immer
@@ -313,5 +319,11 @@ export const useGameStore = create<State & Action>()((set, get) => ({
         get().setFocusToNextClue(-1, "first");
         break;
     }
+  },
+  setGameIsStarted: () => {
+    set((state) => ({ game: { ...state.game, isStarted: true } }));
+  },
+  setGameIsChecking: (isChecking) => {
+    set((state) => ({ game: { ...state.game, isChecking } }));
   },
 }));

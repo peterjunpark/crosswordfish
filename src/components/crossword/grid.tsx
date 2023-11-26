@@ -9,11 +9,15 @@ type CellRef = HTMLInputElement | null;
 type GridRef = Array<Array<CellRef>>;
 
 export function CrosswordGrid() {
+  // Gameboard state
   const solutionGrid = useGameStore((state) => state.solutionGrid);
   const clues = useGameStore((state) => state.clues);
-
+  // Player focus state
   const focus = useGameStore((state) => state.focus);
   const setFocusByKbd = useGameStore((state) => state.setFocusByKbd);
+  // Game state
+  const isStarted = useGameStore((state) => state.game.isStarted);
+  const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 
   // Initialize gridRef with an array of arrays.
   const gridRef = React.useRef<GridRef>(
@@ -21,7 +25,6 @@ export function CrosswordGrid() {
       Array.from({ length: solutionGrid[0]!.length }, () => null),
     ),
   );
-
   // gridRef.current will be a matrix of refs to each cell in the grid.
   const attachRefToCell = (elem: CellRef, row: number, col: number) => {
     if (elem && !gridRef.current[row]?.[col]) {
@@ -60,9 +63,7 @@ export function CrosswordGrid() {
       setFocusByKbd(e.key);
       gridRef.current[focus.row]![focus.col]?.select();
 
-      if (e.key === "Tab") {
-        e.preventDefault();
-      }
+      if (e.key === "Tab") e.preventDefault();
     };
 
     document.addEventListener("keydown", keydown);
@@ -78,7 +79,7 @@ export function CrosswordGrid() {
           if (solution !== null) {
             return (
               <CrosswordCell
-                id={`${rowIdx}::${colIdx}`}
+                id={`${rowIdx}/${colIdx}`}
                 ref={(elem) => attachRefToCell(elem, rowIdx, colIdx)}
                 row={rowIdx}
                 col={colIdx}
@@ -91,7 +92,7 @@ export function CrosswordGrid() {
             return (
               <div
                 className="aspect-square w-full rounded-sm bg-muted"
-                key={`${rowIdx}::${colIdx}`}
+                key={`${rowIdx}/${colIdx}`}
               />
             );
           }
