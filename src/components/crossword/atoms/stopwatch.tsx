@@ -30,7 +30,7 @@ export function Stopwatch() {
   const seconds = formatTime(6000);
 
   return (
-    <span className="font-mono text-3xl font-bold">
+    <span className="font-mono text-4xl font-bold text-muted-foreground">
       {minutes}:{seconds}
     </span>
   );

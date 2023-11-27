@@ -13,9 +13,9 @@ export function CrosswordClues() {
   const setFocusByClue = useGameStore((state) => state.setFocusByClue);
 
   return (
-    <div className="flex">
+    <div className="flex gap-3 pb-3 pt-6">
       {/* ACROSS */}
-      <div className="px-2">
+      <div>
         <h3 className="pl-2 font-semibold tracking-tight">across</h3>
         <ScrollArea className="h-96 w-64 rounded-md border">
           {clues.across.map((clue, idx) => (
@@ -45,7 +45,7 @@ export function CrosswordClues() {
         </ScrollArea>
       </div>
       {/* DOWN */}
-      <div className="px-2">
+      <div>
         <h3 className="pl-2 font-semibold tracking-tight">down</h3>
         <ScrollArea className="h-96 w-64 rounded-md border">
           {clues.down.map((clue, idx) => (

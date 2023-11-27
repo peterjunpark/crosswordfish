@@ -35,9 +35,13 @@ export function CrosswordOptions() {
   }, [resetConfirm]);
 
   return (
-    <div className="flex w-full items-center justify-between p-6">
+    <div className="flex w-full flex-col items-start gap-4 rounded-md border p-6">
       <div className="flex items-center gap-4">
         <Stopwatch />
+        <div className="inline-flex w-40 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium">
+          <span>Check&nbsp;grid</span>
+          <Switch checked={gameIsChecking} onCheckedChange={toggleIsChecking} />
+        </div>
       </div>
       <div className="flex gap-4">
         <Button
@@ -47,18 +51,7 @@ export function CrosswordOptions() {
         >
           {resetConfirm ? "You sure?" : "Reset"}
         </Button>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="secondary" className="w-24 text-muted-foreground">
-              Print
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Coming soon!</TooltipContent>
-        </Tooltip>
-        <div className="inline-flex w-40 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium">
-          <span>Check&nbsp;grid</span>
-          <Switch checked={gameIsChecking} onCheckedChange={toggleIsChecking} />
-        </div>
+
         <ThemeToggle />
       </div>
       {/* <>

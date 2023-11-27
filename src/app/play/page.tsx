@@ -7,7 +7,7 @@ export default function PlayPage() {
   return (
     <main className="flex h-full w-full flex-col items-center">
       <CrosswordHeader />
-      <div className="flex h-fit w-full items-center justify-around">
+      <div className="flex h-fit w-full items-center justify-center">
         <CrosswordGrid />
         <div className="flex h-full flex-col">
           <CrosswordClues />
