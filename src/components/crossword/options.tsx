@@ -12,9 +12,13 @@ import { Switch } from "../ui/switch";
 
 type CrosswordOptionsProps = {
   outerLayoutClass: string;
+  innerLayoutClass: string;
 };
 
-export function CrosswordOptions({ outerLayoutClass }: CrosswordOptionsProps) {
+export function CrosswordOptions({
+  outerLayoutClass,
+  innerLayoutClass,
+}: CrosswordOptionsProps) {
   const reset = useGameStore((state) => state.reset);
   const gameIsChecking = useGameStore((state) => state.game.isChecking);
   const toggleIsChecking = useGameStore((state) => state.toggleGameIsChecking);
@@ -40,20 +44,18 @@ export function CrosswordOptions({ outerLayoutClass }: CrosswordOptionsProps) {
   }, [resetConfirm]);
 
   return (
-    <div className={cn(outerLayoutClass, "gap-3 rounded-md border")}>
-      <div className="flex items-center gap-4">
-        <div className="inline-flex w-32 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium">
+    <div className={outerLayoutClass}>
+      <div className={innerLayoutClass}>
+        <div className="inline-flex flex-col items-center gap-1 py-2 text-sm font-medium">
           <span>Check&nbsp;grid</span>
           <Switch checked={gameIsChecking} onCheckedChange={toggleIsChecking} />
         </div>
         <Button
           onClick={handleReset}
           variant={resetConfirm ? "destructive" : "outline"}
-          className="w-24"
         >
           {resetConfirm ? "You sure?" : "Reset"}
         </Button>
-
         <ThemeToggle />
       </div>
       {/* <Stopwatch /> */}

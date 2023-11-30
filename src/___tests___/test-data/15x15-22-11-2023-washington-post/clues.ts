@@ -34,7 +34,7 @@ export const testClues2: Clues = {
     },
     {
       number: 16,
-      text: `"Just ___!`,
+      text: `"Just ___!"`,
       row: 1,
       cols: [11, 12, 13, 14],
     },
@@ -288,7 +288,7 @@ export const testClues2: Clues = {
     },
     {
       number: 13,
-      text: `"House of Gucci" direction Ridley ___`,
+      text: `"House of Gucci" director Ridley ___`,
       col: 14,
       rows: [0, 1, 2, 3, 4],
     },

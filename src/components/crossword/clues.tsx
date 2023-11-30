@@ -21,7 +21,7 @@ export function CrosswordClues({
   const setFocusByClue = useGameStore((state) => state.setFocusByClue);
 
   return (
-    <div className={cn(outerLayoutClass, "gap-3")}>
+    <div className={cn(outerLayoutClass)}>
       <CluesPanel
         direction="across"
         cluesList={clues.across}
@@ -55,16 +55,16 @@ function CluesPanel({
   return (
     <div className={innerLayoutClass}>
       <h3 className="pl-3 font-semibold tracking-tight">{direction}</h3>
-      <ScrollArea className="h-[96.2%] w-full rounded-md border">
+      <ScrollArea className="h-full w-full shrink rounded-md border">
         {cluesList.map((clue, idx) => (
           <React.Fragment key={`${clue.number}-${direction}`}>
             <Button
               variant="ghost"
               className={cn(
                 "h-fit w-full items-start justify-start gap-1 whitespace-normal rounded-none text-start font-normal",
-                ["text-[0.9rem]"],
+                "md:text-[0.9rem]",
                 {
-                  "text-md bg-accent":
+                  "bg-accent lg:text-base":
                     focus.clueNumber === clue.number &&
                     focus.direction === direction,
                 },
