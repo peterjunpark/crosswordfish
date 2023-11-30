@@ -12,7 +12,7 @@ import {
 const grid = testGrid2;
 const clues = testClues2;
 
-type State = {
+export type State = {
   clues: Clues;
   solutionGrid: Grid;
   workingGrid: Grid;
@@ -31,7 +31,7 @@ type State = {
   };
 };
 
-type Action = {
+export type Action = {
   reset: () => void;
   findNextValidCell: (
     rowModifier: number,

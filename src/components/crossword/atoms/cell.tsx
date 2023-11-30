@@ -12,11 +12,14 @@ type CellProps = {
   col: number;
   number?: number;
   id?: string;
-  className?: string;
+  innerLayoutClass: string;
 };
 
 export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
-  function CrosswordCell({ row, col, solution, number, id, className }, ref) {
+  function CrosswordCell(
+    { row, col, solution, number, id, innerLayoutClass: layoutClass },
+    ref,
+  ) {
     const workingGrid = useGameStore((state) => state.workingGrid);
     const setCellValue = useGameStore((state) => state.setCellValue);
     const cellValue = workingGrid[row]![col]!;
@@ -66,8 +69,8 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     }, [row, col, cellValue, isFocusedCell, setFocusToNextCell, setCellValue]);
 
     return (
-      <div className="relative">
-        <label className="absolute left-[0.17rem] top-[0.13rem] select-none font-mono text-xs opacity-70">
+      <div className={cn(layoutClass, "relative")}>
+        <label className="absolute left-[0.17rem] top-[0.13rem] hidden select-none font-mono text-xs opacity-70 md:inline">
           {number}
         </label>
         <Input
@@ -78,8 +81,8 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onDoubleClick={toggleFocusDirection}
           id={id}
           className={cn(
-            "aspect-square h-fit cursor-pointer select-all border-2 text-center font-mono text-lg caret-transparent selection:bg-opacity-0 focus:border-brand-foreground focus-visible:ring-brand-foreground",
-            className,
+            "h-full cursor-pointer select-all border bg-background p-0 text-center font-mono caret-transparent selection:bg-opacity-0 focus:border-brand-foreground focus-visible:ring-brand-foreground",
+            ["md:text-xl"],
             { "border-2 border-highlight": isFocusedWord },
             {
               "text-destructive-secondary":

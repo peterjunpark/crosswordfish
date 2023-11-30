@@ -2,14 +2,19 @@
 
 import React from "react";
 import { useGameStore } from "@/lib/store";
-import { Stopwatch } from "./atoms/stopwatch";
+import { cn } from "@/lib/utils";
+// import { Stopwatch } from "./atoms/stopwatch";
 import { ThemeToggle } from "../theme/toggle";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
-import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
-import { FocusStateLogger, GameStateLogger } from "./debug/state-loggers";
+// import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
+// import { FocusStateLogger, GameStateLogger } from "./debug/state-loggers";
 
-export function CrosswordOptions() {
+type CrosswordOptionsProps = {
+  outerLayoutClass: string;
+};
+
+export function CrosswordOptions({ outerLayoutClass }: CrosswordOptionsProps) {
   const reset = useGameStore((state) => state.reset);
   const gameIsChecking = useGameStore((state) => state.game.isChecking);
   const toggleIsChecking = useGameStore((state) => state.toggleGameIsChecking);
@@ -35,15 +40,12 @@ export function CrosswordOptions() {
   }, [resetConfirm]);
 
   return (
-    <div className="flex w-full flex-col items-start gap-4 rounded-md border p-6">
+    <div className={cn(outerLayoutClass, "gap-3 rounded-md border")}>
       <div className="flex items-center gap-4">
-        <Stopwatch />
-        <div className="inline-flex w-40 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium">
+        <div className="inline-flex w-32 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium">
           <span>Check&nbsp;grid</span>
           <Switch checked={gameIsChecking} onCheckedChange={toggleIsChecking} />
         </div>
-      </div>
-      <div className="flex gap-4">
         <Button
           onClick={handleReset}
           variant={resetConfirm ? "destructive" : "outline"}
@@ -54,6 +56,7 @@ export function CrosswordOptions() {
 
         <ThemeToggle />
       </div>
+      {/* <Stopwatch /> */}
       {/* <>
         <FocusStateLogger />
         <GameStateLogger />

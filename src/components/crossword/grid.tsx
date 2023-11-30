@@ -2,13 +2,22 @@
 
 import React from "react";
 import { useGameStore } from "@/lib/store";
+import { cn } from "@/lib/utils";
 import { CrosswordCell } from "./atoms/cell";
 import type { AcrossClue, DownClue } from "@/lib/types";
 
 type CellRef = HTMLInputElement | null;
 type GridRef = Array<Array<CellRef>>;
 
-export function CrosswordGrid() {
+type CrosswordGridProps = {
+  outerLayoutClass: string;
+  innerLayoutClass: string;
+};
+
+export function CrosswordGrid({
+  outerLayoutClass,
+  innerLayoutClass,
+}: CrosswordGridProps) {
   // Gameboard state
   const solutionGrid = useGameStore((state) => state.solutionGrid);
   const clues = useGameStore((state) => state.clues);
@@ -16,8 +25,8 @@ export function CrosswordGrid() {
   const focus = useGameStore((state) => state.focus);
   const setFocusByKbd = useGameStore((state) => state.setFocusByKbd);
   // Game state
-  const isStarted = useGameStore((state) => state.game.isStarted);
-  const setIsStarted = useGameStore((state) => state.setGameIsStarted);
+  // const isStarted = useGameStore((state) => state.game.isStarted);
+  // const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 
   // Initialize gridRef with an array of arrays.
   const gridRef = React.useRef<GridRef>(
@@ -71,7 +80,11 @@ export function CrosswordGrid() {
   }, [setFocusByKbd, focus]);
 
   return (
-    <div className={`grid h-full w-1/2 min-w-fit grid-cols-15 gap-px p-6`}>
+    <div
+      className={cn(outerLayoutClass, "grid grid-cols-15 rounded-md bg-muted", [
+        "md:gap-px md:p-1",
+      ])}
+    >
       {solutionGrid.map((row, rowIdx) =>
         row.map((solution, colIdx) => {
           const cellNumber = getCellNumber(rowIdx, colIdx);
@@ -85,16 +98,12 @@ export function CrosswordGrid() {
                 col={colIdx}
                 solution={solution}
                 number={cellNumber}
-                key={`${rowIdx}::${colIdx}`}
+                key={`${rowIdx}/${colIdx}`}
+                innerLayoutClass={innerLayoutClass}
               />
             );
           } else {
-            return (
-              <div
-                className="aspect-square w-full rounded-sm bg-muted"
-                key={`${rowIdx}/${colIdx}`}
-              />
-            );
+            return <div key={`${rowIdx}/${colIdx}`} />;
           }
         }),
       )}

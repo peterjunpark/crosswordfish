@@ -1,79 +1,85 @@
 "use client";
 
 import React from "react";
-import { useGameStore } from "@/lib/store";
-import { cn, stringifyRowCol } from "@/lib/utils";
+import { useGameStore, type State, type Action } from "@/lib/store";
+import { cn } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
-export function CrosswordClues() {
+type CrosswordCluesProps = {
+  outerLayoutClass: string;
+  innerLayoutClass: string;
+};
+
+export function CrosswordClues({
+  outerLayoutClass,
+  innerLayoutClass,
+}: CrosswordCluesProps) {
   const clues = useGameStore((state) => state.clues);
   const focus = useGameStore((state) => state.focus);
   const setFocusByClue = useGameStore((state) => state.setFocusByClue);
 
   return (
-    <div className="flex gap-3 pb-3 pt-6">
-      {/* ACROSS */}
-      <div>
-        <h3 className="pl-2 font-semibold tracking-tight">across</h3>
-        <ScrollArea className="h-96 w-64 rounded-md border">
-          {clues.across.map((clue, idx) => (
-            <React.Fragment key={stringifyRowCol(clue.row, clue.cols)}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "flex h-fit w-full items-start justify-start gap-1 whitespace-normal rounded-none text-start text-sm font-normal",
-                  {
-                    "text-md bg-accent":
-                      focus.clueNumber === clue.number &&
-                      focus.direction === "across",
-                  },
-                )}
-                onClick={() => {
-                  setFocusByClue(clue.number, "across");
-                }}
-              >
-                <span className="font-bold opacity-70">{clue.number}.</span>
-                <span>{clue.text}</span>
-              </Button>
-              {idx !== clues.across.length - 1 && (
-                <Separator className="w-full" />
-              )}
-            </React.Fragment>
-          ))}
-        </ScrollArea>
-      </div>
+    <div className={cn(outerLayoutClass, "gap-3")}>
+      <CluesPanel
+        direction="across"
+        cluesList={clues.across}
+        {...{ focus, setFocusByClue, innerLayoutClass }}
+      />
       {/* DOWN */}
-      <div>
-        <h3 className="pl-2 font-semibold tracking-tight">down</h3>
-        <ScrollArea className="h-96 w-64 rounded-md border">
-          {clues.down.map((clue, idx) => (
-            <React.Fragment key={stringifyRowCol(clue.rows, clue.col)}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "flex h-fit w-full items-start justify-start gap-1 whitespace-normal rounded-none text-start text-sm font-normal",
-                  {
-                    "text-md bg-accent":
-                      focus.clueNumber === clue.number &&
-                      focus.direction === "down",
-                  },
-                )}
-                onClick={() => {
-                  setFocusByClue(clue.number, "down");
-                }}
-              >
-                <span className="font-bold opacity-70">{clue.number}.</span>
-                <span>{clue.text}</span>
-              </Button>
-              {idx !== clues.down.length - 1 && (
-                <Separator className="w-full" />
+      <CluesPanel
+        direction="down"
+        cluesList={clues.down}
+        {...{ focus, setFocusByClue, innerLayoutClass }}
+      />
+    </div>
+  );
+}
+
+type CluesPanelProps = {
+  direction: State["focus"]["direction"];
+  cluesList: State["clues"]["across"] | State["clues"]["down"];
+  focus: State["focus"];
+  setFocusByClue: Action["setFocusByClue"];
+  innerLayoutClass: string;
+};
+
+function CluesPanel({
+  direction,
+  cluesList,
+  focus,
+  setFocusByClue,
+  innerLayoutClass,
+}: CluesPanelProps) {
+  return (
+    <div className={innerLayoutClass}>
+      <h3 className="pl-3 font-semibold tracking-tight">{direction}</h3>
+      <ScrollArea className="h-[96.2%] w-full rounded-md border">
+        {cluesList.map((clue, idx) => (
+          <React.Fragment key={`${clue.number}-${direction}`}>
+            <Button
+              variant="ghost"
+              className={cn(
+                "h-fit w-full items-start justify-start gap-1 whitespace-normal rounded-none text-start font-normal",
+                ["text-[0.9rem]"],
+                {
+                  "text-md bg-accent":
+                    focus.clueNumber === clue.number &&
+                    focus.direction === direction,
+                },
               )}
-            </React.Fragment>
-          ))}
-        </ScrollArea>
-      </div>
+              onClick={() => {
+                setFocusByClue(clue.number, direction);
+              }}
+            >
+              <span className="font-bold opacity-70">{clue.number}.</span>
+              <span className="w-fit">{clue.text}</span>
+            </Button>
+            {idx !== cluesList.length - 1 && <Separator />}
+          </React.Fragment>
+        ))}
+      </ScrollArea>
     </div>
   );
 }

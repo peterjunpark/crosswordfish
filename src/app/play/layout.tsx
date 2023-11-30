@@ -11,9 +11,5 @@ export default function PlayLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <TooltipProvider>
-      <div className="flex h-screen">{children}</div>
-    </TooltipProvider>
-  );
+  return <TooltipProvider>{children}</TooltipProvider>;
 }
