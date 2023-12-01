@@ -36,14 +36,14 @@ export default function PlayPage() {
         <CrosswordClues
           outerLayoutClass={clsx(
             "flex h-full gap-1",
-            "md:w-[10rem]",
-            "lg:w-[20rem] lg:flex-col lg:justify-between",
+            "md:w-[10rem] md:flex-col md:justify-between",
+            "lg:w-[20rem]",
             "xl:w-[20rem]",
             "2xl:w-[40rem] 2xl:flex-row 2xl:gap-3",
           )}
           innerLayoutClass={clsx(
             "flex h-full w-1/2 flex-col",
-            "lg:h-1/2 lg:h-[49%] lg:w-full",
+            "md:h-1/2 md:h-[49%] md:w-full",
             "2xl:h-full",
           )}
         />
