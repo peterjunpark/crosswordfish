@@ -22,7 +22,10 @@ export default function PlayPage() {
         )}
       >
         <CrosswordGrid
-          outerLayoutClass="sticky top-[4.22rem] z-50 aspect-square h-auto w-full landscape:h-full landscape:w-auto"
+          outerLayoutClass={clsx(
+            "sticky top-[4.22rem] z-50 aspect-square h-auto w-full",
+            "landscape:h-full landscape:w-auto",
+          )}
           innerLayoutClass="aspect-square"
         />
         <CrosswordOptions
