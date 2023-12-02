@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -15,6 +14,16 @@ import { QuestionMarkIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 export function HelpDialog() {
+  const keyboardShortcuts = [
+    { key: "Spacebar", desc: "Switch clue direction" },
+    { key: "Tab", desc: "Move to next clue" },
+    { key: "Shift + Tab", desc: "Move to previous clue" },
+    {
+      key: "Backspace",
+      desc: "Delete / move to previous cell",
+    },
+    { key: "Arrow keys", desc: "Move up / right / down / left" },
+  ];
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,16 +34,18 @@ export function HelpDialog() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Keyboard shortcuts</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DialogDescription>
+          <DialogDescription>For the crossword pros...</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <h4>Hello</h4>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        <table className="text-sm">
+          {keyboardShortcuts.map((value) => (
+            <React.Fragment key={value.key}>
+              <tr className="border-b">
+                <th className="py-2 pr-4 text-right">{value.key}</th>
+                <td>{value.desc}</td>
+              </tr>
+            </React.Fragment>
+          ))}
+        </table>
       </DialogContent>
     </Dialog>
   );
