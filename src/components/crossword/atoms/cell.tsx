@@ -4,7 +4,7 @@ import React from "react";
 import { useGameStore } from "@/lib/store";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Input } from "../../ui/input";
+import { Input } from "@/components/ui/input";
 
 type CellProps = {
   solution: CellValue;
@@ -82,7 +82,8 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           id={id}
           className={cn(
             "h-full cursor-pointer select-all border bg-background p-0 text-center font-mono caret-transparent selection:bg-opacity-0 focus:border-brand-foreground focus-visible:ring-brand-foreground",
-            ["md:text-xl"],
+            "lg:text-lg",
+            "xl:text-xl",
             { "border-2 border-highlight": isFocusedWord },
             {
               "text-destructive-secondary":
