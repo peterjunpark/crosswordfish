@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useGameStore } from "@/lib/store";
+import { useGameContext } from "@/app/state/context";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -20,16 +20,16 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     { row, col, solution, number, id, innerLayoutClass: layoutClass },
     ref,
   ) {
-    const workingGrid = useGameStore((state) => state.workingGrid);
-    const setCellValue = useGameStore((state) => state.setCellValue);
+    const workingGrid = useGameContext((state) => state.workingGrid);
+    const setCellValue = useGameContext((state) => state.setCellValue);
     const cellValue = workingGrid[row]![col]!;
 
-    const focus = useGameStore((state) => state.focus);
-    const setFocusByCell = useGameStore((state) => state.setFocusByCell);
-    const setFocusToNextCell = useGameStore(
+    const focus = useGameContext((state) => state.focus);
+    const setFocusByCell = useGameContext((state) => state.setFocusByCell);
+    const setFocusToNextCell = useGameContext(
       (state) => state.setFocusToNextCell,
     );
-    const toggleFocusDirection = useGameStore(
+    const toggleFocusDirection = useGameContext(
       (state) => state.toggleFocusDirection,
     );
     const isFocusedCell = focus.row === row && focus.col === col;
@@ -40,7 +40,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
         ? focus.col === col && focus.word.includes(row)
         : false;
 
-    const gameIsChecking = useGameStore((state) => state.game.isChecking);
+    const gameIsChecking = useGameContext((state) => state.game.isChecking);
 
     // Update state when the cell is focused.
     const handleFocus = () => {

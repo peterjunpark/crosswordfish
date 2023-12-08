@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useGameStore } from "@/lib/store";
+import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
 
 type CrosswordHeaderProps = {
@@ -9,7 +9,7 @@ type CrosswordHeaderProps = {
 };
 
 export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
-  const focus = useGameStore((state) => state.focus);
+  const focus = useGameContext((state) => state.focus);
 
   return (
     <header className={cn(outerLayoutClass, "bg-background")}>

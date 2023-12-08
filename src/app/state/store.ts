@@ -1,24 +1,12 @@
 import { createStore } from "zustand";
-import type {
-  Grid,
-  Clues,
-  AcrossClue,
-  DownClue,
-  CellValue,
-} from "../../lib/types";
-import { testGrid2, testClues2 } from "@/___tests___/test-data";
-
-//TODO: Will probably need to initialize the store with props? I.e., generated crossword grid.
-
-const grid = testGrid2;
-const clues = testClues2;
+import type { Grid, Clues, AcrossClue, DownClue, CellValue } from "@/lib/types";
 
 export interface GameProps {
   initGrid: Grid;
+  clues: Clues;
 }
 
 export interface GameState extends GameProps {
-  clues: Clues;
   workingGrid: Grid;
   gridSize: { rows: number; cols: number };
   focus: {
@@ -37,7 +25,7 @@ export interface GameState extends GameProps {
 
 //TODO: REfactor RESET
 export interface GameActions {
-  // reset: () => void;
+  reset: () => void;
   findNextValidCell: (
     rowModifier: number,
     colModifier: number,
@@ -64,22 +52,17 @@ export interface GameActions {
 export type GameStore = ReturnType<typeof createGameStore>;
 
 // TODO: WILL NEED REFACTOR
-export const createGameStore = (initProps?: Partial<GameProps>) => {
-  const DEFAULT_PROPS: GameProps = {
-    initGrid: grid,
-  };
-
-  return createStore<GameState & GameActions>()((set, get) => ({
-    ...DEFAULT_PROPS,
-    ...initProps,
-    clues: clues,
-    workingGrid: DEFAULT_PROPS.initGrid.map((row) =>
+export const createGameStore = (initProps: GameProps) => {
+  const { initGrid, clues } = initProps;
+  const initState: GameState = {
+    initGrid,
+    clues,
+    workingGrid: initGrid.map((row) =>
       row.map((cell) => (cell === null ? null : "")),
     ),
-    gridSize: { rows: grid.length, cols: grid[0]!.length },
+    gridSize: { rows: initGrid.length, cols: initGrid[0]!.length },
     focus: {
       direction: "across",
-
       row: clues.across[0]!.row,
       col: clues.across[0]!.cols[0]!,
       word: clues.across[0]!.cols,
@@ -90,7 +73,14 @@ export const createGameStore = (initProps?: Partial<GameProps>) => {
       isStarted: false,
       isChecking: false,
     },
-    // reset: () => set(initialGameState),
+  };
+
+  return createStore<GameState & GameActions>()((set, get) => ({
+    ...initState,
+    workingGrid: initGrid.map((row) =>
+      row.map((cell) => (cell === null ? null : "")),
+    ),
+    reset: () => set(initState),
     findNextValidCell: (rowModifier, colModifier) => {
       const { focus, initGrid, gridSize } = get();
       const { row: initialRow, col: initialCol } = focus;

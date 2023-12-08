@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { useGameStore, type State, type Action } from "@/lib/store";
+import { useGameContext } from "@/app/state/context";
+import type { GameState, GameActions } from "@/app/state/store";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
@@ -16,9 +17,9 @@ export function CrosswordClues({
   outerLayoutClass,
   innerLayoutClass,
 }: CrosswordCluesProps) {
-  const clues = useGameStore((state) => state.clues);
-  const focus = useGameStore((state) => state.focus);
-  const setFocusByClue = useGameStore((state) => state.setFocusByClue);
+  const clues = useGameContext((state) => state.clues);
+  const focus = useGameContext((state) => state.focus);
+  const setFocusByClue = useGameContext((state) => state.setFocusByClue);
 
   return (
     <div className={cn(outerLayoutClass)}>
@@ -38,10 +39,10 @@ export function CrosswordClues({
 }
 
 type CluesPanelProps = {
-  direction: State["focus"]["direction"];
-  cluesList: State["clues"]["across"] | State["clues"]["down"];
-  focus: State["focus"];
-  setFocusByClue: Action["setFocusByClue"];
+  direction: GameState["focus"]["direction"];
+  cluesList: GameState["clues"]["across"] | GameState["clues"]["down"];
+  focus: GameState["focus"];
+  setFocusByClue: GameActions["setFocusByClue"];
   innerLayoutClass: string;
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useGameStore } from "@/lib/store";
+import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
 import { CrosswordCell } from "./atoms/cell";
 import type { AcrossClue, DownClue } from "@/lib/types";
@@ -19,19 +19,19 @@ export function CrosswordGrid({
   innerLayoutClass,
 }: CrosswordGridProps) {
   // Gameboard state
-  const solutionGrid = useGameStore((state) => state.solutionGrid);
-  const clues = useGameStore((state) => state.clues);
+  const initGrid = useGameContext((state) => state.initGrid);
+  const clues = useGameContext((state) => state.clues);
   // Player focus state
-  const focus = useGameStore((state) => state.focus);
-  const setFocusByKbd = useGameStore((state) => state.setFocusByKbd);
+  const focus = useGameContext((state) => state.focus);
+  const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
   // Game state
   // const isStarted = useGameStore((state) => state.game.isStarted);
   // const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 
   // Initialize gridRef with an array of arrays.
   const gridRef = React.useRef<GridRef>(
-    Array.from({ length: solutionGrid.length }, () =>
-      Array.from({ length: solutionGrid[0]!.length }, () => null),
+    Array.from({ length: initGrid.length }, () =>
+      Array.from({ length: initGrid[0]!.length }, () => null),
     ),
   );
   // gridRef.current will be a matrix of refs to each cell in the grid.
@@ -48,11 +48,11 @@ export function CrosswordGrid({
     // It needs to be numbered on the grid.
     let clue: AcrossClue | DownClue | undefined;
 
-    if (!solutionGrid[rowIdx]?.[colIdx - 1]) {
+    if (!initGrid[rowIdx]?.[colIdx - 1]) {
       clue = clues.across.find(
         (element) => element.row === rowIdx && element.cols[0] === colIdx,
       );
-    } else if (!solutionGrid[rowIdx - 1]?.[colIdx]) {
+    } else if (!initGrid[rowIdx - 1]?.[colIdx]) {
       clue = clues.down.find(
         (element) => element.col === colIdx && element.rows[0] === rowIdx,
       );
@@ -85,7 +85,7 @@ export function CrosswordGrid({
         "md:gap-px md:p-1",
       ])}
     >
-      {solutionGrid.map((row, rowIdx) =>
+      {initGrid.map((row, rowIdx) =>
         row.map((solution, colIdx) => {
           const cellNumber = getCellNumber(rowIdx, colIdx);
 
