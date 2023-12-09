@@ -22,7 +22,8 @@ export function CrosswordGrid({
   const initGrid = useGameContext((state) => state.initGrid);
   const clues = useGameContext((state) => state.clues);
   // Player focus state
-  const focus = useGameContext((state) => state.focus);
+  const focusedRow = useGameContext((state) => state.focusedRow);
+  const focusedCol = useGameContext((state) => state.focusedCol);
   const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
   // Game state
   // const isStarted = useGameStore((state) => state.game.isStarted);
@@ -62,22 +63,22 @@ export function CrosswordGrid({
 
   // Focus and select the cell in the DOM when focus state changes.
   React.useEffect(() => {
-    gridRef.current[focus.row]![focus.col]?.focus();
-    gridRef.current[focus.row]![focus.col]?.select();
-  }, [focus, clues]);
+    gridRef.current[focusedRow]![focusedCol]?.focus();
+    gridRef.current[focusedRow]![focusedCol]?.select();
+  }, [focusedRow, focusedCol, clues]);
 
   // Handle kbd navigation.
   React.useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       setFocusByKbd(e.key);
-      gridRef.current[focus.row]![focus.col]?.select();
+      gridRef.current[focusedRow]![focusedCol]?.select();
 
       if (e.key === "Tab") e.preventDefault();
     };
 
     document.addEventListener("keydown", keydown);
     return () => document.removeEventListener("keydown", keydown);
-  }, [setFocusByKbd, focus]);
+  }, [focusedRow, focusedCol, setFocusByKbd]);
 
   return (
     <div

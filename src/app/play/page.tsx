@@ -2,8 +2,7 @@ import { CrosswordGrid } from "@/components/crossword/grid";
 import { CrosswordHeader } from "@/components/crossword/header";
 import { CrosswordClues } from "@/components/crossword/clues";
 import { CrosswordOptions } from "@/components/crossword/options";
-import { clsx } from "clsx"; // clsx doesn't do anything here...
-// Only using it to visually organize tw classes at different viewport breakpoints.
+import { clsx } from "clsx";
 
 export default function PlayPage() {
   // outer/innerLayoutClass props are to colocate layout classes.

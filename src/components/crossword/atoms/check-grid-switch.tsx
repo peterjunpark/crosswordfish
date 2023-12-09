@@ -3,7 +3,7 @@ import { useGameContext } from "@/app/state/context";
 import { Switch } from "@/components/ui/switch";
 
 export function CheckGridSwitch() {
-  const gameIsChecking = useGameContext((state) => state.game.isChecking);
+  const gameIsChecking = useGameContext((state) => state.isChecking);
   const toggleIsChecking = useGameContext(
     (state) => state.toggleGameIsChecking,
   );

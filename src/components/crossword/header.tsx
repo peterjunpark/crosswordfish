@@ -9,7 +9,9 @@ type CrosswordHeaderProps = {
 };
 
 export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
-  const focus = useGameContext((state) => state.focus);
+  const focusedClueNumber = useGameContext((state) => state.focusedClueNumber);
+  const focusedClueText = useGameContext((state) => state.focusedClueText);
+  const focusedDirection = useGameContext((state) => state.focusedDirection);
 
   return (
     <header className={cn(outerLayoutClass, "bg-background")}>
@@ -23,7 +25,7 @@ export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
           <Link href="/">crosswordfish</Link>
         </h1>
         <span className="text-muted-foreground">
-          {focus.clueNumber}&nbsp;{focus.direction}{" "}
+          {focusedClueNumber}&nbsp;{focusedDirection}{" "}
         </span>
       </div>
       <span
@@ -32,7 +34,7 @@ export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
           "md:text-3xl md:font-semibold",
         )}
       >
-        {focus.clueText}
+        {focusedClueText}
       </span>
     </header>
   );

@@ -24,7 +24,10 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     const setCellValue = useGameContext((state) => state.setCellValue);
     const cellValue = workingGrid[row]![col]!;
 
-    const focus = useGameContext((state) => state.focus);
+    const focusedDirection = useGameContext((state) => state.focusedDirection);
+    const focusedRow = useGameContext((state) => state.focusedRow);
+    const focusedCol = useGameContext((state) => state.focusedCol);
+    const focusedWord = useGameContext((state) => state.focusedWord);
     const setFocusByCell = useGameContext((state) => state.setFocusByCell);
     const setFocusToNextCell = useGameContext(
       (state) => state.setFocusToNextCell,
@@ -32,19 +35,19 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
     const toggleFocusDirection = useGameContext(
       (state) => state.toggleFocusDirection,
     );
-    const isFocusedCell = focus.row === row && focus.col === col;
+    const isFocusedCell = focusedRow === row && focusedCol === col;
     const isFocusedWord =
-      focus.direction === "across"
-        ? focus.row === row && focus.word.includes(col)
-        : focus.direction === "down"
-        ? focus.col === col && focus.word.includes(row)
+      focusedDirection === "across"
+        ? focusedRow === row && focusedWord.includes(col)
+        : focusedDirection === "down"
+        ? focusedCol === col && focusedWord.includes(row)
         : false;
 
-    const gameIsChecking = useGameContext((state) => state.game.isChecking);
+    const gameIsChecking = useGameContext((state) => state.isChecking);
 
     // Update state when the cell is focused.
     const handleFocus = () => {
-      setFocusByCell(row, col, focus.direction);
+      setFocusByCell(row, col, focusedDirection);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

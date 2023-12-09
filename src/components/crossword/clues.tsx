@@ -18,7 +18,8 @@ export function CrosswordClues({
   innerLayoutClass,
 }: CrosswordCluesProps) {
   const clues = useGameContext((state) => state.clues);
-  const focus = useGameContext((state) => state.focus);
+  const focusedClueNumber = useGameContext((state) => state.focusedClueNumber);
+  const focusedDirection = useGameContext((state) => state.focusedDirection);
   const setFocusByClue = useGameContext((state) => state.setFocusByClue);
 
   return (
@@ -26,22 +27,33 @@ export function CrosswordClues({
       <CluesPanel
         direction="across"
         cluesList={clues.across}
-        {...{ focus, setFocusByClue, innerLayoutClass }}
+        {...{
+          focusedClueNumber,
+          focusedDirection,
+          setFocusByClue,
+          innerLayoutClass,
+        }}
       />
       {/* DOWN */}
       <CluesPanel
         direction="down"
         cluesList={clues.down}
-        {...{ focus, setFocusByClue, innerLayoutClass }}
+        {...{
+          focusedClueNumber,
+          focusedDirection,
+          setFocusByClue,
+          innerLayoutClass,
+        }}
       />
     </div>
   );
 }
 
 type CluesPanelProps = {
-  direction: GameState["focus"]["direction"];
+  direction: GameState["focusedDirection"];
   cluesList: GameState["clues"]["across"] | GameState["clues"]["down"];
-  focus: GameState["focus"];
+  focusedClueNumber: GameState["focusedClueNumber"];
+  focusedDirection: GameState["focusedDirection"];
   setFocusByClue: GameActions["setFocusByClue"];
   innerLayoutClass: string;
 };
@@ -49,7 +61,8 @@ type CluesPanelProps = {
 function CluesPanel({
   direction,
   cluesList,
-  focus,
+  focusedClueNumber,
+  focusedDirection,
   setFocusByClue,
   innerLayoutClass,
 }: CluesPanelProps) {
@@ -66,8 +79,8 @@ function CluesPanel({
                 "md:text-[0.9rem]",
                 {
                   "bg-accent lg:text-base":
-                    focus.clueNumber === clue.number &&
-                    focus.direction === direction,
+                    focusedClueNumber === clue.number &&
+                    focusedDirection === direction,
                 },
               )}
               onClick={() => {
