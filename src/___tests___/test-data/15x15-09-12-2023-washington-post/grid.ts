@@ -14,7 +14,7 @@ export const testGrid3: Grid = [
   ["A", "V", "A", "I", "L", null, null, "T", "E", "N", "D", "S", "B", "A", "R"],
   ["M", "I", "C", "R", "O", "B", "R", "E", "W", "S", null, null, "O", "B", "O"],
   [null, null, "H", "A", "R", "R", "I", "S", null, null, "A", "S", "S", "E", "T"],
-  ["A", "V", "O", "I", "D", "A", "L", "L", "C", "O", "S", "T", "S"],
-  [],
+  ["A", "V", "O", "I", "D", "A", "T", "A", "L", "L", "C", "O", "S", "T", "S"],
+  ["L", "O", "U", "S", "E", null, "A", "R", "T", "I", "C", "L", "E", "S", null],
   ["A", "N", "T", "E", null, null, null, "T", "E", "N", "T", "E", "D", null, null],
 ];

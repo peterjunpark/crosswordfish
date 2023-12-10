@@ -378,13 +378,13 @@ export const testClues3: Clues = {
     },
     {
       number: 50,
-      col: 9,
+      col: 10,
       rows: [11, 12, 13, 14],
       text: "No. on a bank statement",
     },
     {
       number: 51,
-      col: 10,
+      col: 11,
       rows: [11, 12, 13, 14],
       text: "Single",
     },
