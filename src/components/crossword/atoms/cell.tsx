@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef, useEffect } from "react";
 import { useGameContext } from "@/app/state/context";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,7 @@ type CellProps = {
   innerLayoutClass: string;
 };
 
-export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
+export const CrosswordCell = forwardRef<HTMLInputElement, CellProps>(
   function CrosswordCell(
     { row, col, solution, number, id, innerLayoutClass: layoutClass },
     ref,
@@ -58,7 +58,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
       }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
       const backspace = (e: KeyboardEvent) => {
         if (e.key === "Backspace" && isFocusedCell) {
           // If the cell has a value, clear it.

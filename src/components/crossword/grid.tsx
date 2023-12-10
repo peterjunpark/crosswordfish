@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useEffect, useRef } from "react";
 import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
 import { CrosswordCell } from "./atoms/cell";
@@ -24,13 +24,14 @@ export function CrosswordGrid({
   // Player focus state
   const focusedRow = useGameContext((state) => state.focusedRow);
   const focusedCol = useGameContext((state) => state.focusedCol);
+  const setFocusByClue = useGameContext((state) => state.setFocusByClue);
   const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
   // Game state
   // const isStarted = useGameStore((state) => state.game.isStarted);
   // const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 
   // Initialize gridRef with an array of arrays.
-  const gridRef = React.useRef<GridRef>(
+  const gridRef = useRef<GridRef>(
     Array.from({ length: initGrid.length }, () =>
       Array.from({ length: initGrid[0]!.length }, () => null),
     ),
@@ -62,16 +63,22 @@ export function CrosswordGrid({
   };
 
   // Focus and select the cell in the DOM when focus state changes.
-  React.useEffect(() => {
-    gridRef.current[focusedRow]![focusedCol]?.focus();
-    gridRef.current[focusedRow]![focusedCol]?.select();
-  }, [focusedRow, focusedCol, clues]);
+  useEffect(() => {
+    if (focusedRow && focusedCol) {
+      gridRef.current[focusedRow]![focusedCol]?.focus();
+      gridRef.current[focusedRow]![focusedCol]?.select();
+    } else if (focusedRow === null && focusedCol === null) {
+      setFocusByClue(1, "across", "first");
+    }
+  }, [focusedRow, focusedCol, clues, setFocusByClue]);
 
   // Handle kbd navigation.
-  React.useEffect(() => {
+  useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       setFocusByKbd(e.key);
-      gridRef.current[focusedRow]![focusedCol]?.select();
+      if (focusedRow && focusedCol) {
+        gridRef.current[focusedRow]![focusedCol]?.select();
+      }
 
       if (e.key === "Tab") e.preventDefault();
     };

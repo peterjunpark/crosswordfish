@@ -60,8 +60,8 @@ export const createFocusSlice: StateCreator<
     focusedRow: 0,
     focusedCol: 0,
     focusedWord: [0, 1, 2],
-    focusedClueNumber: 2,
-    focusedClueText: "hellO",
+    focusedClueNumber: 1,
+    focusedClueText: get().focusedClueText,
   };
 
   return {

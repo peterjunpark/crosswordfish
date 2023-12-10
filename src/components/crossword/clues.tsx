@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { Fragment } from "react";
 import { useGameContext } from "@/app/state/context";
 import type { GameState, GameActions } from "@/app/state/store";
 import { cn } from "@/lib/utils";
@@ -71,7 +71,7 @@ function CluesPanel({
       <h3 className="pl-3 font-semibold tracking-tight">{direction}</h3>
       <ScrollArea className="h-full w-full shrink rounded-md border">
         {cluesList.map((clue, idx) => (
-          <React.Fragment key={`${clue.number}-${direction}`}>
+          <Fragment key={`${clue.number}-${direction}`}>
             <Button
               variant="ghost"
               className={cn(
@@ -91,7 +91,7 @@ function CluesPanel({
               <span className="w-fit">{clue.text}</span>
             </Button>
             {idx !== cluesList.length - 1 && <Separator />}
-          </React.Fragment>
+          </Fragment>
         ))}
       </ScrollArea>
     </div>

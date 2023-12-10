@@ -1,6 +1,11 @@
 "use client";
 
-import React, { createContext, useContext, useRef } from "react";
+import {
+  createContext,
+  useContext,
+  useRef,
+  type PropsWithChildren,
+} from "react";
 import { useStore } from "zustand";
 import {
   createGameStore,
@@ -12,7 +17,7 @@ import {
 
 export const GameContext = createContext<GameStore | null>(null);
 
-type GameProviderProps = React.PropsWithChildren<GameProps>;
+type GameProviderProps = PropsWithChildren<GameProps>;
 
 export function GameProvider({ children, ...props }: GameProviderProps) {
   const storeRef = useRef<GameStore>();
