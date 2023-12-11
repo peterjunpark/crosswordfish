@@ -42,20 +42,25 @@ export function CrosswordGrid({
     }
   };
 
-  // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
-    let clue: AcrossClue | DownClue | undefined;
+    const cellAbove = typeof initGrid[rowIdx - 1]?.[colIdx] === "string";
+    const cellToLeft = typeof initGrid[rowIdx]?.[colIdx - 1] === "string";
 
-    if (!initGrid[rowIdx]?.[colIdx - 1]) {
-      clue = clues.across.find(
-        (element) => element.row === rowIdx && element.cols[0] === colIdx,
-      );
-    } else if (!initGrid[rowIdx - 1]?.[colIdx]) {
-      clue = clues.down.find(
-        (element) => element.col === colIdx && element.rows[0] === rowIdx,
+    if (cellAbove && cellToLeft) return null;
+
+    if (!cellToLeft) {
+      return (
+        clues.across.find(
+          (element) => element.row === rowIdx && element.cols[0] === colIdx,
+        )?.number ?? null
       );
     }
-    return clue?.number;
+
+    return (
+      clues.down.find(
+        (element) => element.col === colIdx && element.rows[0] === rowIdx,
+      )?.number ?? null
+    );
   };
 
   // Focus and select the cell in the DOM when focus state changes.

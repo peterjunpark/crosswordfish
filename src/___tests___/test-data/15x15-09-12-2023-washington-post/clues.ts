@@ -205,7 +205,7 @@ export const testClues3: Clues = {
     {
       number: 7,
       col: 11,
-      rows: [0, 1, 2, 3, 4, 5, 6],
+      rows: [0, 1, 2, 3, 4, 5],
       text: `Largest Ohio city that doesn't start with "C"`,
     },
     {
@@ -300,7 +300,7 @@ export const testClues3: Clues = {
     },
     {
       number: 29,
-      col: 8,
+      col: 9,
       rows: [6, 7, 8, 9, 10],
       text: "Traces",
     },
