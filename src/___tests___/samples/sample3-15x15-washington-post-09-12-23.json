@@ -1,0 +1,625 @@
+{
+  "grid": [
+    [
+      null,
+      null,
+      "G",
+      "L",
+      "O",
+      "B",
+      "A",
+      "L",
+      null,
+      null,
+      null,
+      "T",
+      "E",
+      "R",
+      "M"
+    ],
+    [
+      null,
+      "C",
+      "O",
+      "O",
+      "L",
+      "E",
+      "D",
+      "I",
+      "T",
+      null,
+      "S",
+      "O",
+      "P",
+      "U",
+      "P"
+    ],
+    ["B", "L", "E", "N", "D", "E", "D", "F", "A", "M", "I", "L", "I", "E", "S"],
+    [
+      "L",
+      "O",
+      "S",
+      "E",
+      "S",
+      null,
+      null,
+      "E",
+      "R",
+      "O",
+      "D",
+      "E",
+      "S",
+      null,
+      null
+    ],
+    [
+      "O",
+      "V",
+      "A",
+      null,
+      null,
+      "S",
+      "N",
+      "I",
+      "P",
+      "P",
+      "E",
+      "D",
+      "O",
+      "F",
+      "F"
+    ],
+    [
+      "G",
+      "E",
+      "T",
+      "A",
+      "R",
+      "O",
+      "O",
+      "M",
+      null,
+      null,
+      "A",
+      "O",
+      "D",
+      "A",
+      "I"
+    ],
+    [
+      null,
+      null,
+      null,
+      "R",
+      "A",
+      "B",
+      "B",
+      "I",
+      "T",
+      "S",
+      null,
+      null,
+      "E",
+      "R",
+      "R"
+    ],
+    ["F", "O", "R", "R", "E", "A", "L", "T", "H", "I", "S", "T", "I", "M", "E"],
+    [
+      "O",
+      "B",
+      "E",
+      null,
+      null,
+      "D",
+      "E",
+      "A",
+      "R",
+      "G",
+      "O",
+      "D",
+      null,
+      null,
+      null
+    ],
+    [
+      "A",
+      "V",
+      "A",
+      "I",
+      "L",
+      null,
+      null,
+      "T",
+      "E",
+      "N",
+      "D",
+      "S",
+      "B",
+      "A",
+      "R"
+    ],
+    [
+      "M",
+      "I",
+      "C",
+      "R",
+      "O",
+      "B",
+      "R",
+      "E",
+      "W",
+      "S",
+      null,
+      null,
+      "O",
+      "B",
+      "O"
+    ],
+    [
+      null,
+      null,
+      "H",
+      "A",
+      "R",
+      "R",
+      "I",
+      "S",
+      null,
+      null,
+      "A",
+      "S",
+      "S",
+      "E",
+      "T"
+    ],
+    ["A", "V", "O", "I", "D", "A", "T", "A", "L", "L", "C", "O", "S", "T", "S"],
+    [
+      "L",
+      "O",
+      "U",
+      "S",
+      "E",
+      null,
+      "A",
+      "R",
+      "T",
+      "I",
+      "C",
+      "L",
+      "E",
+      "S",
+      null
+    ],
+    [
+      "A",
+      "N",
+      "T",
+      "E",
+      null,
+      null,
+      null,
+      "T",
+      "E",
+      "N",
+      "T",
+      "E",
+      "D",
+      null,
+      null
+    ]
+  ],
+  "clues": {
+    "across": [
+      {
+        "number": 1,
+        "row": 0,
+        "cols": [2, 3, 4, 5, 6, 7],
+        "text": "All over the place"
+      },
+      {
+        "number": 7,
+        "row": 0,
+        "cols": [11, 12, 13, 14],
+        "text": "Period"
+      },
+      {
+        "number": 11,
+        "row": 1,
+        "cols": [1, 2, 3, 4, 5, 6, 7, 8],
+        "text": "Chilled"
+      },
+      {
+        "number": 13,
+        "row": 1,
+        "cols": [10, 11, 12, 13, 14],
+        "text": "Absorb"
+      },
+      {
+        "number": 14,
+        "row": 2,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "Features of \"Step by Step\" and \"Sister, Sister\""
+      },
+      {
+        "number": 16,
+        "row": 3,
+        "cols": [0, 1, 2, 3, 4],
+        "text": "Gets rid of"
+      },
+      {
+        "number": 17,
+        "row": 3,
+        "cols": [7, 8, 9, 10, 11, 12],
+        "text": "Chips away at"
+      },
+      {
+        "number": 18,
+        "row": 4,
+        "cols": [0, 1, 2],
+        "text": "Fertility clinic cells"
+      },
+      {
+        "number": 19,
+        "row": 4,
+        "cols": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "Made shorter"
+      },
+      {
+        "number": 23,
+        "row": 5,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7],
+        "text": "\"Get a room!"
+      },
+      {
+        "number": 26,
+        "row": 5,
+        "cols": [10, 11, 12, 13, 14],
+        "text": "Vietnamese garment"
+      },
+      {
+        "number": 27,
+        "row": 6,
+        "cols": [3, 4, 5, 6, 7, 8, 9],
+        "text": "Small bucks and does"
+      },
+      {
+        "number": 30,
+        "row": 6,
+        "cols": [12, 13, 14],
+        "text": "Play a proper noun in Scrabble, say"
+      },
+      {
+        "number": 31,
+        "row": 7,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "Declaration after a trial?"
+      },
+      {
+        "number": 36,
+        "row": 8,
+        "cols": [0, 1, 2],
+        "text": "Honor for David Oyelowo: Abbr."
+      },
+      {
+        "number": 37,
+        "row": 8,
+        "cols": [5, 6, 7, 8, 9, 10, 11],
+        "text": "Astonished cry"
+      },
+      {
+        "number": 38,
+        "row": 9,
+        "cols": [0, 1, 2, 3, 4],
+        "text": "\"But to no ___\""
+      },
+      {
+        "number": 41,
+        "row": 9,
+        "cols": [7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "Does as ordered?"
+      },
+      {
+        "number": 45,
+        "row": 10,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "text": "Craft goods that might be barrel-aged"
+      },
+      {
+        "number": 48,
+        "row": 10,
+        "cols": [12, 13, 14],
+        "text": "Classified letters"
+      },
+      {
+        "number": 49,
+        "row": 11,
+        "cols": [2, 3, 4, 5, 6, 7],
+        "text": "Resident of Number One Observatory Circle since 2021"
+      },
+      {
+        "number": 50,
+        "row": 11,
+        "cols": [10, 11, 12, 13, 14],
+        "text": "Enviable trait"
+      },
+      {
+        "number": 52,
+        "row": 12,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "\"You really don't want to go there\""
+      },
+      {
+        "number": 56,
+        "row": 13,
+        "cols": [0, 1, 2, 3, 4],
+        "text": "No-goodnik"
+      },
+      {
+        "number": 57,
+        "row": 13,
+        "cols": [6, 7, 8, 9, 10, 11, 12, 13],
+        "text": "Paper clips?"
+      },
+      {
+        "number": 58,
+        "row": 14,
+        "cols": [0, 1, 2, 3],
+        "text": "Precursor to a deal"
+      },
+      {
+        "number": 59,
+        "row": 14,
+        "cols": [7, 8, 9, 10, 11, 12],
+        "text": "Like some pop-up clinics"
+      }
+    ],
+    "down": [
+      {
+        "number": 1,
+        "col": 2,
+        "rows": [0, 1, 2, 3, 4, 5],
+        "text": "Tackles"
+      },
+      {
+        "number": 2,
+        "col": 3,
+        "rows": [0, 1, 2, 3],
+        "text": "Single"
+      },
+      {
+        "number": 3,
+        "col": 4,
+        "rows": [0, 1, 2, 3],
+        "text": "\"Grey Girl\" poet Sharon"
+      },
+      {
+        "number": 4,
+        "col": 5,
+        "rows": [0, 1, 2],
+        "text": "Bumbling sort?"
+      },
+      {
+        "number": 5,
+        "col": 6,
+        "rows": [0, 1, 2],
+        "text": "Sum thing up"
+      },
+      {
+        "number": 6,
+        "col": 7,
+        "rows": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "Anti-mimetic position held by Oscar Wilde"
+      },
+      {
+        "number": 7,
+        "col": 11,
+        "rows": [0, 1, 2, 3, 4, 5],
+        "text": "Largest Ohio city that doesn't start with \"C\""
+      },
+      {
+        "number": 8,
+        "col": 12,
+        "rows": [0, 1, 2, 3, 4, 5, 6, 7],
+        "text": "Film with a boy named Anakin, familiarly"
+      },
+      {
+        "number": 9,
+        "col": 13,
+        "rows": [0, 1, 2],
+        "text": "\"You'll ___ the day!\""
+      },
+      {
+        "number": 10,
+        "col": 14,
+        "rows": [0, 1, 2],
+        "text": "House of Commons reps"
+      },
+      {
+        "number": 11,
+        "col": 1,
+        "rows": [1, 2, 3, 4, 5],
+        "text": "Garam masala ingredient"
+      },
+      {
+        "number": 12,
+        "col": 8,
+        "rows": [1, 2, 3, 4],
+        "text": "Grounds crew's roll"
+      },
+      {
+        "number": 13,
+        "col": 10,
+        "rows": [1, 2, 3, 4, 5],
+        "text": "Hit home?"
+      },
+      {
+        "number": 14,
+        "col": 0,
+        "rows": [2, 3, 4, 5],
+        "text": "WordPress.com offering"
+      },
+      {
+        "number": 15,
+        "col": 9,
+        "rows": [2, 3, 4],
+        "text": "Need after spilling the tea?"
+      },
+      {
+        "number": 19,
+        "col": 5,
+        "rows": [4, 5, 6, 7, 8],
+        "text": "Just wretched"
+      },
+      {
+        "number": 20,
+        "col": 6,
+        "rows": [4, 5, 6, 7, 8],
+        "text": "To the manor born"
+      },
+      {
+        "number": 21,
+        "col": 13,
+        "rows": [4, 5, 6, 7],
+        "text": "Amass goods repetitively, in video games"
+      },
+      {
+        "number": 22,
+        "col": 14,
+        "rows": [4, 5, 6, 7],
+        "text": "Dumpster ___"
+      },
+      {
+        "number": 24,
+        "col": 3,
+        "rows": [5, 6, 7],
+        "text": "Talk Like a Pirate Day sound"
+      },
+      {
+        "number": 25,
+        "col": 4,
+        "rows": [5, 6, 7],
+        "text": "\"Hair Love\" voice actress"
+      },
+      {
+        "number": 28,
+        "col": 8,
+        "rows": [6, 7, 8, 9, 10],
+        "text": "Organized"
+      },
+      {
+        "number": 29,
+        "col": 9,
+        "rows": [6, 7, 8, 9, 10],
+        "text": "Traces"
+      },
+      {
+        "number": 31,
+        "col": 0,
+        "rows": [7, 8, 9, 10],
+        "text": "___ roller"
+      },
+      {
+        "number": 32,
+        "col": 1,
+        "rows": [7, 8, 9, 10],
+        "text": "Curt \"Duh\""
+      },
+      {
+        "number": 33,
+        "col": 2,
+        "rows": [7, 8, 9, 10, 11, 12, 13, 14],
+        "text": "Try to touch or get in touch"
+      },
+      {
+        "number": 34,
+        "col": 10,
+        "rows": [7, 8, 9],
+        "text": "Grounds crew roll"
+      },
+      {
+        "number": 35,
+        "col": 11,
+        "rows": [7, 8, 9],
+        "text": "Reasons for WRs to dance"
+      },
+      {
+        "number": 39,
+        "col": 3,
+        "rows": [9, 10, 11, 12, 13, 14],
+        "text": "Aggressive response to a bluff"
+      },
+      {
+        "number": 40,
+        "col": 4,
+        "rows": [9, 10, 11, 12, 13],
+        "text": "\"Solar Power\" singer-songwriter"
+      },
+      {
+        "number": 42,
+        "col": 12,
+        "rows": [9, 10, 11, 12, 13, 14],
+        "text": "Ordered"
+      },
+      {
+        "number": 43,
+        "col": 13,
+        "rows": [9, 10, 11, 12, 13],
+        "text": "Plans a nice getaway?"
+      },
+      {
+        "number": 44,
+        "col": 14,
+        "rows": [9, 10, 11, 12],
+        "text": "Turns"
+      },
+      {
+        "number": 46,
+        "col": 5,
+        "rows": [10, 11, 12],
+        "text": "Cosabella product"
+      },
+      {
+        "number": 47,
+        "col": 6,
+        "rows": [10, 11, 12, 13],
+        "text": "Moreno in two \"West Side Story\" films"
+      },
+      {
+        "number": 50,
+        "col": 10,
+        "rows": [11, 12, 13, 14],
+        "text": "No. on a bank statement"
+      },
+      {
+        "number": 51,
+        "col": 11,
+        "rows": [11, 12, 13, 14],
+        "text": "Single"
+      },
+      {
+        "number": 52,
+        "col": 0,
+        "rows": [12, 13, 14],
+        "text": "___ la provencale"
+      },
+      {
+        "number": 53,
+        "col": 1,
+        "rows": [12, 13, 14],
+        "text": "Artist Dutch whose name became a fashion brand"
+      },
+      {
+        "number": 54,
+        "col": 8,
+        "rows": [12, 13, 14],
+        "text": "Cell service letters"
+      },
+      {
+        "number": 55,
+        "col": 9,
+        "rows": [12, 13, 14],
+        "text": "Former NBAer Jeremy"
+      }
+    ]
+  }
+}
