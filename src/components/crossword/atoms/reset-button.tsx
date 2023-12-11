@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { useGameStore } from "@/lib/store";
+import { useGameContext } from "@/app/state/context";
 import { Button } from "@/components/ui/button";
 
 export function ResetButton() {
-  const reset = useGameStore((state) => state.reset);
+  const reset = useGameContext((state) => state.reset);
   const [resetConfirm, setResetConfirm] = React.useState(false);
 
   const handleReset = () => {

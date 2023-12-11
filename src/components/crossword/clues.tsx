@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
-import { useGameStore, type State, type Action } from "@/lib/store";
+import { Fragment } from "react";
+import { useGameContext } from "@/app/state/context";
+import type { GameState, GameActions } from "@/app/state/store";
+import type { Focus } from "@/app/state/slices/focus";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
@@ -16,39 +18,58 @@ export function CrosswordClues({
   outerLayoutClass,
   innerLayoutClass,
 }: CrosswordCluesProps) {
-  const clues = useGameStore((state) => state.clues);
-  const focus = useGameStore((state) => state.focus);
-  const setFocusByClue = useGameStore((state) => state.setFocusByClue);
+  const clues = useGameContext((state) => state.clues);
+  const focus = useGameContext((state) => state.focus);
+  let focusedClueNumber;
+  let focusedDirection;
+  const setFocusByClue = useGameContext((state) => state.setFocusByClue);
+
+  if (focus) {
+    focusedClueNumber = focus.clueNumber;
+    focusedDirection = focus.direction;
+  }
 
   return (
     <div className={cn(outerLayoutClass)}>
       <CluesPanel
         direction="across"
         cluesList={clues.across}
-        {...{ focus, setFocusByClue, innerLayoutClass }}
+        {...{
+          focusedClueNumber,
+          focusedDirection,
+          setFocusByClue,
+          innerLayoutClass,
+        }}
       />
       {/* DOWN */}
       <CluesPanel
         direction="down"
         cluesList={clues.down}
-        {...{ focus, setFocusByClue, innerLayoutClass }}
+        {...{
+          focusedClueNumber,
+          focusedDirection,
+          setFocusByClue,
+          innerLayoutClass,
+        }}
       />
     </div>
   );
 }
 
 type CluesPanelProps = {
-  direction: State["focus"]["direction"];
-  cluesList: State["clues"]["across"] | State["clues"]["down"];
-  focus: State["focus"];
-  setFocusByClue: Action["setFocusByClue"];
+  direction: Focus["direction"];
+  cluesList: GameState["clues"]["across"] | GameState["clues"]["down"];
+  focusedClueNumber: Focus["clueNumber"] | undefined;
+  focusedDirection: Focus["direction"] | undefined;
+  setFocusByClue: GameActions["setFocusByClue"];
   innerLayoutClass: string;
 };
 
 function CluesPanel({
   direction,
   cluesList,
-  focus,
+  focusedClueNumber,
+  focusedDirection,
   setFocusByClue,
   innerLayoutClass,
 }: CluesPanelProps) {
@@ -57,7 +78,7 @@ function CluesPanel({
       <h3 className="pl-3 font-semibold tracking-tight">{direction}</h3>
       <ScrollArea className="h-full w-full shrink rounded-md border">
         {cluesList.map((clue, idx) => (
-          <React.Fragment key={`${clue.number}-${direction}`}>
+          <Fragment key={`${clue.number}-${direction}`}>
             <Button
               variant="ghost"
               className={cn(
@@ -65,8 +86,8 @@ function CluesPanel({
                 "md:text-[0.9rem]",
                 {
                   "bg-accent lg:text-base":
-                    focus.clueNumber === clue.number &&
-                    focus.direction === direction,
+                    focusedClueNumber === clue.number &&
+                    focusedDirection === direction,
                 },
               )}
               onClick={() => {
@@ -77,7 +98,7 @@ function CluesPanel({
               <span className="w-fit">{clue.text}</span>
             </Button>
             {idx !== cluesList.length - 1 && <Separator />}
-          </React.Fragment>
+          </Fragment>
         ))}
       </ScrollArea>
     </div>

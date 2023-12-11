@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
-import { useGameStore } from "@/lib/store";
+import React, { forwardRef, useEffect } from "react";
+import { useGameContext } from "@/app/state/context";
+import type { Focus } from "@/app/state/slices/focus";
 import { type CellValue } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -11,40 +12,52 @@ type CellProps = {
   row: number;
   col: number;
   number?: number;
-  id?: string;
   innerLayoutClass: string;
 };
 
-export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
+export const CrosswordCell = forwardRef<HTMLInputElement, CellProps>(
   function CrosswordCell(
-    { row, col, solution, number, id, innerLayoutClass: layoutClass },
+    { row, col, solution, number, innerLayoutClass: layoutClass },
     ref,
   ) {
-    const workingGrid = useGameStore((state) => state.workingGrid);
-    const setCellValue = useGameStore((state) => state.setCellValue);
+    const workingGrid = useGameContext((state) => state.workingGrid);
     const cellValue = workingGrid[row]![col]!;
-
-    const focus = useGameStore((state) => state.focus);
-    const setFocusByCell = useGameStore((state) => state.setFocusByCell);
-    const setFocusToNextCell = useGameStore(
+    const setCellValue = useGameContext((state) => state.setCellValue);
+    const focus = useGameContext((state) => state.focus);
+    const setFocusByCell = useGameContext((state) => state.setFocusByCell);
+    const setFocusToNextCell = useGameContext(
       (state) => state.setFocusToNextCell,
     );
-    const toggleFocusDirection = useGameStore(
+    const toggleFocusDirection = useGameContext(
       (state) => state.toggleFocusDirection,
     );
-    const isFocusedCell = focus.row === row && focus.col === col;
-    const isFocusedWord =
-      focus.direction === "across"
-        ? focus.row === row && focus.word.includes(col)
-        : focus.direction === "down"
-        ? focus.col === col && focus.word.includes(row)
-        : false;
+    let focusedDirection: Focus["direction"];
+    let focusedRow: Focus["row"];
+    let focusedCol: Focus["col"];
+    let focusedWord: Focus["word"];
+    let isFocusedCell = false;
+    let isFocusedWord = false;
 
-    const gameIsChecking = useGameStore((state) => state.game.isChecking);
+    if (focus) {
+      focusedDirection = focus.direction;
+      focusedRow = focus.row;
+      focusedCol = focus.col;
+      focusedWord = focus.word;
+
+      isFocusedCell = focusedRow === row && focusedCol === col;
+
+      if (focusedDirection === "across") {
+        isFocusedWord = focusedRow === row && focusedWord.includes(col);
+      } else if (focusedDirection === "down") {
+        isFocusedWord = focusedCol === col && focusedWord.includes(row);
+      }
+    }
+
+    const gameIsChecking = useGameContext((state) => state.isChecking);
 
     // Update state when the cell is focused.
     const handleFocus = () => {
-      setFocusByCell(row, col, focus.direction);
+      setFocusByCell(row, col, focusedDirection);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +68,7 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
       }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
       const backspace = (e: KeyboardEvent) => {
         if (e.key === "Backspace" && isFocusedCell) {
           // If the cell has a value, clear it.
@@ -79,7 +92,6 @@ export const CrosswordCell = React.forwardRef<HTMLInputElement, CellProps>(
           onChange={handleChange}
           onFocus={handleFocus}
           onDoubleClick={toggleFocusDirection}
-          id={id}
           className={cn(
             "h-full cursor-pointer select-all border bg-background p-0 text-center font-mono caret-transparent selection:bg-opacity-0 focus:border-brand-foreground focus-visible:ring-brand-foreground",
             "lg:text-lg",

@@ -24,6 +24,7 @@ export function HelpDialog() {
     },
     { key: "Arrow keys", desc: "Move up / right / down / left" },
   ];
+
   return (
     <Dialog>
       <DialogTrigger asChild>

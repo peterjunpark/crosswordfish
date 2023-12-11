@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useGameStore } from "@/lib/store";
+import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
 
 type CrosswordHeaderProps = {
@@ -9,7 +9,16 @@ type CrosswordHeaderProps = {
 };
 
 export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
-  const focus = useGameStore((state) => state.focus);
+  const focus = useGameContext((state) => state.focus);
+  let focusedClueNumber;
+  let focusedClueText;
+  let focusedDirection;
+
+  if (focus) {
+    focusedDirection = focus.direction;
+    focusedClueNumber = focus.clueNumber;
+    focusedClueText = focus.clueText;
+  }
 
   return (
     <header className={cn(outerLayoutClass, "bg-background")}>
@@ -23,7 +32,7 @@ export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
           <Link href="/">crosswordfish</Link>
         </h1>
         <span className="text-muted-foreground">
-          {focus.clueNumber}&nbsp;{focus.direction}{" "}
+          {focusedClueNumber}&nbsp;{focusedDirection}{" "}
         </span>
       </div>
       <span
@@ -32,7 +41,7 @@ export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
           "md:text-3xl md:font-semibold",
         )}
       >
-        {focus.clueText}
+        {focusedClueText}
       </span>
     </header>
   );

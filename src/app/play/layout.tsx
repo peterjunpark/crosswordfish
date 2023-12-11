@@ -1,4 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { GameProvider } from "../state/context";
+import { testGrid3, testClues3 } from "@/___tests___/test-data";
 
 export const metadata = {
   title: "Crosswordfish",
@@ -11,5 +13,9 @@ export default function PlayLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <TooltipProvider>{children}</TooltipProvider>;
+  return (
+    <GameProvider initGrid={testGrid3} clues={testClues3}>
+      <TooltipProvider>{children}</TooltipProvider>
+    </GameProvider>
+  );
 }

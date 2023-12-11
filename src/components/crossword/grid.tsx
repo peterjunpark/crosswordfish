@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { useGameStore } from "@/lib/store";
+import { useEffect, useRef } from "react";
+import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
 import { CrosswordCell } from "./atoms/cell";
 import type { AcrossClue, DownClue } from "@/lib/types";
@@ -19,19 +19,20 @@ export function CrosswordGrid({
   innerLayoutClass,
 }: CrosswordGridProps) {
   // Gameboard state
-  const solutionGrid = useGameStore((state) => state.solutionGrid);
-  const clues = useGameStore((state) => state.clues);
+  const initGrid = useGameContext((state) => state.initGrid);
+  const clues = useGameContext((state) => state.clues);
   // Player focus state
-  const focus = useGameStore((state) => state.focus);
-  const setFocusByKbd = useGameStore((state) => state.setFocusByKbd);
+  const focus = useGameContext((state) => state.focus);
+  const setFocusByClue = useGameContext((state) => state.setFocusByClue);
+  const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
   // Game state
   // const isStarted = useGameStore((state) => state.game.isStarted);
   // const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 
   // Initialize gridRef with an array of arrays.
-  const gridRef = React.useRef<GridRef>(
-    Array.from({ length: solutionGrid.length }, () =>
-      Array.from({ length: solutionGrid[0]!.length }, () => null),
+  const gridRef = useRef<GridRef>(
+    Array.from({ length: initGrid.length }, () =>
+      Array.from({ length: initGrid[0]!.length }, () => null),
     ),
   );
   // gridRef.current will be a matrix of refs to each cell in the grid.
@@ -43,16 +44,13 @@ export function CrosswordGrid({
 
   // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
-    // If there is no cell to the left or above the current cell,
-    // the current cell is the first letter of an Across or Down clue.
-    // It needs to be numbered on the grid.
     let clue: AcrossClue | DownClue | undefined;
 
-    if (!solutionGrid[rowIdx]?.[colIdx - 1]) {
+    if (!initGrid[rowIdx]?.[colIdx - 1]) {
       clue = clues.across.find(
         (element) => element.row === rowIdx && element.cols[0] === colIdx,
       );
-    } else if (!solutionGrid[rowIdx - 1]?.[colIdx]) {
+    } else if (!initGrid[rowIdx - 1]?.[colIdx]) {
       clue = clues.down.find(
         (element) => element.col === colIdx && element.rows[0] === rowIdx,
       );
@@ -61,23 +59,31 @@ export function CrosswordGrid({
   };
 
   // Focus and select the cell in the DOM when focus state changes.
-  React.useEffect(() => {
-    gridRef.current[focus.row]![focus.col]?.focus();
-    gridRef.current[focus.row]![focus.col]?.select();
-  }, [focus, clues]);
+  useEffect(() => {
+    if (focus) {
+      const focusedCell = gridRef.current[focus.row]![focus.col]!;
+      focusedCell.focus();
+      focusedCell.select();
+    } else {
+      // This handle initial state (i.e., where focus is null)
+      setFocusByClue(1, "across", "first");
+    }
+  }, [focus, clues, setFocusByClue]);
 
   // Handle kbd navigation.
-  React.useEffect(() => {
+  useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       setFocusByKbd(e.key);
-      gridRef.current[focus.row]![focus.col]?.select();
+      if (focus) {
+        gridRef.current[focus.row]![focus.col]?.select();
+      }
 
       if (e.key === "Tab") e.preventDefault();
     };
 
     document.addEventListener("keydown", keydown);
     return () => document.removeEventListener("keydown", keydown);
-  }, [setFocusByKbd, focus]);
+  }, [focus, setFocusByKbd]);
 
   return (
     <div
@@ -85,14 +91,13 @@ export function CrosswordGrid({
         "md:gap-px md:p-1",
       ])}
     >
-      {solutionGrid.map((row, rowIdx) =>
+      {initGrid.map((row, rowIdx) =>
         row.map((solution, colIdx) => {
           const cellNumber = getCellNumber(rowIdx, colIdx);
 
           if (solution !== null) {
             return (
               <CrosswordCell
-                id={`${rowIdx}/${colIdx}`}
                 ref={(elem) => attachRefToCell(elem, rowIdx, colIdx)}
                 row={rowIdx}
                 col={colIdx}

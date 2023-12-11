@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 // import { Stopwatch } from "./atoms/stopwatch";
 import { CheckGridSwitch } from "./atoms/check-grid-switch";
 import { ResetButton } from "./atoms/reset-button";
