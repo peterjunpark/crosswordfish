@@ -24,7 +24,7 @@ export interface GameState extends GameProps, FocusState, GameInstanceState {
 //TODO: REfactor RESET
 export interface GameActions extends FocusActions, GameInstanceActions {
   setCellValue: (value: CellValue, row: number, col: number) => void;
-  // reset: () => void;
+  reset: () => void;
 }
 
 export type GameStore = ReturnType<typeof createGameStore>;
@@ -46,9 +46,14 @@ export const createGameStore = (initProps: GameProps) => {
 
   return createStore<GameState & GameActions>()((set, ...a) => ({
     ...initProps,
-    // reset: () => set(initState),
     workingGrid,
     gridSize,
+    reset: () => {
+      set({
+        workingGrid,
+      });
+      resetAllSlices();
+    },
     setCellValue: (newValue, row, col) =>
       set((state) => ({
         // Update value at the desired rowIndex and colIndex.
