@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { useGameContext } from "@/app/state/context";
 import type { GameState, GameActions } from "@/app/state/store";
+import type { Focus } from "@/app/state/slices/focus";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
@@ -18,9 +19,15 @@ export function CrosswordClues({
   innerLayoutClass,
 }: CrosswordCluesProps) {
   const clues = useGameContext((state) => state.clues);
-  const focusedClueNumber = useGameContext((state) => state.focusedClueNumber);
-  const focusedDirection = useGameContext((state) => state.focusedDirection);
+  const focus = useGameContext((state) => state.focus);
+  let focusedClueNumber;
+  let focusedDirection;
   const setFocusByClue = useGameContext((state) => state.setFocusByClue);
+
+  if (focus) {
+    focusedClueNumber = focus.clueNumber;
+    focusedDirection = focus.direction;
+  }
 
   return (
     <div className={cn(outerLayoutClass)}>
@@ -50,10 +57,10 @@ export function CrosswordClues({
 }
 
 type CluesPanelProps = {
-  direction: GameState["focusedDirection"];
+  direction: Focus["direction"];
   cluesList: GameState["clues"]["across"] | GameState["clues"]["down"];
-  focusedClueNumber: GameState["focusedClueNumber"];
-  focusedDirection: GameState["focusedDirection"];
+  focusedClueNumber: Focus["clueNumber"] | undefined;
+  focusedDirection: Focus["direction"] | undefined;
   setFocusByClue: GameActions["setFocusByClue"];
   innerLayoutClass: string;
 };

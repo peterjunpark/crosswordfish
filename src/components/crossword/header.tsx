@@ -9,9 +9,16 @@ type CrosswordHeaderProps = {
 };
 
 export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
-  const focusedClueNumber = useGameContext((state) => state.focusedClueNumber);
-  const focusedClueText = useGameContext((state) => state.focusedClueText);
-  const focusedDirection = useGameContext((state) => state.focusedDirection);
+  const focus = useGameContext((state) => state.focus);
+  let focusedClueNumber;
+  let focusedClueText;
+  let focusedDirection;
+
+  if (focus) {
+    focusedDirection = focus.direction;
+    focusedClueNumber = focus.clueNumber;
+    focusedClueText = focus.clueText;
+  }
 
   return (
     <header className={cn(outerLayoutClass, "bg-background")}>

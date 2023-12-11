@@ -23,8 +23,8 @@ export interface GameState extends GameProps, FocusState, GameInstanceState {
 
 //TODO: REfactor RESET
 export interface GameActions extends FocusActions, GameInstanceActions {
-  // reset: () => void;
   setCellValue: (value: CellValue, row: number, col: number) => void;
+  // reset: () => void;
 }
 
 export type GameStore = ReturnType<typeof createGameStore>;
@@ -44,7 +44,7 @@ export const createGameStore = (initProps: GameProps) => {
   );
   const gridSize = { rows: initGrid.length, cols: initGrid[0]!.length };
 
-  return createStore<GameState & GameActions>()((set, get, api) => ({
+  return createStore<GameState & GameActions>()((set, ...a) => ({
     ...initProps,
     // reset: () => set(initState),
     workingGrid,
@@ -60,7 +60,7 @@ export const createGameStore = (initProps: GameProps) => {
           );
         }),
       })),
-    ...createFocusSlice(set, get, api),
-    ...createGameInstanceSlice(set, get, api),
+    ...createFocusSlice(set, ...a),
+    ...createGameInstanceSlice(set, ...a),
   }));
 };

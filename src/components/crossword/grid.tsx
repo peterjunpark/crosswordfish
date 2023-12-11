@@ -22,8 +22,7 @@ export function CrosswordGrid({
   const initGrid = useGameContext((state) => state.initGrid);
   const clues = useGameContext((state) => state.clues);
   // Player focus state
-  const focusedRow = useGameContext((state) => state.focusedRow);
-  const focusedCol = useGameContext((state) => state.focusedCol);
+  const focus = useGameContext((state) => state.focus);
   const setFocusByClue = useGameContext((state) => state.setFocusByClue);
   const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
   // Game state
@@ -45,9 +44,6 @@ export function CrosswordGrid({
 
   // TODO: I think this can be optimized.
   const getCellNumber = (rowIdx: number, colIdx: number) => {
-    // If there is no cell to the left or above the current cell,
-    // the current cell is the first letter of an Across or Down clue.
-    // It needs to be numbered on the grid.
     let clue: AcrossClue | DownClue | undefined;
 
     if (!initGrid[rowIdx]?.[colIdx - 1]) {
@@ -64,20 +60,22 @@ export function CrosswordGrid({
 
   // Focus and select the cell in the DOM when focus state changes.
   useEffect(() => {
-    if (focusedRow && focusedCol) {
-      gridRef.current[focusedRow]![focusedCol]?.focus();
-      gridRef.current[focusedRow]![focusedCol]?.select();
-    } else if (focusedRow === null && focusedCol === null) {
+    if (focus) {
+      const focusedCell = gridRef.current[focus.row]![focus.col]!;
+      focusedCell.focus();
+      focusedCell.select();
+    } else {
+      // This handle initial state (i.e., where focus is null)
       setFocusByClue(1, "across", "first");
     }
-  }, [focusedRow, focusedCol, clues, setFocusByClue]);
+  }, [focus, clues, setFocusByClue]);
 
   // Handle kbd navigation.
   useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       setFocusByKbd(e.key);
-      if (focusedRow && focusedCol) {
-        gridRef.current[focusedRow]![focusedCol]?.select();
+      if (focus) {
+        gridRef.current[focus.row]![focus.col]?.select();
       }
 
       if (e.key === "Tab") e.preventDefault();
@@ -85,7 +83,7 @@ export function CrosswordGrid({
 
     document.addEventListener("keydown", keydown);
     return () => document.removeEventListener("keydown", keydown);
-  }, [focusedRow, focusedCol, setFocusByKbd]);
+  }, [focus, setFocusByKbd]);
 
   return (
     <div
@@ -100,7 +98,6 @@ export function CrosswordGrid({
           if (solution !== null) {
             return (
               <CrosswordCell
-                id={`${rowIdx}/${colIdx}`}
                 ref={(elem) => attachRefToCell(elem, rowIdx, colIdx)}
                 row={rowIdx}
                 col={colIdx}
