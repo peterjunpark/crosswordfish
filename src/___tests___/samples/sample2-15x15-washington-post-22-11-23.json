@@ -1,0 +1,717 @@
+{
+  "grid": [
+    [
+      "I",
+      "M",
+      "H",
+      "I",
+      "P",
+      null,
+      "A",
+      "C",
+      "A",
+      "I",
+      null,
+      "J",
+      "U",
+      "T",
+      "S"
+    ],
+    [
+      "N",
+      "O",
+      "E",
+      "L",
+      "S",
+      null,
+      "S",
+      "A",
+      "C",
+      "K",
+      null,
+      "A",
+      "S",
+      "E",
+      "C"
+    ],
+    [
+      "G",
+      "O",
+      "F",
+      "L",
+      "Y",
+      "A",
+      "K",
+      "I",
+      "T",
+      "E",
+      null,
+      "L",
+      "E",
+      "N",
+      "O"
+    ],
+    [
+      "A",
+      "N",
+      "T",
+      null,
+      "C",
+      "H",
+      "E",
+      "R",
+      null,
+      null,
+      "J",
+      "O",
+      "U",
+      "S",
+      "T"
+    ],
+    [
+      null,
+      null,
+      null,
+      "S",
+      "H",
+      "A",
+      "D",
+      "O",
+      "W",
+      "P",
+      "U",
+      "P",
+      "P",
+      "E",
+      "T"
+    ],
+    [
+      "C",
+      "A",
+      "M",
+      "E",
+      "O",
+      "S",
+      null,
+      null,
+      "H",
+      "E",
+      "D",
+      "Y",
+      null,
+      null,
+      null
+    ],
+    [
+      "A",
+      "T",
+      "O",
+      "M",
+      null,
+      null,
+      "E",
+      "F",
+      "I",
+      "L",
+      "E",
+      null,
+      "A",
+      "L",
+      "A"
+    ],
+    ["S", "T", "R", "I", "N", "G", "S", "A", "T", "T", "A", "C", "H", "E", "D"],
+    [
+      "E",
+      "N",
+      "E",
+      null,
+      "I",
+      "O",
+      "T",
+      "A",
+      "S",
+      null,
+      null,
+      "L",
+      "E",
+      "A",
+      "D"
+    ],
+    [
+      null,
+      null,
+      null,
+      "W",
+      "N",
+      "B",
+      "A",
+      null,
+      null,
+      "S",
+      "C",
+      "A",
+      "M",
+      "P",
+      "S"
+    ],
+    [
+      "B",
+      "I",
+      "K",
+      "I",
+      "N",
+      "I",
+      "B",
+      "O",
+      "T",
+      "T",
+      "O",
+      "M",
+      null,
+      null,
+      null
+    ],
+    [
+      "E",
+      "B",
+      "O",
+      "N",
+      "Y",
+      null,
+      null,
+      "D",
+      "O",
+      "O",
+      "R",
+      null,
+      "E",
+      "T",
+      "A"
+    ],
+    [
+      "N",
+      "E",
+      "A",
+      "T",
+      null,
+      "V",
+      "I",
+      "O",
+      "L",
+      "A",
+      "D",
+      "A",
+      "V",
+      "I",
+      "S"
+    ],
+    [
+      "T",
+      "A",
+      "L",
+      "E",
+      null,
+      "C",
+      "T",
+      "R",
+      "L",
+      null,
+      "O",
+      "M",
+      "I",
+      "T",
+      "S"
+    ],
+    [
+      "O",
+      "M",
+      "A",
+      "R",
+      null,
+      "R",
+      "O",
+      "S",
+      "S",
+      null,
+      "N",
+      "Y",
+      "L",
+      "O",
+      "N"
+    ]
+  ],
+  "clues": {
+    "across": [
+      {
+        "number": 1,
+        "text": "\"Sounds cool, man\"",
+        "row": 0,
+        "cols": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 6,
+        "text": "Antioxidant-rich berry",
+        "row": 0,
+        "cols": [6, 7, 8, 9]
+      },
+      {
+        "number": 10,
+        "text": "Protrudes",
+        "row": 0,
+        "cols": [11, 12, 13, 14]
+      },
+      {
+        "number": 14,
+        "text": "Background tunes for a tree-trimming party",
+        "row": 1,
+        "cols": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 15,
+        "text": "Quarterback's setback",
+        "row": 1,
+        "cols": [6, 7, 8, 9]
+      },
+      {
+        "number": 16,
+        "text": "\"Just ___!\"",
+        "row": 1,
+        "cols": [11, 12, 13, 14]
+      },
+      {
+        "number": 17,
+        "text": "\"Get lost!\"",
+        "row": 2,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      },
+      {
+        "number": 19,
+        "text": "\"You Bet Your Life\" host Jay",
+        "row": 2,
+        "cols": [11, 12, 13, 14]
+      },
+      {
+        "number": 20,
+        "text": "Industrious insect",
+        "row": 3,
+        "cols": [0, 1, 2]
+      },
+      {
+        "number": 21,
+        "text": "\"If I Could Turn Back Time\" singer",
+        "row": 3,
+        "cols": [4, 5, 6, 7]
+      },
+      {
+        "number": 22,
+        "text": "Knight game",
+        "row": 3,
+        "cols": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 23,
+        "text": "Hands-on creation?",
+        "row": 4,
+        "cols": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      },
+      {
+        "number": 26,
+        "text": "Small parts for big names",
+        "row": 5,
+        "cols": [0, 1, 2, 3, 4, 5]
+      },
+      {
+        "number": 29,
+        "text": "Lamarr of the silver screen",
+        "row": 5,
+        "cols": [8, 9, 10, 11]
+      },
+      {
+        "number": 30,
+        "text": "Particle with an orbital system",
+        "row": 6,
+        "cols": [0, 1, 2, 3]
+      },
+      {
+        "number": 31,
+        "text": "IRS convenience",
+        "row": 6,
+        "cols": [6, 7, 8, 9, 10]
+      },
+      {
+        "number": 33,
+        "text": "Brownie ___ mode",
+        "row": 6,
+        "cols": [12, 13, 14]
+      },
+      {
+        "number": 36,
+        "text": "What some favors and one part of the answers to 17-, 23-, 46-, and 57-Across come with?",
+        "row": 7,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      },
+      {
+        "number": 40,
+        "text": "L.A.-to-N.Y.C. dir.",
+        "row": 8,
+        "cols": [0, 1, 2]
+      },
+      {
+        "number": 41,
+        "text": "Tiny bits",
+        "row": 8,
+        "cols": [4, 5, 6, 7, 8]
+      },
+      {
+        "number": 42,
+        "text": "Set the pace",
+        "row": 8,
+        "cols": [11, 12, 13, 14]
+      },
+      {
+        "number": 43,
+        "text": "Brittney Griner's org.",
+        "row": 9,
+        "cols": [3, 4, 5, 6]
+      },
+      {
+        "number": 44,
+        "text": "Little rascals",
+        "row": 9,
+        "cols": [9, 10, 11, 12, 13, 14]
+      },
+      {
+        "number": 46,
+        "text": "Home of SpongeBob SquarePants",
+        "row": 10,
+        "cols": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+      },
+      {
+        "number": 51,
+        "text": "Dark wood",
+        "row": 11,
+        "cols": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 52,
+        "text": "Portal",
+        "row": 11,
+        "cols": [7, 8, 9, 10]
+      },
+      {
+        "number": 53,
+        "text": "Itinerary info",
+        "row": 11,
+        "cols": [12, 13, 14]
+      },
+      {
+        "number": 56,
+        "text": "\"Sounds cool!\"",
+        "row": 12,
+        "cols": [0, 1, 2, 3]
+      },
+      {
+        "number": 57,
+        "text": "Actress who completed her EGOT with a Grammy for the audiobook \"Finding Me\"",
+        "row": 12,
+        "cols": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      },
+      {
+        "number": 60,
+        "text": "Story",
+        "row": 13,
+        "cols": [0, 1, 2, 3]
+      },
+      {
+        "number": 61,
+        "text": "___-Alt-Del",
+        "row": 13,
+        "cols": [5, 6, 7, 8]
+      },
+      {
+        "number": 62,
+        "text": "Leaves out",
+        "row": 13,
+        "cols": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 63,
+        "text": "Actor Sharif",
+        "row": 14,
+        "cols": [0, 1, 2, 3]
+      },
+      {
+        "number": 64,
+        "text": "\"Blackish\" star Tracee Elliss ___",
+        "row": 14,
+        "cols": [5, 6, 7, 8]
+      },
+      {
+        "number": 65,
+        "text": "Windbreaker fabric",
+        "row": 14,
+        "cols": [10, 11, 12, 13, 14]
+      }
+    ],
+    "down": [
+      {
+        "number": 1,
+        "text": "Pulitzer-winning architecture critic Saffron",
+        "col": 0,
+        "rows": [0, 1, 2, 3]
+      },
+      {
+        "number": 2,
+        "text": "Once in a blue ___",
+        "col": 1,
+        "rows": [0, 1, 2, 3]
+      },
+      {
+        "number": 3,
+        "text": "Lift with effort",
+        "col": 2,
+        "rows": [0, 1, 2, 3]
+      },
+      {
+        "number": 4,
+        "text": "Ailing",
+        "col": 3,
+        "rows": [0, 1, 2]
+      },
+      {
+        "number": 5,
+        "text": "Film set at the Bates Motel",
+        "col": 4,
+        "rows": [0, 1, 2, 3, 4, 5]
+      },
+      {
+        "number": 6,
+        "text": "Made inquiries",
+        "col": 6,
+        "rows": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 7,
+        "text": "Tahrir Square city",
+        "col": 7,
+        "rows": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 8,
+        "text": "\"___ your age!\"",
+        "col": 8,
+        "rows": [0, 1, 2]
+      },
+      {
+        "number": 9,
+        "text": "Actor Barinholtz",
+        "col": 9,
+        "rows": [0, 1, 2]
+      },
+      {
+        "number": 10,
+        "text": "Bucket of bolts",
+        "col": 11,
+        "rows": [0, 1, 2, 3, 4, 5]
+      },
+      {
+        "number": 11,
+        "text": "Burn through",
+        "col": 12,
+        "rows": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 12,
+        "text": "Tied up in knots",
+        "col": 13,
+        "rows": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 13,
+        "text": "\"House of Gucci\" director Ridley ___",
+        "col": 14,
+        "rows": [0, 1, 2, 3, 4]
+      },
+      {
+        "number": 18,
+        "text": "Cries of discovery",
+        "col": 5,
+        "rows": [2, 3, 4, 5]
+      },
+      {
+        "number": 22,
+        "text": "King Herod's realm",
+        "col": 10,
+        "rows": [3, 4, 5, 6, 7]
+      },
+      {
+        "number": 23,
+        "text": "Service plaza rig",
+        "col": 3,
+        "rows": [4, 5, 6, 7]
+      },
+      {
+        "number": 24,
+        "text": "Tiny bits",
+        "col": 8,
+        "rows": [4, 5, 6, 7, 8]
+      },
+      {
+        "number": 25,
+        "text": "Linus Van ___: \"Peanuts\" kid",
+        "col": 9,
+        "rows": [4, 5, 6, 7]
+      },
+      {
+        "number": 26,
+        "text": "12 bottles of wine",
+        "col": 0,
+        "rows": [5, 6, 7, 8]
+      },
+      {
+        "number": 27,
+        "text": "Env. direction",
+        "col": 1,
+        "rows": [5, 6, 7, 8]
+      },
+      {
+        "number": 28,
+        "text": "Extra",
+        "col": 2,
+        "rows": [5, 6, 7, 8]
+      },
+      {
+        "number": 31,
+        "text": "Founded: Abbr.",
+        "col": 6,
+        "rows": [6, 7, 8, 9, 10]
+      },
+      {
+        "number": 32,
+        "text": "Drone-regulating org.",
+        "col": 7,
+        "rows": [6, 7, 8]
+      },
+      {
+        "number": 33,
+        "text": "\"Excuse me...\"",
+        "col": 12,
+        "rows": [6, 7, 8, 9]
+      },
+      {
+        "number": 34,
+        "text": "___ year",
+        "col": 13,
+        "rows": [6, 7, 8, 9]
+      },
+      {
+        "number": 35,
+        "text": "Stirs in",
+        "col": 14,
+        "rows": [6, 7, 8, 9]
+      },
+      {
+        "number": 37,
+        "text": "Nincompoop",
+        "col": 4,
+        "rows": [7, 8, 9, 10, 11]
+      },
+      {
+        "number": 38,
+        "text": "Asian desert",
+        "col": 5,
+        "rows": [7, 8, 9, 10]
+      },
+      {
+        "number": 39,
+        "text": "Chowder morsel",
+        "col": 11,
+        "rows": [7, 8, 9, 10]
+      },
+      {
+        "number": 43,
+        "text": "Time for cold feet?",
+        "col": 3,
+        "rows": [9, 10, 11, 12, 13, 14]
+      },
+      {
+        "number": 44,
+        "text": "Greek portico",
+        "col": 9,
+        "rows": [9, 10, 11, 12]
+      },
+      {
+        "number": 45,
+        "text": "Le ___ Bleu: Julia Child's alma mater",
+        "col": 10,
+        "rows": [9, 10, 11, 12, 13, 14]
+      },
+      {
+        "number": 46,
+        "text": "Lunchbox type",
+        "col": 0,
+        "rows": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 47,
+        "text": "Steel girder",
+        "col": 1,
+        "rows": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 48,
+        "text": "Souvenir toy from Australia, say",
+        "col": 2,
+        "rows": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 49,
+        "text": "Landfill emanations",
+        "col": 7,
+        "rows": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 50,
+        "text": "Road trip expense",
+        "col": 8,
+        "rows": [10, 11, 12, 13, 14]
+      },
+      {
+        "number": 53,
+        "text": "Mean business?",
+        "col": 12,
+        "rows": [11, 12, 13, 14]
+      },
+      {
+        "number": 54,
+        "text": "\"Mambo King\" Puente",
+        "col": 13,
+        "rows": [11, 12, 13, 14]
+      },
+      {
+        "number": 55,
+        "text": "Trade gp.",
+        "col": 14,
+        "rows": [11, 12, 13, 14]
+      },
+      {
+        "number": 57,
+        "text": "Bygone TV attachment",
+        "col": 5,
+        "rows": [12, 13, 14]
+      },
+      {
+        "number": 58,
+        "text": "Skater Midori",
+        "col": 6,
+        "rows": [12, 13, 14]
+      },
+      {
+        "number": 59,
+        "text": "\"Doctor Who\" role for Karen Gillan",
+        "col": 11,
+        "rows": [12, 13, 14]
+      }
+    ]
+  }
+}

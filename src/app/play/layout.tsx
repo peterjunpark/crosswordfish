@@ -1,6 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { GameProvider } from "../state/context";
-import { testGrid3, testClues3 } from "@/___tests___/test-data";
+import { sample3 as samplePuzzle } from "@/___tests___/samples";
 
 export const metadata = {
   title: "Crosswordfish",
@@ -14,7 +14,7 @@ export default function PlayLayout({
   children: React.ReactNode;
 }) {
   return (
-    <GameProvider initGrid={testGrid3} clues={testClues3}>
+    <GameProvider initGrid={samplePuzzle.grid} clues={samplePuzzle.clues}>
       <TooltipProvider>{children}</TooltipProvider>
     </GameProvider>
   );

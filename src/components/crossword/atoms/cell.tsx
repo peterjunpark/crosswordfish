@@ -11,7 +11,7 @@ type CellProps = {
   solution: CellValue;
   row: number;
   col: number;
-  number?: number;
+  number: number | null;
   innerLayoutClass: string;
 };
 
