@@ -14,7 +14,6 @@ export interface Focus {
 export interface FocusState {
   focus: Focus | null;
 }
-// TODO: RENAME FOCUS PROPS
 export interface FocusActions {
   setFocusByCell: (
     row: Focus["row"],
