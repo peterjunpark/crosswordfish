@@ -1,12 +1,14 @@
 "use client";
 
-// import { Stopwatch } from "./atoms/stopwatch";
 import { CheckGridSwitch } from "./atoms/check-grid-switch";
 import { ResetButton } from "./atoms/reset-button";
 import { HelpDialog } from "./atoms/help-dialog";
 import { ThemeToggle } from "../theme/toggle";
-// import { Tooltip, TooltipTrigger, TooltipContent } from "../ui/tooltip";
-// import { FocusStateLogger, GameStateLogger } from "./debug/state-loggers";
+// import {
+//   FocusStateLogger,
+//   GameInstanceStateLogger,
+//   GridStateLogger,
+// } from "./debug/state-loggers";
 
 type CrosswordOptionsProps = {
   outerLayoutClass: string;
@@ -24,12 +26,10 @@ export function CrosswordOptions({
         <ResetButton />
         <HelpDialog />
         <ThemeToggle />
+        {/* <FocusStateLogger />
+        <GameInstanceStateLogger />
+        <GridStateLogger /> */}
       </div>
-      {/* <Stopwatch /> */}
-      {/* <>
-        <FocusStateLogger />
-        <GameStateLogger />
-      </> */}
     </div>
   );
 }
