@@ -21,7 +21,6 @@ export interface GameState extends GameProps, FocusState, GameInstanceState {
   gridSize: { rows: number; cols: number };
 }
 
-//TODO: REfactor RESET
 export interface GameActions extends FocusActions, GameInstanceActions {
   setCellValue: (value: CellValue, row: number, col: number) => void;
   reset: () => void;

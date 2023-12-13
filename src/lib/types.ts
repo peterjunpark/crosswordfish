@@ -4,7 +4,9 @@ export const cellValueSchema = z.string().max(1).toUpperCase().regex(/[A-Z]/);
 
 export type CellValue = z.infer<typeof cellValueSchema>;
 
-export type Grid = readonly (CellValue | null)[][];
+export type Cell = CellValue | null;
+
+export type Grid = readonly Cell[][];
 
 interface Clue {
   number: number;
@@ -21,7 +23,7 @@ export interface DownClue extends Clue {
   rows: number[];
 }
 
-export type Clues = {
+export interface Clues {
   across: AcrossClue[];
   down: DownClue[];
-};
+}

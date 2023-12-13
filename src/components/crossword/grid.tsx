@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
 import { CrosswordCell } from "./atoms/cell";
-import type { AcrossClue, DownClue } from "@/lib/types";
 
 type CellRef = HTMLInputElement | null;
 type GridRef = Array<Array<CellRef>>;
