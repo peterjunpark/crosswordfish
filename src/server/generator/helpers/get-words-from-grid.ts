@@ -85,7 +85,7 @@ function getDownWord(grid: Grid, colIdx: number, startRowIdx: number) {
   };
 }
 
-// O(n) time
+// O(n) time, n = number of cells in grid
 export function getWords(grid: Grid) {
   const words: Words = { across: [], down: [] };
   let number = 1;
