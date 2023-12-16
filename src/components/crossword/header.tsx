@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useGameContext } from "@/app/state/context";
 import { cn } from "@/lib/utils";
+import { useGameContext } from "@/app/state/context";
+import { Wordmark } from "./atoms/wordmark";
 
 type CrosswordHeaderProps = {
   outerLayoutClass: string;
@@ -28,9 +28,7 @@ export function CrosswordHeader({ outerLayoutClass }: CrosswordHeaderProps) {
           "md:text-5xl",
         )}
       >
-        <h1 className="text-brand hover:text-brand-foreground">
-          <Link href="/">crosswordfish</Link>
-        </h1>
+        <Wordmark />
         <span className="text-muted-foreground">
           {focusedClueNumber}&nbsp;{focusedDirection}{" "}
         </span>
