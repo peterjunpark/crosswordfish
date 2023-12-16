@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "tsx": "dotenv tsx",
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "build": "next build",
-    "db:push": "dotenv drizzle-kit push:mysql",
-    "db:studio": "dotenv drizzle-kit studio",
     "dev": "next dev -p 3001",
     "lint": "next lint",
     "start": "next start"
@@ -26,7 +25,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@t3-oss/env-nextjs": "^0.7.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "geist": "^1.0.0",
