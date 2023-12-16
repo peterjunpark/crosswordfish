@@ -1,8 +1,6 @@
-import { z } from "zod"; //TODO: Add validation with Zod
+import type { CellValue } from "./schemas/grid";
 
-export const cellValueSchema = z.string().max(1).toUpperCase().regex(/[A-Z]/);
-
-export type CellValue = z.infer<typeof cellValueSchema>;
+export { CellValue };
 
 export type Cell = CellValue | null;
 
@@ -26,4 +24,19 @@ export interface DownClue extends Clue {
 export interface Clues {
   across: AcrossClue[];
   down: DownClue[];
+}
+
+export type AcrossWordWithMetadata = Omit<AcrossClue, "text"> & {
+  word: string;
+};
+export type DownWordWithMetadata = Omit<DownClue, "text"> & { word: string };
+
+export interface WordsWithMetadata {
+  across: AcrossWordWithMetadata[];
+  down: DownWordWithMetadata[];
+}
+
+export interface Words {
+  across: string[];
+  down: string[];
 }
