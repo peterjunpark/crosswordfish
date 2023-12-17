@@ -21,7 +21,7 @@ export function FocusStateLogger() {
 
 export function GameInstanceStateLogger() {
   const gameIsStarted = useGameContext((state) => state.isStarted);
-  const gameIsChecking = useGameContext((state) => state.isChecking);
+  const gameIsChecking = useGameContext((state) => state.showingErrors);
 
   return (
     <Button

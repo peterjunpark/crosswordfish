@@ -54,10 +54,22 @@ export const createFocusSlice: StateCreator<
       let clueText: Focus["clueText"];
       let word: Focus["word"];
 
+      /**
+       * There's going to be no cell at the given row/col if the cell is black.
+       */
+
       if (direction === "across") {
         const clue = get().clues.across.find(
           (clue) => clue.row === row && clue.cols.includes(col),
         );
+        const cellToLeft = get().initGrid[row]?.[col - 1];
+        const cellToRight = get().initGrid[row]?.[col + 1];
+
+        if (!cellToLeft && !cellToRight && get().rules !== "american") {
+          get().setFocusByCell(row, col, "down");
+          return;
+        }
+
         if (!clue) {
           throw new Error(
             "Can't set focus by cell. Unable to find Across clue!",
@@ -71,6 +83,14 @@ export const createFocusSlice: StateCreator<
         const clue = get().clues.down.find(
           (clue) => clue.col === col && clue.rows.includes(row),
         );
+        const cellAbove = get().initGrid[row - 1]?.[col];
+        const cellBelow = get().initGrid[row + 1]?.[col];
+
+        if (!cellAbove && !cellBelow && get().rules !== "american") {
+          get().setFocusByCell(row, col, "across");
+          return;
+        }
+
         if (!clue) {
           throw new Error("Can't set focus by cell. Unable to find Down clue!");
         }
@@ -256,17 +276,20 @@ export const createFocusSlice: StateCreator<
         get().setFocusByClue(nextClue.number, direction, targetCell);
       } else {
         // If there is no next clue in the current direction, switch directions and go to the first clue in that direction.
+        const nextDirection = direction === "across" ? "down" : "across";
         if (move === "next") {
-          get().setFocusByClue(1, direction === "across" ? "down" : "across");
+          const firstClue =
+            nextDirection === "across" ? clues.across[0] : clues.down[0];
+
+          get().setFocusByClue(firstClue!.number, nextDirection, targetCell);
           return;
         } else if (move === "prev") {
-          get().setFocusByClue(
-            direction === "across"
-              ? clues.down.at(-1)!.number
-              : clues.across.at(-1)!.number,
-            direction === "across" ? "down" : "across",
-            targetCell,
-          );
+          const lastClue =
+            nextDirection === "across"
+              ? clues.across.at(-1)
+              : clues.down.at(-1);
+
+          get().setFocusByClue(lastClue!.number, nextDirection, targetCell);
         } else {
           throw new Error("Can't set focus to next clue. Invalid modifier!");
         }
