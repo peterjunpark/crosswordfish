@@ -1,14 +1,14 @@
 "use client";
 
-import { CheckGridSwitch } from "./atoms/check-grid-switch";
+import { ShowErrorsSwitch } from "./atoms/check-grid-switch";
 import { ResetButton } from "./atoms/reset-button";
 import { HelpDialog } from "./atoms/help-dialog";
 import { ThemeToggle } from "../theme/toggle";
-// import {
-//   FocusStateLogger,
-//   GameInstanceStateLogger,
-//   GridStateLogger,
-// } from "./debug/state-loggers";
+import {
+  FocusStateLogger,
+  GameInstanceStateLogger,
+  GridStateLogger,
+} from "./debug/state-loggers";
 
 type CrosswordOptionsProps = {
   outerLayoutClass: string;
@@ -22,13 +22,13 @@ export function CrosswordOptions({
   return (
     <div className={outerLayoutClass}>
       <div className={innerLayoutClass}>
-        <CheckGridSwitch />
+        <ShowErrorsSwitch />
         <ResetButton />
         <HelpDialog />
         <ThemeToggle />
-        {/* <FocusStateLogger />
+        <FocusStateLogger />
         <GameInstanceStateLogger />
-        <GridStateLogger /> */}
+        <GridStateLogger />
       </div>
     </div>
   );

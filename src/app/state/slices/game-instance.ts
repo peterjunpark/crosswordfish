@@ -3,19 +3,19 @@ import { sliceResetters, type GameState, type GameActions } from "../store";
 
 export interface GameInstanceState {
   isStarted: boolean;
-  isChecking: boolean;
+  showingErrors: boolean;
 }
 
 export interface GameInstanceActions {
   setGameIsStarted: () => void;
-  toggleGameIsChecking: () => void;
+  toggleShowErrors: () => void;
 }
 
 interface GameInstanceSlice extends GameInstanceState, GameInstanceActions {}
 
 const initGameInstanceState = {
   isStarted: false,
-  isChecking: false,
+  showingErrors: false,
 };
 
 export const createGameInstanceSlice: StateCreator<
@@ -33,9 +33,9 @@ export const createGameInstanceSlice: StateCreator<
         isStarted: true,
       }));
     },
-    toggleGameIsChecking: () => {
+    toggleShowErrors: () => {
       set((state) => ({
-        isChecking: !state.isChecking,
+        showingErrors: !state.showingErrors,
       }));
     },
   };

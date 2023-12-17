@@ -14,8 +14,8 @@ import {
 export interface GameProps {
   initGrid: Grid;
   clues: Clues;
+  rules: "freeform" | "american" | "cryptic";
 }
-
 export interface GameState extends GameProps, FocusState, GameInstanceState {
   workingGrid: Grid;
   gridSize: { rows: number; cols: number };

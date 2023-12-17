@@ -76,7 +76,7 @@ function CluesPanel({
   return (
     <div className={innerLayoutClass}>
       <h3 className="pl-3 font-semibold tracking-tight">{direction}</h3>
-      <ScrollArea className="h-full w-full shrink rounded-md border">
+      <ScrollArea className="max-h-full w-full shrink rounded-md border">
         {cluesList.map((clue, idx) => (
           <Fragment key={`${clue.number}-${direction}`}>
             <Button
