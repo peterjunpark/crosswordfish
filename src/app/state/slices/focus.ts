@@ -53,7 +53,6 @@ export const createFocusSlice: StateCreator<
       let clueNumber: Focus["clueNumber"];
       let clueText: Focus["clueText"];
       let word: Focus["word"];
-
       /**
        * There's going to be no cell at the given row/col if the cell is black.
        */
