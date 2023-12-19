@@ -24,7 +24,7 @@ export function CrosswordGrid({
   const focus = useGameContext((state) => state.focus);
   const setFocusByClue = useGameContext((state) => state.setFocusByClue);
   const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
-  // Game state
+  // TODO: Game state
   // const isStarted = useGameStore((state) => state.game.isStarted);
   // const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 
@@ -42,24 +42,21 @@ export function CrosswordGrid({
   };
 
   const getCellNumber = (rowIdx: number, colIdx: number) => {
-    const cellAbove = typeof initGrid[rowIdx - 1]?.[colIdx] === "string";
-    const cellToLeft = typeof initGrid[rowIdx]?.[colIdx - 1] === "string";
+    let cellNumber: number | null = null;
 
-    if (cellAbove && cellToLeft) return null;
+    cellNumber =
+      clues.across.find(
+        (element) => element.row === rowIdx && element.cols[0] === colIdx,
+      )?.number ?? null;
 
-    if (!cellToLeft) {
-      return (
-        clues.across.find(
-          (element) => element.row === rowIdx && element.cols[0] === colIdx,
-        )?.number ?? null
-      );
+    if (!cellNumber) {
+      cellNumber =
+        clues.down.find(
+          (element) => element.col === colIdx && element.rows[0] === rowIdx,
+        )?.number ?? null;
     }
 
-    return (
-      clues.down.find(
-        (element) => element.col === colIdx && element.rows[0] === rowIdx,
-      )?.number ?? null
-    );
+    return cellNumber;
   };
 
   // Focus and select the cell in the DOM when focus state changes.

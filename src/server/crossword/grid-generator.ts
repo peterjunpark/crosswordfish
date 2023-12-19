@@ -1,4 +1,5 @@
 import { freeformSampleCanon } from "@/dataset/sample-puzzles";
+import dictionary from "@/dataset";
 import type { Cell, Grid, WordsWithMetadata, Rules } from "@/lib/types";
 export class CrosswordGrid {
   _grid: Grid;
