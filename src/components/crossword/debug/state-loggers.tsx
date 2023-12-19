@@ -36,7 +36,7 @@ export function GameInstanceStateLogger() {
 }
 
 export function GridStateLogger() {
-  const initGrid = useGameContext((state) => state.initGrid);
+  const initGrid = useGameContext((state) => state.grid);
   const workingGrid = useGameContext((state) => state.workingGrid);
 
   return (

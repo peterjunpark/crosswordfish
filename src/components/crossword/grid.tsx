@@ -18,7 +18,7 @@ export function CrosswordGrid({
   innerLayoutClass,
 }: CrosswordGridProps) {
   // Gameboard state
-  const initGrid = useGameContext((state) => state.initGrid);
+  const initGrid = useGameContext((state) => state.grid);
   const clues = useGameContext((state) => state.clues);
   // Player focus state
   const focus = useGameContext((state) => state.focus);

@@ -6,6 +6,8 @@ export type Cell = CellValue | null;
 
 export type Grid = readonly Cell[][];
 
+export type Rules = "freeform" | "american" | "cryptic";
+
 interface Clue {
   number: number;
   text: string;

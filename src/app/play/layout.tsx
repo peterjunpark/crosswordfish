@@ -1,7 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { GameProvider } from "../state/context";
-import { getGrid } from "@/server/crossword/grid-generator";
-import { getClues } from "@/server/crossword/clues-generator";
+import { Crossword } from "@/server/crossword";
 import { americanSample110623 as sample } from "@/dataset/sample-puzzles";
 
 export const metadata = {
@@ -15,11 +14,12 @@ export default async function PlayLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const grid = getGrid();
-  const clues = await getClues(grid);
+  const crossword = new Crossword(15, 15, "freeform");
+  await crossword.writeClues();
+  const { grid, clues, rules } = crossword;
 
   return (
-    <GameProvider initGrid={grid} clues={clues} rules="freeform">
+    <GameProvider {...{ grid, clues, rules }}>
       <TooltipProvider>{children}</TooltipProvider>
     </GameProvider>
   );

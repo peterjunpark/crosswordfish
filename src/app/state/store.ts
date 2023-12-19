@@ -1,5 +1,5 @@
 import { createStore } from "zustand";
-import type { Grid, Clues, CellValue } from "@/lib/types";
+import type { Grid, Clues, CellValue, Rules } from "@/lib/types";
 import {
   createFocusSlice,
   type FocusState,
@@ -12,9 +12,9 @@ import {
 } from "./slices/game-instance";
 
 export interface GameProps {
-  initGrid: Grid;
+  grid: Grid;
   clues: Clues;
-  rules: "freeform" | "american" | "cryptic";
+  rules: Rules;
 }
 export interface GameState extends GameProps, FocusState, GameInstanceState {
   workingGrid: Grid;
@@ -37,7 +37,7 @@ const resetAllSlices = () => {
 };
 
 export const createGameStore = (initProps: GameProps) => {
-  const { initGrid } = initProps;
+  const { grid: initGrid } = initProps;
   const workingGrid: Grid = initGrid.map((row) =>
     row.map((cell) => (cell === null ? null : "")),
   );

@@ -53,16 +53,13 @@ export const createFocusSlice: StateCreator<
       let clueNumber: Focus["clueNumber"];
       let clueText: Focus["clueText"];
       let word: Focus["word"];
-      /**
-       * There's going to be no cell at the given row/col if the cell is black.
-       */
 
       if (direction === "across") {
         const clue = get().clues.across.find(
           (clue) => clue.row === row && clue.cols.includes(col),
         );
-        const cellToLeft = get().initGrid[row]?.[col - 1];
-        const cellToRight = get().initGrid[row]?.[col + 1];
+        const cellToLeft = get().grid[row]?.[col - 1];
+        const cellToRight = get().grid[row]?.[col + 1];
 
         if (!cellToLeft && !cellToRight && get().rules !== "american") {
           get().setFocusByCell(row, col, "down");
@@ -82,8 +79,8 @@ export const createFocusSlice: StateCreator<
         const clue = get().clues.down.find(
           (clue) => clue.col === col && clue.rows.includes(row),
         );
-        const cellAbove = get().initGrid[row - 1]?.[col];
-        const cellBelow = get().initGrid[row + 1]?.[col];
+        const cellAbove = get().grid[row - 1]?.[col];
+        const cellBelow = get().grid[row + 1]?.[col];
 
         if (!cellAbove && !cellBelow && get().rules !== "american") {
           get().setFocusByCell(row, col, "across");
@@ -164,7 +161,7 @@ export const createFocusSlice: StateCreator<
       }));
     },
     findNextValidCell: (rowModifier, colModifier) => {
-      const { focus, initGrid, gridSize } = get();
+      const { focus, grid: initGrid, gridSize } = get();
 
       if (!focus)
         throw new Error("Can't find next valid cell. Current focus is null!");
