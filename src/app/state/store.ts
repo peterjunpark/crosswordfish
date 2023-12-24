@@ -1,5 +1,5 @@
 import { createStore } from "zustand";
-import type { Grid, Clues, CellValue, Rules } from "@/lib/types";
+import type { Grid, Clues, Rules } from "@/lib/types";
 import {
   createFocusSlice,
   type FocusState,
@@ -22,7 +22,6 @@ export interface GameState extends GameProps, FocusState, GameInstanceState {
 }
 
 export interface GameActions extends FocusActions, GameInstanceActions {
-  setCellValue: (value: CellValue, row: number, col: number) => void;
   reset: () => void;
 }
 
@@ -53,17 +52,6 @@ export const createGameStore = (initProps: GameProps) => {
       });
       resetAllSlices();
     },
-    setCellValue: (newValue, row, col) =>
-      set((state) => ({
-        // Update value at the desired rowIndex and colIndex.
-        workingGrid: state.workingGrid.map((rowArray, rowIndex) => {
-          if (rowIndex !== row) return rowArray;
-
-          return rowArray.map((value, colIndex) =>
-            colIndex === col ? newValue : value,
-          );
-        }),
-      })),
     ...createFocusSlice(set, ...a),
     ...createGameInstanceSlice(set, ...a),
   }));

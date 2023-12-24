@@ -27,28 +27,30 @@ export default function PlayPage() {
           )}
           innerLayoutClass="aspect-square"
         />
-        <CrosswordOptions
-          outerLayoutClass={clsx("flex h-auto w-auto gap-3", "md:flex-col")}
-          innerLayoutClass={clsx(
-            "flex w-full items-center justify-around gap-4 rounded-md border",
-            "md:flex-end md:h-full md:flex-col md:justify-end md:border-none",
-            "xl:[&>*]:w-[5.5rem]",
-          )}
-        />
-        <CrosswordClues
-          outerLayoutClass={clsx(
-            "flex h-full gap-1",
-            "md:w-[10rem] md:flex-col md:justify-between",
-            "lg:w-[20rem]",
-            "xl:w-[20rem]",
-            "2xl:w-[40rem] 2xl:flex-row 2xl:gap-3",
-          )}
-          innerLayoutClass={clsx(
-            "flex h-full w-1/2 flex-col",
-            "md:h-1/2 md:h-[49%] md:w-full",
-            "2xl:h-full",
-          )}
-        />
+        <div className="flex w-fit flex-col justify-between">
+          <CrosswordClues
+            outerLayoutClass={clsx(
+              "flex h-[90%] gap-1",
+              "md:w-[10rem] md:flex-col md:justify-between",
+              "lg:w-full",
+              "xl:w-full",
+              "2xl:w-[40rem] 2xl:flex-row 2xl:gap-3",
+            )}
+            innerLayoutClass={clsx(
+              "flex h-full w-1/2 flex-col",
+              "md:h-1/2 md:h-[49%] md:w-full",
+              "2xl:h-full",
+            )}
+          />
+          <CrosswordOptions
+            outerLayoutClass={clsx("flex h-auto w-auto gap-3")}
+            innerLayoutClass={clsx(
+              "flex w-full items-center justify-around gap-3 rounded-md border",
+              "md:flex-end md:h-full md:justify-end md:border-none",
+              "xl:[&>*]:w-[5.5rem]",
+            )}
+          />
+        </div>
       </div>
     </main>
   );
