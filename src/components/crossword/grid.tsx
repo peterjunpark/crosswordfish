@@ -24,7 +24,7 @@ export function CrosswordGrid({
   const focus = useGameContext((state) => state.focus);
   const setFocusByClue = useGameContext((state) => state.setFocusByClue);
   const setFocusByKbd = useGameContext((state) => state.setFocusByKbd);
-  // TODO: Game state
+  // TODO: Maybe add a timer?
   // const isStarted = useGameStore((state) => state.game.isStarted);
   // const setIsStarted = useGameStore((state) => state.setGameIsStarted);
 

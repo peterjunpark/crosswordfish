@@ -32,16 +32,16 @@ export default function PlayPage() {
         <div className="flex w-fit flex-col justify-between">
           <CrosswordClues
             outerLayoutClass={clsx(
-              "flex h-[90%] gap-1",
-              "md:w-[10rem] md:flex-col md:justify-between",
+              "-z-10 flex h-[90%] gap-1",
+              "md:w-full md:flex-col md:justify-between",
               "lg:w-full",
-              "xl:w-full",
-              "2xl:w-[40rem] 2xl:flex-row 2xl:gap-3",
+              "xl:w-full xl:flex-row xl:gap-3",
+              "2xl:w-[40rem]",
             )}
             innerLayoutClass={clsx(
               "flex h-full w-1/2 flex-col",
               "md:h-1/2 md:h-[49%] md:w-full",
-              "2xl:h-full",
+              "xl:h-full",
             )}
           />
           <CrosswordOptions
