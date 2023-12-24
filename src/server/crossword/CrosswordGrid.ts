@@ -1,10 +1,9 @@
-import { freeformSampleCanon } from "@/dataset/sample-puzzles";
 import dictionary from "@/dataset";
 import type { Cell, Grid, Rules } from "@/lib/types";
 
 const MIN_WORD_LENGTH = 3;
 const MAX_WORD_LENGTH = 15;
-const MIN_DATAMUSE_WORD_SCORE = 80;
+const MIN_DATAMUSE_WORD_SCORE = 90;
 
 export class CrosswordGrid {
   protected _grid: Grid;
@@ -29,7 +28,6 @@ export class CrosswordGrid {
 
   async writeGrid() {
     this.fillInDownWords();
-    console.table(this._grid);
     await this.fillInAcrossWords();
     console.table(this._grid);
   }
@@ -57,7 +55,6 @@ export class CrosswordGrid {
       // Loop until a word is found that fits. Minimum word length is 3.
       while (tempRow.length >= 3) {
         word = await this.generateWordThatFits(tempRow);
-        console.log({ word });
 
         if (word) break;
 
@@ -127,7 +124,6 @@ export class CrosswordGrid {
    */
   private async generateWordThatFits(arr: Cell[]) {
     const query = arr.map((cell) => cell ?? "?").join("");
-    console.log(query);
 
     try {
       const results = await fetch(`https://api.datamuse.com/words?sp=${query}`);
@@ -242,6 +238,3 @@ export class CrosswordGrid {
     return Array.from({ length: end - start }, (_, index) => start + index);
   }
 }
-
-const crossword = new CrosswordGrid(15, 15, "freeform");
-crossword.writeGrid().catch((err) => console.error(err));
