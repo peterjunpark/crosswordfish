@@ -11,9 +11,8 @@ export interface GameInstanceState {
 }
 
 export interface GameInstanceActions {
-  setGameIsStarted: () => void;
-  checkIfSolved: () => void;
   setCellValue: (value: CellValue, row: number, col: number) => void;
+  checkIfSolved: () => void;
   toggleShowErrors: () => void;
   revealWord: () => void;
   revealGrid: () => void;
@@ -37,19 +36,6 @@ export const createGameInstanceSlice: StateCreator<
 
   return {
     ...initGameInstanceState,
-    setGameIsStarted: () => {
-      set(() => ({
-        isStarted: true,
-      }));
-    },
-    checkIfSolved: () => {
-      const solutionGrid = get().grid;
-      const workingGrid = get().workingGrid;
-
-      if (isEqual(solutionGrid, workingGrid)) {
-        set({ isSolved: true });
-      }
-    },
     setCellValue: (newValue, row, col) => {
       set((state) => ({
         // Update value at the desired rowIndex and colIndex.
@@ -60,8 +46,17 @@ export const createGameInstanceSlice: StateCreator<
             colIndex === col ? newValue : value,
           );
         }),
+        isStarted: true,
       }));
       get().checkIfSolved();
+    },
+    checkIfSolved: () => {
+      const solutionGrid = get().grid;
+      const workingGrid = get().workingGrid;
+
+      if (isEqual(solutionGrid, workingGrid)) {
+        set({ isSolved: true });
+      }
     },
     toggleShowErrors: () => {
       set((state) => ({
@@ -97,11 +92,11 @@ export const createGameInstanceSlice: StateCreator<
         }
       }
 
-      set({ workingGrid });
+      set({ workingGrid, isStarted: true });
       get().checkIfSolved();
     },
     revealGrid: () => {
-      set({ workingGrid: cloneDeep(get().grid) });
+      set({ workingGrid: cloneDeep(get().grid), isStarted: true });
       get().checkIfSolved();
     },
   };

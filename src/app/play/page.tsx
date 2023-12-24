@@ -1,16 +1,18 @@
+import { clsx } from "clsx";
 import { CrosswordGrid } from "@/components/crossword/grid";
 import { CrosswordHeader } from "@/components/crossword/header";
 import { CrosswordClues } from "@/components/crossword/clues";
 import { CrosswordOptions } from "@/components/crossword/options";
-import { clsx } from "clsx";
+import { GameWinDialog } from "@/components/crossword/atoms/game-win-dialog";
 
 export default function PlayPage() {
   // outer/innerLayoutClass props are to colocate layout classes.
   return (
     <main className={clsx("w-full pb-3", ["md:h-screen"])}>
+      <GameWinDialog />
       <CrosswordHeader
         outerLayoutClass={clsx(
-          "sticky top-0 z-50 flex w-full flex-col p-2",
+          "sticky top-0 flex w-full flex-col p-2",
           "md:p-6, md:h-fit md:gap-2 md:p-6 md:pb-3 md:pb-3",
         )}
       />
@@ -22,7 +24,7 @@ export default function PlayPage() {
       >
         <CrosswordGrid
           outerLayoutClass={clsx(
-            "sticky top-[4.22rem] z-50 aspect-square h-auto w-full",
+            "sticky top-[4.22rem] aspect-square h-auto w-full",
             "landscape:h-full landscape:w-auto",
           )}
           innerLayoutClass="aspect-square"
