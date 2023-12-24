@@ -1,47 +1,20 @@
-import { freeformSampleCanon } from "@/dataset/sample-puzzles";
-import dictionary from "@/dataset";
-import type { Cell, Grid, WordsWithMetadata, Rules } from "@/lib/types";
-export class CrosswordGrid {
-  _grid: Grid;
+import { CrosswordGrid } from "./CrosswordGrid";
+import type { Grid, Rules, WordsWithMetadata } from "@/lib/types";
 
-  constructor(
-    public _rows: number,
-    public _cols: number,
-    public _rules: Rules,
-  ) {
-    this._grid = this.emptyGrid();
-    this.writeGrid();
-  }
-
-  get grid() {
-    return this._grid;
-  }
-
-  get rules() {
-    return this._rules;
-  }
-
-  private emptyGrid() {
-    return Array.from({ length: this._rows }, () =>
-      Array<Cell>(this._cols).fill(null),
-    );
-  }
-
-  private writeGrid() {
-    // const grid = this._grid;
-    this._grid = freeformSampleCanon;
-  }
-
-  private getNumbersInRange(start: number, end: number) {
-    return Array.from({ length: end - start }, (_, index) => start + index);
+export class CrosswordGridWithWords extends CrosswordGrid {
+  constructor(_rows: number, _cols: number, _rules: Rules) {
+    super(_rows, _cols, _rules);
   }
 
   /**
-   * @returns {("across" | "down")[] | false} If the cell starts a word in either direction,
+   * If the cell starts a word in either direction,
    * returns an array indicating the word's 'directions'.
    * If the cell is does not start a word, returns false.
    */
-  private getWordDirectionsFromStarter(rowIdx: number, colIdx: number) {
+  private getWordDirectionsFromStarter(
+    rowIdx: number,
+    colIdx: number,
+  ): ("across" | "down")[] | false {
     const grid = this._grid;
     const cellAbove = grid[rowIdx - 1]?.[colIdx];
     const cellBelow = grid[rowIdx + 1]?.[colIdx];
@@ -97,7 +70,7 @@ export class CrosswordGrid {
   }
 
   // O(n * m) time => n = number of rows, m = number of columns
-  protected getWords() {
+  protected getWordsInOrder() {
     const grid = this._grid;
     const words: WordsWithMetadata = { across: [], down: [] };
     let number = 1;

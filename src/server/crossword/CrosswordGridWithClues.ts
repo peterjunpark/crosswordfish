@@ -1,5 +1,5 @@
 import { openai } from "./openai";
-import { CrosswordGrid } from "./grid-generator";
+import { CrosswordGridWithWords } from "./CrosswordGridWithWords";
 import type {
   Words,
   AcrossWordWithMetadata,
@@ -12,16 +12,15 @@ import type {
 import type { GameProps } from "@/app/state/store";
 
 /**
- * Don't forget to call writeClues() after instantiating a Crossword.
+ * Don't forget to call writeGrid() and writeClues() after instantiating a Crossword.
  */
-export class Crossword extends CrosswordGrid implements GameProps {
+export class CrosswordGridWithClues
+  extends CrosswordGridWithWords
+  implements GameProps
+{
   _clues: Clues = { across: [], down: [] };
 
-  constructor(
-    public _rows: number,
-    public _cols: number,
-    public _rules: Rules,
-  ) {
+  constructor(_rows: number, _cols: number, _rules: Rules) {
     super(_rows, _cols, _rules);
   }
 
@@ -80,33 +79,30 @@ export class Crossword extends CrosswordGrid implements GameProps {
     const clues = words.map((word, idx) => {
       const clue = bareClues[idx];
 
-      if (word.hasOwnProperty("row") && word.hasOwnProperty("cols")) {
+      if ("row" in word && "cols" in word) {
         return {
           number: word.number,
-          row: (word as AcrossWordWithMetadata).row,
-          cols: (word as AcrossWordWithMetadata).cols,
+          row: word.row,
+          cols: word.cols,
           text: clue,
         };
-      } else if (word.hasOwnProperty("col") && word.hasOwnProperty("rows")) {
+      } else if ("col" in word && "rows" in word) {
         return {
           number: word.number,
-          col: (word as DownWordWithMetadata).col,
-          rows: (word as DownWordWithMetadata).rows,
+          col: word.col,
+          rows: word.rows,
           text: clue,
         };
-      } else {
-        throw new Error(
-          "Can't derive clues by combining OpenAI completion with words.",
-        );
       }
     });
+
     return clues as T extends AcrossWordWithMetadata
       ? AcrossClue[]
       : DownClue[];
   }
 
   async writeClues() {
-    const { across, down } = this.getWords();
+    const { across, down } = this.getWordsInOrder();
     const acrossWords = across.map((word) => word.word);
     const downWords = down.map((word) => word.word);
 
@@ -114,9 +110,6 @@ export class Crossword extends CrosswordGrid implements GameProps {
       across: acrossWords,
       down: downWords,
     });
-
-    console.log("hi");
-    console.dir(res.choices[0]?.message.content, { depth: Infinity });
 
     if (res.choices[0]?.finish_reason === "length") {
       throw new Error("Can't generate clues. Tokens exceeded.");
@@ -128,17 +121,9 @@ export class Crossword extends CrosswordGrid implements GameProps {
         down: string[];
       };
 
-      if (
-        bareClues.across.length !== acrossWords.length ||
-        bareClues.down.length !== downWords.length
-      ) {
-        throw new Error(
-          "Can't generate clues. OpenAI response not compatible with words.",
-        );
-      }
-
       this._clues.across = this.deriveClues(across, bareClues.across);
       this._clues.down = this.deriveClues(down, bareClues.down);
+
       return;
     }
     throw new Error("Can't generate clues. Unknown server error.");

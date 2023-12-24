@@ -12,9 +12,6 @@ import thirteenLetterWords from "./13-letter-words.json";
 import fourteenLetterWords from "./14-letter-words.json";
 import fifteenLetterWords from "./15-letter-words.json";
 
-export const MIN_WORD_LENGTH = 3;
-export const MAX_WORD_LENGTH = 15;
-
 /**
   @description This dataset contains words used in NYT crossword puzzles. The words in this dataset are from the following source:
   @url https://huggingface.co/datasets/NavidTerraNova/NYT-Crossword

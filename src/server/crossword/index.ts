@@ -1,3 +1,3 @@
-import { Crossword } from "./clues-generator";
+import { CrosswordGridWithClues } from "./CrosswordGridWithClues";
 
-export { Crossword };
+export { CrosswordGridWithClues as Crossword };
