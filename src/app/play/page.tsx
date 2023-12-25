@@ -32,7 +32,7 @@ export default function PlayPage() {
         <div className="flex w-fit flex-col justify-between">
           <CrosswordClues
             outerLayoutClass={clsx(
-              "-z-10 flex h-[90%] gap-1",
+              "flex h-[90%] gap-1",
               "md:w-full md:flex-col md:justify-between",
               "lg:w-full",
               "xl:w-full xl:flex-row xl:gap-3",
