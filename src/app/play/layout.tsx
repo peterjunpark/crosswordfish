@@ -2,6 +2,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { GameProvider } from "../state/context";
 import { Crossword } from "@/server/crossword";
 
+export const revalidate = 0;
+
 export default async function PlayLayout({
   children,
 }: {
