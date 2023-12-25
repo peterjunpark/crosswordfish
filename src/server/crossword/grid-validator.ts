@@ -1,2 +1,0 @@
-const MIN_WORD_LENGTH = 3;
-const MAX_WORD_LENGTH = 15;

@@ -1,3 +1,8 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useGameContext } from "@/app/state/context";
 import { clsx } from "clsx";
 import { CrosswordGrid } from "@/components/crossword/grid";
 import { CrosswordHeader } from "@/components/crossword/header";
@@ -6,6 +11,18 @@ import { CrosswordOptions } from "@/components/crossword/options";
 import { GameWinDialog } from "@/components/crossword/atoms/game-win-dialog";
 
 export default function PlayPage() {
+  const router = useRouter();
+  const isSolved = useGameContext((state) => state.isSolved);
+
+  // Need to use router.refresh() to clear Next.js' router cache.
+  // (Apparently that's the only way to clear it client-side)
+  // So a new game can be started when the revisit this route
+  useEffect(() => {
+    if (isSolved) {
+      router.refresh();
+    }
+  }, [isSolved, router]);
+
   // outer/innerLayoutClass props are to colocate layout classes.
   return (
     <main className={clsx("w-full pb-3", ["md:h-screen"])}>
