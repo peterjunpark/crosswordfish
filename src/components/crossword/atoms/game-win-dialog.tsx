@@ -1,4 +1,6 @@
 "use client";
+
+import Link from "next/link";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { useGameContext } from "@/app/state/context";
@@ -7,7 +9,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export function GameWinDialog() {
   const { width, height } = useWindowSize();
@@ -22,7 +26,12 @@ export function GameWinDialog() {
             <DialogHeader>
               <DialogTitle>You win!</DialogTitle>
             </DialogHeader>
-            Your vocabulary and trivia skills are unmatched. Play again?
+            Your vocabulary and trivia skills are unmatched.
+            <DialogFooter>
+              <Link href="/">
+                <Button>Play again?</Button>
+              </Link>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       </>

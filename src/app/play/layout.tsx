@@ -1,7 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { GameProvider } from "../state/context";
 import { Crossword } from "@/server/crossword";
-import sample from "@/dataset/sample-puzzles/american/washington-post-110623.json";
 
 export const metadata = {
   title: "Crosswordfish",
@@ -9,19 +8,18 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function PlayLayout({
+export default async function PlayLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const crossword = new Crossword(15, 15, "freeform");
-  // await crossword.writeGrid();
-  // await crossword.writeClues();
-  // const { grid, clues, rules } = crossword;
+  const crossword = new Crossword(15, 15, "freeform");
+  await crossword.writeGrid();
+  await crossword.writeClues();
+  const { grid, clues, rules } = crossword;
 
   return (
-    <GameProvider grid={sample.grid} clues={sample.clues} rules="freeform">
-      {/* <GameProvider {...{ grid, clues, rules }}> */}
+    <GameProvider {...{ grid, clues, rules }}>
       <TooltipProvider>{children}</TooltipProvider>
     </GameProvider>
   );
