@@ -1,16 +1,18 @@
+import { clsx } from "clsx";
 import { CrosswordGrid } from "@/components/crossword/grid";
 import { CrosswordHeader } from "@/components/crossword/header";
 import { CrosswordClues } from "@/components/crossword/clues";
 import { CrosswordOptions } from "@/components/crossword/options";
-import { clsx } from "clsx";
+import { GameWinDialog } from "@/components/crossword/atoms/game-win-dialog";
 
 export default function PlayPage() {
   // outer/innerLayoutClass props are to colocate layout classes.
   return (
     <main className={clsx("w-full pb-3", ["md:h-screen"])}>
+      <GameWinDialog />
       <CrosswordHeader
         outerLayoutClass={clsx(
-          "sticky top-0 z-50 flex w-full flex-col p-2",
+          "sticky top-0 flex w-full flex-col p-2",
           "md:p-6, md:h-fit md:gap-2 md:p-6 md:pb-3 md:pb-3",
         )}
       />
@@ -22,33 +24,35 @@ export default function PlayPage() {
       >
         <CrosswordGrid
           outerLayoutClass={clsx(
-            "sticky top-[4.22rem] z-50 aspect-square h-auto w-full",
+            "sticky top-[4.22rem] aspect-square h-auto w-full",
             "landscape:h-full landscape:w-auto",
           )}
           innerLayoutClass="aspect-square"
         />
-        <CrosswordOptions
-          outerLayoutClass={clsx("flex h-auto w-auto gap-3", "md:flex-col")}
-          innerLayoutClass={clsx(
-            "flex w-full items-center justify-around gap-4 rounded-md border",
-            "md:flex-end md:h-full md:flex-col md:justify-end md:border-none",
-            "xl:[&>*]:w-[5.5rem]",
-          )}
-        />
-        <CrosswordClues
-          outerLayoutClass={clsx(
-            "flex h-full gap-1",
-            "md:w-[10rem] md:flex-col md:justify-between",
-            "lg:w-[20rem]",
-            "xl:w-[20rem]",
-            "2xl:w-[40rem] 2xl:flex-row 2xl:gap-3",
-          )}
-          innerLayoutClass={clsx(
-            "flex h-full w-1/2 flex-col",
-            "md:h-1/2 md:h-[49%] md:w-full",
-            "2xl:h-full",
-          )}
-        />
+        <div className="flex w-fit flex-col justify-between">
+          <CrosswordClues
+            outerLayoutClass={clsx(
+              "flex h-[90%] gap-1",
+              "md:w-[10rem] md:flex-col md:justify-between",
+              "lg:w-full",
+              "xl:w-full",
+              "2xl:w-[40rem] 2xl:flex-row 2xl:gap-3",
+            )}
+            innerLayoutClass={clsx(
+              "flex h-full w-1/2 flex-col",
+              "md:h-1/2 md:h-[49%] md:w-full",
+              "2xl:h-full",
+            )}
+          />
+          <CrosswordOptions
+            outerLayoutClass={clsx("flex h-auto w-auto gap-3")}
+            innerLayoutClass={clsx(
+              "flex w-full items-center justify-around gap-3 rounded-md border",
+              "md:flex-end md:h-full md:justify-end md:border-none",
+              "xl:[&>*]:w-[5.5rem]",
+            )}
+          />
+        </div>
       </div>
     </main>
   );

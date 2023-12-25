@@ -1,7 +1,8 @@
 "use client";
 
-import { CheckGridSwitch } from "./atoms/check-grid-switch";
+import { ShowErrorsSwitch } from "./atoms/check-grid-switch";
 import { ResetButton } from "./atoms/reset-button";
+import { RevealButton } from "./atoms/reveal-button";
 import { HelpDialog } from "./atoms/help-dialog";
 import { ThemeToggle } from "../theme/toggle";
 // import {
@@ -22,7 +23,8 @@ export function CrosswordOptions({
   return (
     <div className={outerLayoutClass}>
       <div className={innerLayoutClass}>
-        <CheckGridSwitch />
+        <ShowErrorsSwitch />
+        <RevealButton />
         <ResetButton />
         <HelpDialog />
         <ThemeToggle />

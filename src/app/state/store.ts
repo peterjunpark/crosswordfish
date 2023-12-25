@@ -1,5 +1,5 @@
 import { createStore } from "zustand";
-import type { Grid, Clues, CellValue } from "@/lib/types";
+import type { Grid, Clues, Rules } from "@/lib/types";
 import {
   createFocusSlice,
   type FocusState,
@@ -12,17 +12,16 @@ import {
 } from "./slices/game-instance";
 
 export interface GameProps {
-  initGrid: Grid;
+  grid: Grid;
   clues: Clues;
+  rules: Rules;
 }
-
 export interface GameState extends GameProps, FocusState, GameInstanceState {
   workingGrid: Grid;
   gridSize: { rows: number; cols: number };
 }
 
 export interface GameActions extends FocusActions, GameInstanceActions {
-  setCellValue: (value: CellValue, row: number, col: number) => void;
   reset: () => void;
 }
 
@@ -37,7 +36,7 @@ const resetAllSlices = () => {
 };
 
 export const createGameStore = (initProps: GameProps) => {
-  const { initGrid } = initProps;
+  const { grid: initGrid } = initProps;
   const workingGrid: Grid = initGrid.map((row) =>
     row.map((cell) => (cell === null ? null : "")),
   );
@@ -53,17 +52,6 @@ export const createGameStore = (initProps: GameProps) => {
       });
       resetAllSlices();
     },
-    setCellValue: (newValue, row, col) =>
-      set((state) => ({
-        // Update value at the desired rowIndex and colIndex.
-        workingGrid: state.workingGrid.map((rowArray, rowIndex) => {
-          if (rowIndex !== row) return rowArray;
-
-          return rowArray.map((value, colIndex) =>
-            colIndex === col ? newValue : value,
-          );
-        }),
-      })),
     ...createFocusSlice(set, ...a),
     ...createGameInstanceSlice(set, ...a),
   }));

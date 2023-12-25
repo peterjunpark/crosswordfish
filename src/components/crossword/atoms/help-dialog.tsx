@@ -3,7 +3,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -35,9 +34,6 @@ export function HelpDialog() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Keyboard shortcuts</DialogTitle>
-          <DialogDescription>
-            ... for an improved crosswording experience.
-          </DialogDescription>
         </DialogHeader>
         <table className="text-sm">
           <tbody>

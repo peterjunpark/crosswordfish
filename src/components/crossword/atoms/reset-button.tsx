@@ -25,6 +25,7 @@ export function ResetButton() {
       return () => clearTimeout(timeout);
     }
   }, [resetConfirm]);
+
   return (
     <Button
       onClick={handleReset}

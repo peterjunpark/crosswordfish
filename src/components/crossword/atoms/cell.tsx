@@ -53,7 +53,7 @@ export const CrosswordCell = forwardRef<HTMLInputElement, CellProps>(
       }
     }
 
-    const gameIsChecking = useGameContext((state) => state.isChecking);
+    const gameIsChecking = useGameContext((state) => state.showingErrors);
 
     // Update state when the cell is focused.
     const handleFocus = () => {

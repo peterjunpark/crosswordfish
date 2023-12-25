@@ -1,0 +1,17 @@
+[
+  ["T", "G", "I", "F", null, "A", null, null, null, null, null, "O", null, null, "S"],
+  [null, "A", null, null, "U", "V", "U", "L", "A", null, "E", "X", "C", "E", "L"],
+  [null, "M", null, null, null, "A", null, null, "D", null, null, "F", null, null, "A"],
+  [null, "O", null, null, null, "T", null, null, "I", null, null, "O", null, null, "V"],
+  [null, "R", null, null, null, "A", null, null, "M", "O", "O", "R", null, null, null],
+  ["B", "A", "Z", "A", "A", "R", null, null, "E", null, null, "D", "I", "M", "E"],
+  ["E", null, null, null, null, null, null, null, "A", null, null, null, null, "E", null],
+  ["A", "C", "K", "N", "O", "W", "L", "E", "D", "G", "E", "M", "E", "N", "T"],
+  ["V", null, null, null, null, "A", null, null, "O", null, null, null, null, "T", null],
+  ["E", null, "A", "M", "O", "R", "T", "I", "Z", "E", null, null, null, "H", null],
+  ["R", null, null, null, null, "S", null, null, "E", null, null, null, null, "O", null],
+  [null, "M", null, null, null, "A", null, null, "N", "I", "C", "K", "E", "L", null],
+  ["L", "E", "T", "D", "O", "W", "N", null, null, null, null, "I", null, null, null],
+  [null, "M", null, null, null, null, null, "O", "R", "W", "E", "L", "L", null, null],
+  [null, "E", "L", "I", "X", "I", "R", null, null, null, null, "O", null, null, null]
+]
