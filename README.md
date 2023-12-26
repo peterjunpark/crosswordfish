@@ -1,36 +1,16 @@
 <div align="center">
-
-  <h1 align="center">Crosswordfish</h1>
+<h1 align="center">Crosswordfish</h1>
   
 [![Next][Next.js]][Next-url] [![React][React.js]][React-url]
-
-</div>
 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of contents</summary>
-  <ol>
-    <li>
-      <a href="#about">About</a>
-      <ul>
-        <li><a href="#built-with">Built with</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
+  <a href="#About">About</a>
+  <a href="#Installation">Installation</a>
+  <a href="#Roadmap">Roadmap</a>
 </details>
+</div>
 
 ## About
 
