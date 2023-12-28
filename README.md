@@ -4,13 +4,10 @@
 [![Next][Next.js]][Next-url] [![React][React.js]][React-url]
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of contents</summary>
-  <a href="#About">About</a>
-  <a href="#Installation">Installation</a>
+## Contents
+  <a href="#About">About</a> / 
+  <a href="#Installation">Installation</a> / 
   <a href="#Roadmap">Roadmap</a>
-</details>
-</div>
 
 ## About
 
