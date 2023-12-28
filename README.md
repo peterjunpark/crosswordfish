@@ -1,5 +1,5 @@
 <div align="center">
-<h1 align="center">Crosswordfish</h1>
+<h1 align="center" id="top">Crosswordfish</h1>
   
 [![Next][Next.js]][Next-url] [![React][React.js]][React-url]
 
@@ -24,7 +24,7 @@ Of course, no one template will serve all projects since your needs may be diffe
 
 Use the `BLANK_README.md` to get started.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -37,7 +37,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * Zustand
 * shadcn/ui
 * OpenAI
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Installation
@@ -73,7 +73,7 @@ _Below is an example of how you can instruct your audience on installing and set
    OPEN_AI_API_KEY= ...
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -84,7 +84,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Roadmap
@@ -99,7 +99,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Add ability to save and share crosswords
 - [ ] Add crossword creation and publishing
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -117,7 +117,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -126,7 +126,7 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
