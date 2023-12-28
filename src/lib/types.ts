@@ -1,6 +1,4 @@
-import type { CellValue } from "./schemas/grid";
-
-export { CellValue };
+export type CellValue = string;
 
 export type Cell = CellValue | null;
 
