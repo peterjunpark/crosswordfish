@@ -4,8 +4,6 @@ import { Crossword } from "@/server/crossword";
 
 export const revalidate = 0;
 
-export const maxDuration = 300;
-
 export default async function PlayLayout({
   children,
 }: {
