@@ -24,7 +24,7 @@ See the [roadmap](#Roadmap) for upcoming features.
 
 Currently, the app is only able to generate freefrom grid layouts
 
-See [How it works](#Howitworks) for more of my thoughts.
+See [How it works](#How-it-works) for more of my thoughts.
 
 ### Why?
 
