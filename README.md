@@ -22,7 +22,7 @@ And importantly, you can navigate the grid using your just your keyboard.
 
 However, Crosswordfish is still very much an MVP and has a few limitations as yet. The most obvious limitations are in how it _generates_ crossword puzzles.
 Currently, the app is only able to generate freeform grid layouts, due to the much greater complexity of generating American-style grid layouts.
-Similarly, the app is only able to generate American-style crossword clues, due to the extreme complexity of generating cryptic (UK-style) clues.
+Similarly, the app is only able to generate straight crossword clues, due to the creative complexity of generating cryptic (UK-style) clues.
 
 [This Wikipedia article](https://en.wikipedia.org/wiki/Crossword) explains the different styles of crossword grids and clues.
 
@@ -44,7 +44,7 @@ These are the main technologies used to build Crosswordfish. Have a look at the 
 
 ## Installation
 
-To get a local copy of Crosswordfish up and running, follow these steps:
+First, get the things you'll need:
 
 ### Prerequisites
 
@@ -58,7 +58,7 @@ To get a local copy of Crosswordfish up and running, follow these steps:
 
 ### Getting started
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Now, complete these steps:
 
 1. Clone the repo
    ```sh
