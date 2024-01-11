@@ -5,7 +5,6 @@
 
   <a href="#About">About</a> ▪️ 
   <a href="#Installation">Installation</a> ▪️ 
-  <a href="#How it works">How it works</a> ▪️ 
   <a href="#Roadmap">Roadmap</a> ▪️ 
   <a href="#Contributing">Contributing</a>
   
@@ -20,15 +19,16 @@ Crosswordfish is a haven for crossword enthusiasts. Here, you can play (ostensib
 The app features most of the UX features you'd expect from a digital crossword gameboard. You can reset the grid, reveal errors, and show solutions when you get stuck.
 And importantly, you can navigate the grid using your just your keyboard.
 
-However, Crosswordfish is still very much an MVP and has a few limitations as yet. The most obvious limitations are in how it _generates_ crossword puzzles.
-Currently, the app is only able to generate freeform grid layouts, due to the much greater complexity of generating American-style grid layouts.
-Similarly, the app is only able to generate straight crossword clues, due to the creative complexity of generating cryptic (UK-style) clues.
+However, Crosswordfish is still very much an MVP and has a few limitations. The most obvious limitations are in how it _generates_ crossword puzzles.
+Currently, the app is only able to generate _freeform_ grid layouts due to the much greater complexity of generating American-style grid layouts.
+And by the same token, the app is only able to generate _straight_ crossword clues, due to the creative complexity of generating cryptic (UK-style) clues.
 
-[This Wikipedia article](https://en.wikipedia.org/wiki/Crossword) explains the different styles of crossword grids and clues.
+If you're not sure what I mean by that, [this Wikipedia article](https://en.wikipedia.org/wiki/Crossword) explains the different styles of crossword grids and clues and why
+certain types of grid/clue constraints might be challenging to work with.
 
 ### Why?
 
-Well, you tell me. Where else can you play crossword puzzles online without being bombarded by ads, on a puzzle grid that actually takes up more than a fifth of your viewport, and with new puzzles on-demand?
+Where else can you play crossword puzzles online without being bombarded by ads, on a puzzle grid that actually takes up more than a fifth of your viewport, and with new puzzles on-demand?
 
 ### Built with
 
